@@ -12,7 +12,6 @@ public class Users {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String profilePicture;
 	private String address;
 	private String city;
 	private String state;
@@ -21,7 +20,6 @@ public class Users {
 	@NotNull
 	@NotEmpty
 	private String phone;
-	private String gst;
 	private Boolean status;
 	private Set<Roles> roles;
 	private ImagesModel images;
@@ -90,13 +88,6 @@ public class Users {
 		this.lastName = lastName;
 	}
 
-	public String getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(String profilePicture) {
-		this.profilePicture = profilePicture;
-	}
 
 	public String getAddress() {
 		return address;
@@ -154,12 +145,5 @@ public class Users {
 		this.status = status;
 	}
 
-	public String getGst() {
-		return gst;
-	}
-
-	public void setGst(String gst) {
-		this.gst = gst;
-	}
-
+	
 }

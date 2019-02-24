@@ -3,6 +3,7 @@
  */
 package com.ecomm.akhtar.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -83,7 +85,6 @@ public class UsersEntity extends AuditModel {
 	@Column(name = "PHONE", nullable = false)
 	private String phone;
 
-
 	@Column(name = "USER_STS", nullable = false, columnDefinition = "BIT")
 	private Boolean status;
 
@@ -91,6 +92,12 @@ public class UsersEntity extends AuditModel {
 	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
 			@JoinColumn(name = "ROLE_ID") })
 	private Set<RolesEntity> roles;
+
+	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch = FetchType.LAZY)
+	private Set<DonationAmtEntity> donationAmtEntity = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch = FetchType.LAZY)
+	private Set<DonationTypeEntity> donationTypeEntity = new HashSet<>();*/
 
 	public Long getId() {
 		return id;

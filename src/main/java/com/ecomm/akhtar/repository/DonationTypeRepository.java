@@ -3,12 +3,12 @@
  */
 package com.ecomm.akhtar.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.DonationTypeEntity;
-
-
 
 /**
  * @author Ahmar
@@ -16,6 +16,7 @@ import com.ecomm.akhtar.entity.DonationTypeEntity;
  */
 @RepositoryRestResource(collectionResourceRel = "donationType", path = "donationType")
 public interface DonationTypeRepository extends JpaRepository<DonationTypeEntity, Long> {
-	
+
+	Optional<DonationTypeEntity> findById(Long id);
 
 }

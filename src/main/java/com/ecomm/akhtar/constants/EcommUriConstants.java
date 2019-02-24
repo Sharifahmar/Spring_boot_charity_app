@@ -29,6 +29,9 @@ public class EcommUriConstants {
 	public static final String REGISTER_CATEGORY="/registerCategory";
 	public static final String REGISTER_SUB_CATEGORY="/registerSubcategory";
 	public static final String REGISTER_PRODUCTS="/registerProducts";
+	public static final String DONATION_AMOUNT="/donationAmount";
+	
+	
 
 
 }
