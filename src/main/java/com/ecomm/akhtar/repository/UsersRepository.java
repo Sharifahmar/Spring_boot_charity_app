@@ -35,5 +35,7 @@ public interface UsersRepository extends JpaRepository<UsersEntity, Long> {
 	List<UsersEntity> findAll();
 
 	Optional<UsersEntity> findByIdAndStatus(Long id, Boolean status);
+	
+	Optional<UsersEntity> findByPhoneAndStatus(String phone,Boolean status);
 
 }

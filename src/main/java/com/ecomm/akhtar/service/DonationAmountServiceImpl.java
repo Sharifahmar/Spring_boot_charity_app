@@ -51,13 +51,13 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 
 		donationAmountEntity = new DonationAmountEntity();
 		donationAmountModel = new DonationAmountModel();
-		UsersEntity userData = userRepository.findByPhone(value.getUsers().getPhone())
+		UsersEntity userData = userRepository.findByPhoneAndStatus(value.getUsers().getPhone(), true)
 				.orElseThrow(() -> new CustomException("User Data not found with specific Mobile Number..!", false));
 
 		if (!ObjectUtils.isEmpty(userData)) {
 
 			DonationTypeEntity donationTypeData = donationTypeRepository
-					.findById(value.getDonationTypeModel().getDonationTypeId())
+					.findBydonationTypeIdAndStatus(value.getDonationTypeModel().getDonationTypeId(), true)
 					.orElseThrow(() -> new CustomException("Donation Type Data not found with specific Id..!", false));
 
 			if (!ObjectUtils.isEmpty(donationTypeData)) {

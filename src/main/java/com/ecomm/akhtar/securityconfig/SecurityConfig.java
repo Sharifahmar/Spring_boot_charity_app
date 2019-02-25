@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] AUTH_WHITELIST_POST = {
 
 			"/generateToken", "/registerUser", "/refreshToken", "/user/checkUsernameAvailability",
-			"/user/checkEmailAvailability", "/generateKey", "/validateKey", "/donars", "/donars/**","/donationType" };
+			"/user/checkEmailAvailability", "/generateKey", "/validateKey", "/donars", "/donars/**","/donationType","/donationAmount" };
 
 	private static final String[] AUTH_WHITELIST_GET = {
 
