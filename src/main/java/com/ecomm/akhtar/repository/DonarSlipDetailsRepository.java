@@ -13,7 +13,7 @@ import com.ecomm.akhtar.entity.UsersEntity;
  * @author Ahmar
  *
  */
-@RepositoryRestResource(collectionResourceRel = "donarSlipDetails", path = "donarSlipDetails")
+@RepositoryRestResource(collectionResourceRel = "donarSlipDetailsRepo", path = "donarSlipDetailsRepo")
 public interface DonarSlipDetailsRepository extends JpaRepository<DonarSlipDetailsEntity, Long> {
 
 	void save(UsersEntity userData);

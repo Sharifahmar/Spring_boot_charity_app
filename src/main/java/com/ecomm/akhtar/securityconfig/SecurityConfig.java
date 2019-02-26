@@ -32,13 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] AUTH_WHITELIST_POST = {
 
 			"/generateToken", "/registerUser", "/refreshToken", "/user/checkUsernameAvailability",
-			"/user/checkEmailAvailability", "/generateKey", "/validateKey", "/donars", "/donars/**","/donationType","/donationAmount" };
+			"/user/checkEmailAvailability", "/generateKey", "/validateKey", "/donars", "/donars/**", "/donationType",
+			"/donationAmount", "/donarSlipDetails", "/acceptorRepo" };
 
 	private static final String[] AUTH_WHITELIST_GET = {
 
-			"/usersentities", "/usersentities/**", "/donars/**", "/donationType/**", "/donationType"
-
-	};
+			"/usersentities", "/usersentities/**", "/donars/**", "/donationType/**", "/donationType",
+			"/acceptorRepo/**" };
 
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {

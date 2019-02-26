@@ -14,7 +14,7 @@ import com.ecomm.akhtar.entity.DonationTypeEntity;
  * @author Ahmar
  *
  */
-@RepositoryRestResource(collectionResourceRel = "donationType", path = "donationType")
+@RepositoryRestResource(collectionResourceRel = "donationTypeRepo", path = "donationTypeRepo")
 public interface DonationTypeRepository extends JpaRepository<DonationTypeEntity, Long> {
 
 	Optional<DonationTypeEntity> findBydonationTypeIdAndStatus(Long id,Boolean status);

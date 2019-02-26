@@ -14,7 +14,7 @@ import com.ecomm.akhtar.entity.DonationAmountEntity;
  * @author Ahmar
  *
  */
-@RepositoryRestResource(collectionResourceRel = "donationAmount", path = "donationAmount")
+@RepositoryRestResource(collectionResourceRel = "donationAmountRepo", path = "donationAmountRepo")
 public interface DonationAmountRepository extends JpaRepository<DonationAmountEntity, Long> {
 	
 

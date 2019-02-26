@@ -1,20 +1,10 @@
-/**
- *
- */
 package com.ecomm.akhtar.entity;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
@@ -22,34 +12,23 @@ import javax.validation.constraints.Size;
 
 import com.ecomm.akhtar.audit.AuditModel;
 
-/**
- * @author Ahmar
- *
- */
 @Entity
-@Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = { "USER_NAME" }),
-		@UniqueConstraint(columnNames = { "EMAIL_ID" }), @UniqueConstraint(columnNames = { "PHONE" }) })
-
-public class UsersEntity extends AuditModel {
-
-	private static final long serialVersionUID = 1L;
+@Table(name = "ACCEPTOR", uniqueConstraints = { @UniqueConstraint(columnNames = { "PHONE" }) })
+public class AcceptorEntity extends AuditModel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4814595115801146324L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USER_ID")
-	private Long id;
-
-	@Size(max = 100)
-	@Column(name = "USER_NAME", nullable = false)
-	private String userName;
+	@Column(name = "ACCEPTOR_ID")
+	private Long acceptorId;
 
 	@Email
 	@Size(max = 100)
-	@Column(name = "EMAIL_ID", nullable = false)
+	@Column(name = "EMAIL_ID")
 	private String emailId;
-
-	@Column(name = "PASSWORD", nullable = false)
-	private String password;
 
 	@Size(max = 100)
 	@Column(name = "FIRST_NAME")
@@ -82,34 +61,15 @@ public class UsersEntity extends AuditModel {
 	@Column(name = "PHONE", nullable = false)
 	private String phone;
 
-	@Column(name = "USER_STS", nullable = false, columnDefinition = "BIT")
+	@Column(name = "ACCEPTOR_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "ROLE_ID") })
-	private Set<RolesEntity> roles;
-
-	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch = FetchType.LAZY)
-	private Set<DonationAmtEntity> donationAmtEntity = new HashSet<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch = FetchType.LAZY)
-	private Set<DonationTypeEntity> donationTypeEntity = new HashSet<>();*/
-
-	public Long getId() {
-		return id;
+	public Long getAcceptorId() {
+		return acceptorId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setAcceptorId(Long acceptorId) {
+		this.acceptorId = acceptorId;
 	}
 
 	public String getEmailId() {
@@ -118,14 +78,6 @@ public class UsersEntity extends AuditModel {
 
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getFirstName() {
@@ -198,14 +150,6 @@ public class UsersEntity extends AuditModel {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
-	}
-
-	public Set<RolesEntity> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<RolesEntity> roles) {
-		this.roles = roles;
 	}
 
 }

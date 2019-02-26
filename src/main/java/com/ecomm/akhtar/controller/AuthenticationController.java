@@ -2,14 +2,11 @@ package com.ecomm.akhtar.controller;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,21 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.entity.JwtRefreshTokenEntity;
-import com.ecomm.akhtar.entity.RolesEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
-import com.ecomm.akhtar.exception.CustomException;
-import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.JwtAuthenticationResponse;
 import com.ecomm.akhtar.model.LoginRequest;
 import com.ecomm.akhtar.model.RefreshTokenRequest;
-import com.ecomm.akhtar.model.RoleName;
-import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.repository.JwtRefreshTokenRepository;
 import com.ecomm.akhtar.repository.RolesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.JwtTokenProvider;
 import com.ecomm.akhtar.securityconfig.UserPrincipal;
-import com.ecomm.akhtar.utils.CommonUtils;
 import com.ecomm.akhtar.utils.EmailUtils;
 
 @RestController
@@ -60,12 +51,7 @@ public class AuthenticationController {
 	@Autowired
 	JwtRefreshTokenRepository jwtRefreshTokenRepository;
 
-	/*@Autowired
-	UsersKeyRepository usersKeyRepository;*/
-
-	@Autowired
-	private EmailUtils emailUtils;
-
+	
 	@Value("${app.jwtExpirationInMs}")
 	private long jwtExpirationInMs;
 

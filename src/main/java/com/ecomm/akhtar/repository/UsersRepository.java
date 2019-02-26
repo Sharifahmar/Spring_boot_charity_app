@@ -16,7 +16,7 @@ import com.ecomm.akhtar.entity.UsersEntity;
  *
  */
 // @PreAuthorize("hasRole('ROLE_USER')")
-@RepositoryRestResource(collectionResourceRel = "usersentities", path = "usersentities")
+@RepositoryRestResource(collectionResourceRel = "usersRepo", path = "usersRepo")
 public interface UsersRepository extends JpaRepository<UsersEntity, Long> {
 
 	Optional<UsersEntity> findByUserName(String username);

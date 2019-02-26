@@ -1,6 +1,5 @@
 package com.ecomm.akhtar.service;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -32,7 +31,7 @@ public class DonarSlipDetailsServiceImpl implements DonarSlipDetailsServiceInf {
 		UsersEntity userData = userRepository.findByIdAndStatus(users.getId(), true)
 				.orElseThrow(() -> new CustomException("User not found with specific details..!!", false));
 
-		BeanUtils.copyProperties(userData, donarSlipDetailsEntity);
+		donarSlipDetailsEntity.setUsersEntity(userData);
 
 		DonarSlipDetailsEntity donarSlipDetailsEntity2 = donarSlipDetailsRepository.save(donarSlipDetailsEntity);
 

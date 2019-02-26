@@ -14,7 +14,7 @@ import com.ecomm.akhtar.entity.DonarsEntity;
  * @author Ahmar
  *
  */
-@RepositoryRestResource(collectionResourceRel = "donars", path = "donars")
+@RepositoryRestResource(collectionResourceRel = "donarsRepo", path = "donarsRepo")
 public interface DonarsRepository extends JpaRepository<DonarsEntity, Long> {
 	
 
