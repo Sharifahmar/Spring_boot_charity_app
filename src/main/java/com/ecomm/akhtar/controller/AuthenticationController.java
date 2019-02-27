@@ -28,7 +28,6 @@ import com.ecomm.akhtar.repository.RolesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.JwtTokenProvider;
 import com.ecomm.akhtar.securityconfig.UserPrincipal;
-import com.ecomm.akhtar.utils.EmailUtils;
 
 @RestController
 public class AuthenticationController {
