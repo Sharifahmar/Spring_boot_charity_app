@@ -3,11 +3,15 @@
  */
 package com.ecomm.akhtar.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -89,6 +93,9 @@ public class StudentsEntity extends AuditModel {
 
 	@Column(name = "STUDENT_STS", nullable = false, columnDefinition = "BIT")
 	private Boolean status;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "studentsEntity")
+	private Set<StudentsStationaryEntity> studentsStationaryEntities;
 
 	public Long getId() {
 		return id;
@@ -226,12 +233,14 @@ public class StudentsEntity extends AuditModel {
 		this.status = status;
 	}
 
-	/*@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "USER_ROLES", joinColumns = { @JoinColumn(name = "USER_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "ROLE_ID") })
-	private Set<RolesEntity> roles;
-*/
+	public Set<StudentsStationaryEntity> getStudentsStationaryEntities() {
+		return studentsStationaryEntities;
+	}
+
+	public void setStudentsStationaryEntities(Set<StudentsStationaryEntity> studentsStationaryEntities) {
+		this.studentsStationaryEntities = studentsStationaryEntities;
+	}
+
 	
-	
-	
+
 }
