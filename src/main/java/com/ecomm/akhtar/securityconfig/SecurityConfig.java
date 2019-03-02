@@ -63,14 +63,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+	/*	http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/h2-console/**").permitAll().antMatchers(HttpMethod.GET, AUTH_WHITELIST_GET).permitAll()
 				.antMatchers(HttpMethod.POST, AUTH_WHITELIST_POST).permitAll().anyRequest().authenticated();
 
 		// Add our custom JWT security filter
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-		http.headers().frameOptions().disable();
+		http.headers().frameOptions().disable();*/
 
 	}
 }
