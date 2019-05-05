@@ -50,7 +50,6 @@ public class AuthenticationController {
 	@Autowired
 	JwtRefreshTokenRepository jwtRefreshTokenRepository;
 
-	
 	@Value("${app.jwtExpirationInMs}")
 	private long jwtExpirationInMs;
 
@@ -59,7 +58,7 @@ public class AuthenticationController {
 	String privateKey = "";
 
 	@PostMapping(EcommUriConstants.GENERATE_TOKEN)
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
@@ -99,5 +98,4 @@ public class AuthenticationController {
 		jwtRefreshTokenRepository.save(jwtRefreshToken);
 	}
 
-	
 }

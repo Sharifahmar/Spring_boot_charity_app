@@ -24,7 +24,7 @@ import com.jwtauthfilter.JwtAuthenticationFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	CustomUserDetailsService customUserDetailsService;
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -37,8 +37,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String[] AUTH_WHITELIST_GET = {
 
-			"/usersentities", "/usersentities/**", "/donars/**", "/donationType/**", "/donationType",
-			"/acceptorRepo/**" };
+			"/usersentities", "/usersentities/**", "/donars/**", "/donationType/**", "/donationType", "/acceptorRepo/**"
+
+	};
+
+	private static final String[] SWAGGER_AUTH_WHITELIST = {
+
+			// -- swagger ui
+			"/swagger-resources/configuration/security", "/swagger-resources/configuration/ui", "/swagger-resources",
+			"/swagger-ui.html", "/v2/api-docs", "/webjars/**"
+
+	};
 
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
@@ -63,14 +72,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	/*	http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/h2-console/**").permitAll().antMatchers(HttpMethod.GET, AUTH_WHITELIST_GET).permitAll()
-				.antMatchers(HttpMethod.POST, AUTH_WHITELIST_POST).permitAll().anyRequest().authenticated();
+				.antMatchers(HttpMethod.POST, AUTH_WHITELIST_POST).permitAll().antMatchers(SWAGGER_AUTH_WHITELIST)
+				.permitAll().anyRequest().authenticated();
 
 		// Add our custom JWT security filter
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-		http.headers().frameOptions().disable();*/
+		http.headers().frameOptions().disable();
 
 	}
 }

@@ -19,7 +19,7 @@ public class UserImageEntity {
 	private String fileName;
 	@Column(name = "FILE_PATH")
 	private String filePath;
-	@Column(name = "FILE_PATH")
+	@Column(name = "FILE_TYPE")
 	private String fileType;
 	@Column(name = "IMG_STS", nullable = false, columnDefinition = "BIT")
 	private Boolean status;
