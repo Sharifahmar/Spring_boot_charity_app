@@ -1,4 +1,4 @@
-package com.ecomm.akhtar.utils;
+/*package com.ecomm.akhtar.utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,7 +14,6 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.ecomm.akhtar.model.Mail;
 
-import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
@@ -47,3 +46,4 @@ public class EmailUtils {
 	}
 
 }
+*/

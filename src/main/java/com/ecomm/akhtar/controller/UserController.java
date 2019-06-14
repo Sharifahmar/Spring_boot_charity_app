@@ -25,6 +25,7 @@ import com.ecomm.akhtar.model.RoleName;
 import com.ecomm.akhtar.model.StatusModel;
 import com.ecomm.akhtar.model.UserSummary;
 import com.ecomm.akhtar.model.Users;
+import com.ecomm.akhtar.model.UsersCheckRequest;
 import com.ecomm.akhtar.repository.RolesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.CurrentUser;
@@ -38,13 +39,13 @@ public class UserController {
 	private UserServiceInf userServiceInf;
 
 	@Autowired
-	UsersRepository userRepository;
+	private UsersRepository userRepository;
 
 	@Autowired
-	RolesRepository roleRepository;
+	private RolesRepository roleRepository;
 
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 
 	@GetMapping(EcommUriConstants.USER_ME_URI)
 	// @PreAuthorize("hasRole('USER')")
@@ -58,7 +59,8 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.USERNAME_EXIST_URI)
-	public IdentityAvailability checkUsernameAvailability(@Valid @RequestBody Users user) throws CustomException {
+	public IdentityAvailability checkUsernameAvailability(@Valid @RequestBody UsersCheckRequest user)
+			throws CustomException {
 
 		if (ObjectUtils.isEmpty(user)) {
 			throw new CustomException("User Object is null", false);
@@ -68,7 +70,7 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.EMAIL_EXIST_URI)
-	public IdentityAvailability checkEmailAvailability(@Valid @RequestBody Users user) throws CustomException {
+	public IdentityAvailability checkEmailAvailability(@Valid @RequestBody UsersCheckRequest user) throws CustomException {
 
 		if (ObjectUtils.isEmpty(user)) {
 			throw new CustomException("User Object is null", false);

@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserServiceInf {
 
 	@Override
 	public Boolean existsByUserName(String userName) {
-		Boolean isAvailable = !usersRepository.existsByUserName(userName);
+		Boolean isAvailable = usersRepository.existsByUserName(userName);
 		return isAvailable;
 	}
 
 	@Override
 	public Boolean existsByEmailId(String emailId) {
-		Boolean isAvailable = !usersRepository.existsByEmailId(emailId);
+		Boolean isAvailable = usersRepository.existsByEmailId(emailId);
 		return isAvailable;
 	}
 	@Cacheable(value="users")

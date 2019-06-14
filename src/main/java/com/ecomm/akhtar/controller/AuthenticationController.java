@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +23,6 @@ import com.ecomm.akhtar.model.JwtAuthenticationResponse;
 import com.ecomm.akhtar.model.LoginRequest;
 import com.ecomm.akhtar.model.RefreshTokenRequest;
 import com.ecomm.akhtar.repository.JwtRefreshTokenRepository;
-import com.ecomm.akhtar.repository.RolesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.JwtTokenProvider;
 import com.ecomm.akhtar.securityconfig.UserPrincipal;
@@ -33,22 +31,17 @@ import com.ecomm.akhtar.securityconfig.UserPrincipal;
 public class AuthenticationController {
 
 	@Autowired
-	AuthenticationManager authenticationManager;
+	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	UsersRepository userRepository;
+	private UsersRepository userRepository;
+
+	
+	@Autowired
+	private JwtTokenProvider tokenProvider;
 
 	@Autowired
-	RolesRepository roleRepository;
-
-	@Autowired
-	PasswordEncoder passwordEncoder;
-
-	@Autowired
-	JwtTokenProvider tokenProvider;
-
-	@Autowired
-	JwtRefreshTokenRepository jwtRefreshTokenRepository;
+	private JwtRefreshTokenRepository jwtRefreshTokenRepository;
 
 	@Value("${app.jwtExpirationInMs}")
 	private long jwtExpirationInMs;
@@ -57,7 +50,7 @@ public class AuthenticationController {
 
 	String privateKey = "";
 
-	@PostMapping(EcommUriConstants.GENERATE_TOKEN)
+	@PostMapping(EcommUriConstants.LOGIN_TOKEN)
 	public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -66,9 +59,6 @@ public class AuthenticationController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
-		System.out.println("**********userPrincipal AuthenticationController**************" + userPrincipal.getId()
-				+ " name " + userPrincipal.getEmail());
 
 		String accessToken = tokenProvider.generateToken(userPrincipal);
 		String refreshToken = tokenProvider.generateRefreshToken();
