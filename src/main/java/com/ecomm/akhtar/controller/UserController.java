@@ -66,7 +66,7 @@ public class UserController {
 			throw new CustomException("User Object is null", false);
 		}
 		Boolean isAvailable = userServiceInf.existsByUserName(user.getUserName());
-		return new IdentityAvailability(isAvailable);
+		return new IdentityAvailability(isAvailable,"Username already exists..!!");
 	}
 
 	@PostMapping(EcommUriConstants.EMAIL_EXIST_URI)
@@ -75,8 +75,8 @@ public class UserController {
 		if (ObjectUtils.isEmpty(user)) {
 			throw new CustomException("User Object is null", false);
 		}
-		Boolean isAvailable = userServiceInf.existsByEmailId(user.getEmailId());
-		return new IdentityAvailability(isAvailable);
+		Boolean isAvailable = userServiceInf.existsByEmailId(user.getEmail());
+		return new IdentityAvailability(isAvailable,"Email already exits..!!");
 	}
 
 	@PostMapping(EcommUriConstants.USERS_DETAILS_BY_ID_STATUS)

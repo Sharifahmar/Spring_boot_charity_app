@@ -3,7 +3,7 @@ package com.ecomm.akhtar.model;
 public class UsersCheckRequest {
 
 	private String userName;
-	private String emailId;
+	private String email;
 
 	public String getUserName() {
 		return userName;
@@ -13,12 +13,13 @@ public class UsersCheckRequest {
 		this.userName = userName;
 	}
 
-	public String getEmailId() {
-		return emailId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
+	
 }
