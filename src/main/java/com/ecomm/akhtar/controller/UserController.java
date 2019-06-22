@@ -59,24 +59,34 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.USERNAME_EXIST_URI)
-	public IdentityAvailability checkUsernameAvailability(@Valid @RequestBody UsersCheckRequest user)
+	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@Valid @RequestBody UsersCheckRequest user)
 			throws CustomException {
 
 		if (ObjectUtils.isEmpty(user)) {
 			throw new CustomException("User Object is null", false);
 		}
 		Boolean isAvailable = userServiceInf.existsByUserName(user.getUserName());
-		return new IdentityAvailability(isAvailable,"Username already exists..!!");
+		return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Username already exists..!!"),
+				HttpStatus.OK);
 	}
 
 	@PostMapping(EcommUriConstants.EMAIL_EXIST_URI)
-	public IdentityAvailability checkEmailAvailability(@Valid @RequestBody UsersCheckRequest user) throws CustomException {
+	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@Valid @RequestBody UsersCheckRequest user)
+			throws CustomException {
 
 		if (ObjectUtils.isEmpty(user)) {
 			throw new CustomException("User Object is null", false);
 		}
 		Boolean isAvailable = userServiceInf.existsByEmailId(user.getEmail());
-		return new IdentityAvailability(isAvailable,"Email already exits..!!");
+
+		if (isAvailable) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new IdentityAvailability(isAvailable, "Email not exist..!!"));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new IdentityAvailability(isAvailable, "Email already exist..!!"));
+		}
+
 	}
 
 	@PostMapping(EcommUriConstants.USERS_DETAILS_BY_ID_STATUS)
@@ -108,7 +118,7 @@ public class UserController {
 			BeanUtils.copyProperties(user, usersEntity);
 			usersEntity.setPassword(passwordEncoder.encode(user.getPassword()));
 			usersEntity.setStatus(true);
-			 RolesEntity userRole = roleRepository.findByRoleName(RoleName.ROLE_USER)
+			RolesEntity userRole = roleRepository.findByRoleName(RoleName.ROLE_USER)
 					.orElseThrow(() -> new CustomException("User Role not set.", false));
 
 			usersEntity.setRoles(Collections.singleton(userRole));
