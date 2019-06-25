@@ -59,24 +59,15 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.USERNAME_EXIST_URI)
-	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@Valid @RequestBody UsersCheckRequest user)
-			throws CustomException {
-
-		if (ObjectUtils.isEmpty(user)) {
-			throw new CustomException("User Object is null", false);
-		}
+	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody UsersCheckRequest user) {
 		Boolean isAvailable = userServiceInf.existsByUserName(user.getUserName());
 		return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Username already exists..!!"),
 				HttpStatus.OK);
 	}
 
 	@PostMapping(EcommUriConstants.EMAIL_EXIST_URI)
-	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@Valid @RequestBody UsersCheckRequest user)
-			throws CustomException {
+	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@RequestBody UsersCheckRequest user) {
 
-		if (ObjectUtils.isEmpty(user)) {
-			throw new CustomException("User Object is null", false);
-		}
 		Boolean isAvailable = userServiceInf.existsByEmailId(user.getEmail());
 
 		if (isAvailable) {
