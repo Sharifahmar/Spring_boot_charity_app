@@ -95,16 +95,6 @@ public class UserController {
 	@PostMapping(EcommUriConstants.REGISTER_USER_URI)
 	public ResponseEntity<Users> registerUser(@Valid @RequestBody Users user) {
 		try {
-			if (userRepository.existsByUserName(user.getUserName())) {
-				return new ResponseEntity(new ApiResponseModel("Username is already taken!", false),
-						HttpStatus.BAD_REQUEST);
-			}
-
-			if (userRepository.existsByEmailId(user.getEmailId())) {
-				return new ResponseEntity(new ApiResponseModel("Email Address already in use!", false),
-						HttpStatus.BAD_REQUEST);
-			}
-
 			UsersEntity usersEntity = new UsersEntity();
 			BeanUtils.copyProperties(user, usersEntity);
 			usersEntity.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -120,9 +110,6 @@ public class UserController {
 			return new ResponseEntity<>(usersNew, HttpStatus.OK);
 
 		} catch (CustomException e) {
-
-			e.printStackTrace();
-
 			return new ResponseEntity(new ApiResponseModel("Error Occur while User Registration !", false),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}

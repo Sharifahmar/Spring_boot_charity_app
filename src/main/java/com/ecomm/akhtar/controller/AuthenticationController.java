@@ -27,6 +27,8 @@ import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.JwtTokenProvider;
 import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
+import springfox.documentation.swagger.web.ApiResourceController;
+
 @RestController
 public class AuthenticationController {
 
@@ -54,17 +56,12 @@ public class AuthenticationController {
 	public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
-
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
 		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-
 		String accessToken = tokenProvider.generateToken(userPrincipal);
 		String refreshToken = tokenProvider.generateRefreshToken();
-
 		saveRefreshToken(userPrincipal, refreshToken);
-
 		return ResponseEntity.ok(new JwtAuthenticationResponse(accessToken, refreshToken, jwtExpirationInMs));
 	}
 
