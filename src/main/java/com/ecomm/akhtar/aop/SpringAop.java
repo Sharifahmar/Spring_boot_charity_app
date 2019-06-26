@@ -3,6 +3,8 @@
  */
 package com.ecomm.akhtar.aop;
 
+import java.util.Arrays;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -39,13 +41,11 @@ public class SpringAop {
 	@Around("core()")
 	public Object aroundTest(ProceedingJoinPoint pjp) throws Throwable {
 		Object obj = new Object();
-		logger.info("Before Method execution Class Name : "
-				+ pjp.getSignature().getDeclaringTypeName() + " Method Name : "
-				+ pjp.getSignature().getName());
+		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
+				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 		obj = pjp.proceed();
-		logger.info("After Method execution Class Name : "
-				+ pjp.getSignature().getDeclaringTypeName() + " Method Name : "
-				+ pjp.getSignature().getName());
+		logger.info("After Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
+				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 
 		return obj;
 
@@ -54,13 +54,11 @@ public class SpringAop {
 	@Around("repository()")
 	public Object aroundTestSec(ProceedingJoinPoint pjp) throws Throwable {
 		Object obj = new Object();
-		logger.info("Before Method execution Class Name : "
-				+ pjp.getSignature().getDeclaringTypeName() + " Method Name : "
-				+ pjp.getSignature().getName());
+		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
+				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" + Arrays.toString(pjp.getArgs()));
 		obj = pjp.proceed();
-		logger.info("After Method execution Class Name : "
-				+ pjp.getSignature().getDeclaringTypeName() + " Method Name : "
-				+ pjp.getSignature().getName());
+		logger.info("After Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
+				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 
 		return obj;
 
