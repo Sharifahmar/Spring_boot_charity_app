@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserServiceInf {
 	private ImagesRepository imagesRepository;
 
 	@Override
-	public Boolean existsByUserName(String userName) {
-		return !usersRepository.existsByUserName(userName);
+	public Boolean existsByPhoneNumber(String phoneNumber) {
+		return !usersRepository.existsByPhone(phoneNumber);
 		
 	}
 

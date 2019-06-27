@@ -13,6 +13,11 @@ import com.ecomm.akhtar.entity.UsersEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserPrincipal implements UserDetails {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 
 	private String name;
@@ -27,11 +32,10 @@ public class UserPrincipal implements UserDetails {
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserPrincipal(Long id, String name, String username, String email, String password,
+	public UserPrincipal(Long id, String name, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.name = name;
-		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
@@ -41,8 +45,7 @@ public class UserPrincipal implements UserDetails {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList());
 
-		return new UserPrincipal(user.getId(), user.getFirstName(), user.getUserName(), user.getEmailId(),
-				user.getPassword(), authorities);
+		return new UserPrincipal(user.getId(), user.getFirstName(), user.getEmailId(), user.getPassword(), authorities);
 	}
 
 	public Long getId() {

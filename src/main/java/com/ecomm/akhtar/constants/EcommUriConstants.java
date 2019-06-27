@@ -10,7 +10,7 @@ package com.ecomm.akhtar.constants;
 public class EcommUriConstants {
 
 	public static final String USER_ME_URI = "/user/me";
-	public static final String USERNAME_EXIST_URI = "/user/checkUsernameAvailability";
+	public static final String PHONENUMBER_EXIST_URI = "/user/checkPhoneNumberAvailability";
 	public static final String EMAIL_EXIST_URI = "/user/checkEmailAvailability";
 	public static final String VALIDATE_KEY_URI = "/validateKey";
 	public static final String LOGIN_TOKEN = "/loginToken";

@@ -19,15 +19,14 @@ import com.ecomm.akhtar.entity.UsersEntity;
 @RepositoryRestResource(collectionResourceRel = "usersRepo", path = "usersRepo")
 public interface UsersRepository extends JpaRepository<UsersEntity, Long> {
 
-	Optional<UsersEntity> findByUserName(String username);
 
 	Optional<UsersEntity> findByEmailId(String email);
 
 	Optional<UsersEntity> findByPhone(String phone);
 
-	Optional<UsersEntity> findByUserNameOrEmailId(String username, String email);
+	//Optional<UsersEntity> findByUserNameOrEmailId(String username, String email);
 
-	Boolean existsByUserName(String username);
+	Boolean existsByPhone(String phoneNumber);
 
 	Boolean existsByEmailId(String email);
 

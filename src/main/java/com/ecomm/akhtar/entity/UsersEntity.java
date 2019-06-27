@@ -27,8 +27,8 @@ import com.ecomm.akhtar.audit.AuditModel;
  *
  */
 @Entity
-@Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = { "USER_NAME" }),
-		@UniqueConstraint(columnNames = { "EMAIL_ID" }), @UniqueConstraint(columnNames = { "PHONE" }) })
+@Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = { "EMAIL_ID" }),
+		@UniqueConstraint(columnNames = { "PHONE" }) })
 
 public class UsersEntity extends AuditModel {
 
@@ -38,10 +38,6 @@ public class UsersEntity extends AuditModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private Long id;
-
-	@Size(max = 100)
-	@Column(name = "USER_NAME", nullable = false)
-	private String userName;
 
 	@Email
 	@Size(max = 100)
@@ -90,11 +86,15 @@ public class UsersEntity extends AuditModel {
 			@JoinColumn(name = "ROLE_ID") })
 	private Set<RolesEntity> roles;
 
-	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch = FetchType.LAZY)
-	private Set<DonationAmtEntity> donationAmtEntity = new HashSet<>();
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch = FetchType.LAZY)
-	private Set<DonationTypeEntity> donationTypeEntity = new HashSet<>();*/
+	/*
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch =
+	 * FetchType.LAZY) private Set<DonationAmtEntity> donationAmtEntity = new
+	 * HashSet<>();
+	 * 
+	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "usersEntity", fetch =
+	 * FetchType.LAZY) private Set<DonationTypeEntity> donationTypeEntity = new
+	 * HashSet<>();
+	 */
 
 	public Long getId() {
 		return id;
@@ -102,14 +102,6 @@ public class UsersEntity extends AuditModel {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getEmailId() {

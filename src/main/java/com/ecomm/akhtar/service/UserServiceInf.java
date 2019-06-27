@@ -13,7 +13,7 @@ import com.ecomm.akhtar.model.Users;
 
 public interface UserServiceInf {
 
-	Boolean existsByUserName(String userName);
+	Boolean existsByPhoneNumber(String userName);
 
 	Boolean existsByEmailId(String emailId);
 

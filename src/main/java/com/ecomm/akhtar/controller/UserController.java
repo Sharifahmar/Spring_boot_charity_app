@@ -58,18 +58,21 @@ public class UserController {
 		return new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getName());
 	}
 
-	@PostMapping(EcommUriConstants.USERNAME_EXIST_URI)
+	@PostMapping(EcommUriConstants.PHONENUMBER_EXIST_URI)
 	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody UsersCheckRequest user) {
-		Boolean isAvailable = userServiceInf.existsByUserName(user.getUserName());
-		return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Username already exists..!!"),
-				HttpStatus.OK);
+		Boolean isAvailable = userServiceInf.existsByPhoneNumber(user.getPhoneNumber());		
+		if(isAvailable){
+			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Phone Number not exist..!!"),
+					HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Phone Number already exist..!!"),
+					HttpStatus.OK);
+		}		
 	}
 
 	@PostMapping(EcommUriConstants.EMAIL_EXIST_URI)
 	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@RequestBody UsersCheckRequest user) {
-
 		Boolean isAvailable = userServiceInf.existsByEmailId(user.getEmail());
-
 		if (isAvailable) {
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new IdentityAvailability(isAvailable, "Email not exist..!!"));
@@ -77,7 +80,6 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new IdentityAvailability(isAvailable, "Email already exist..!!"));
 		}
-
 	}
 
 	@PostMapping(EcommUriConstants.USERS_DETAILS_BY_ID_STATUS)
