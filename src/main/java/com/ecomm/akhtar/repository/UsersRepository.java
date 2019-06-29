@@ -20,21 +20,21 @@ import com.ecomm.akhtar.entity.UsersEntity;
 public interface UsersRepository extends JpaRepository<UsersEntity, Long> {
 
 
-	Optional<UsersEntity> findByEmailId(String email);
+	Optional<UsersEntity> findByEmail(String email);
 
-	Optional<UsersEntity> findByPhone(String phone);
+	Optional<UsersEntity> findByPhoneNumber(String phone);
 
 	//Optional<UsersEntity> findByUserNameOrEmailId(String username, String email);
 
-	Boolean existsByPhone(String phoneNumber);
+	Boolean existsByPhoneNumber(String phoneNumber);
 
-	Boolean existsByEmailId(String email);
+	Boolean existsByEmail(String email);
 
 	@Override
 	List<UsersEntity> findAll();
 
 	Optional<UsersEntity> findByIdAndStatus(Long id, Boolean status);
 	
-	Optional<UsersEntity> findByPhoneAndStatus(String phone,Boolean status);
+	Optional<UsersEntity> findByPhoneNumberAndStatus(String phone,Boolean status);
 
 }

@@ -95,7 +95,7 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.REGISTER_USER_URI)
-	public ResponseEntity<Users> registerUser(@Valid @RequestBody Users user) {
+	public ResponseEntity<ApiResponseModel> registerUser(@Valid @RequestBody Users user) {
 		try {
 			UsersEntity usersEntity = new UsersEntity();
 			BeanUtils.copyProperties(user, usersEntity);
@@ -109,9 +109,11 @@ public class UserController {
 			Users usersNew = new Users();
 			BeanUtils.copyProperties(result, usersNew);
 
-			return new ResponseEntity<>(usersNew, HttpStatus.OK);
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel("User Registration Successfull..!!", true));
 
 		} catch (CustomException e) {
+			
 			return new ResponseEntity(new ApiResponseModel("Error Occur while User Registration !", false),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}

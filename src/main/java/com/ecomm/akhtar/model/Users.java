@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 public class Users {
 	private Long id;
 	private String userName;
-	private String emailId;
+	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -19,7 +19,7 @@ public class Users {
 	private String zipCode;
 	@NotNull
 	@NotEmpty
-	private String phone;
+	private String phoneNumber;
 	private Boolean status;
 	private Set<Roles> roles;
 	private ImagesModel images;
@@ -55,13 +55,12 @@ public class Users {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
-	public String getEmailId() {
-		return emailId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -129,12 +128,13 @@ public class Users {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone() {
-		return phone;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Boolean getStatus() {

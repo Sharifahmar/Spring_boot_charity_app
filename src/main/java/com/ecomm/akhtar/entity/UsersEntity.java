@@ -42,7 +42,7 @@ public class UsersEntity extends AuditModel {
 	@Email
 	@Size(max = 100)
 	@Column(name = "EMAIL_ID", nullable = false)
-	private String emailId;
+	private String email;
 
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
@@ -76,7 +76,7 @@ public class UsersEntity extends AuditModel {
 
 	@Size(max = 100)
 	@Column(name = "PHONE", nullable = false)
-	private String phone;
+	private String phoneNumber;
 
 	@Column(name = "USER_STS", nullable = false, columnDefinition = "BIT")
 	private Boolean status;
@@ -104,12 +104,14 @@ public class UsersEntity extends AuditModel {
 		this.id = id;
 	}
 
-	public String getEmailId() {
-		return emailId;
+	
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -176,13 +178,6 @@ public class UsersEntity extends AuditModel {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
 	public Boolean getStatus() {
 		return status;
@@ -199,5 +194,15 @@ public class UsersEntity extends AuditModel {
 	public void setRoles(Set<RolesEntity> roles) {
 		this.roles = roles;
 	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	
+	
 
 }
