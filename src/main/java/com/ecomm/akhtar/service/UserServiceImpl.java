@@ -7,11 +7,8 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.entity.ImagesEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
@@ -19,7 +16,6 @@ import com.ecomm.akhtar.model.ImagesModel;
 import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.repository.ImagesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
-import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
 /**
  * @author Ahmar
@@ -46,7 +42,7 @@ public class UserServiceImpl implements UserServiceInf {
 
 	}
 
-	@Cacheable(value = "users")
+	///@Cacheable(value = "users")
 	@Override
 	public Users getUserDetailsByIdStatus(Long id, Boolean status) throws CustomException {
 		UsersEntity userDetails = usersRepository.findByIdAndStatus(id, status)
@@ -66,9 +62,9 @@ public class UserServiceImpl implements UserServiceInf {
 
 		} else {
 			BeanUtils.copyProperties(userDetails, users);
-			ImagesModel imagesModel = new ImagesModel();
-			imagesModel.setFileName(EcommUriConstants.AWS_BUCKET_DEFAULT_IMAGE);
-			users.setImages(imagesModel);
+//			ImagesModel imagesModel = new ImagesModel();
+//			imagesModel.setFileName(EcommUriConstants.AWS_BUCKET_DEFAULT_IMAGE);
+//			users.setImages(imagesModel);
 		}
 
 		return users;
@@ -77,9 +73,7 @@ public class UserServiceImpl implements UserServiceInf {
 	@Override
 	public Users updateUserCurrentContext(Users users) throws Exception {
 
-		UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
-		UsersEntity usersEntity = usersRepository.findByIdAndStatus(userPrincipal.getId(), true)
+		UsersEntity usersEntity = usersRepository.findByIdAndStatus(users.getId(), true)
 				.orElseThrow(() -> new Exception("Record not found with userID and status..!!"));
 		BeanUtils.copyProperties(users, usersEntity);
 		Users users2 = new Users();
