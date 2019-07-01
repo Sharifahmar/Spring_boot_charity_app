@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import javax.validation.Valid;
 
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,14 +61,14 @@ public class UserController {
 
 	@PostMapping(EcommUriConstants.PHONENUMBER_EXIST_URI)
 	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody UsersCheckRequest user) {
-		Boolean isAvailable = userServiceInf.existsByPhoneNumber(user.getPhoneNumber());		
-		if(isAvailable){
+		Boolean isAvailable = userServiceInf.existsByPhoneNumber(user.getPhoneNumber());
+		if (isAvailable) {
 			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Phone Number not exist..!!"),
 					HttpStatus.OK);
-		}else{
+		} else {
 			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Phone Number already exist..!!"),
 					HttpStatus.OK);
-		}		
+		}
 	}
 
 	@PostMapping(EcommUriConstants.EMAIL_EXIST_URI)
@@ -113,8 +114,20 @@ public class UserController {
 					.body(new ApiResponseModel("User Registration Successfull..!!", true));
 
 		} catch (CustomException e) {
-			
+
 			return new ResponseEntity(new ApiResponseModel("Error Occur while User Registration !", false),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
+	@PostMapping(EcommUriConstants.UPDATE_USER_URI)
+	public ResponseEntity<Users> updateUser(@RequestBody Users users) {
+		try {
+			Users user = userServiceInf.updateUserCurrentContext(users);
+			return ResponseEntity.status(HttpStatus.OK).body(user);			
+		} catch (Exception e) {
+			return new ResponseEntity(new ApiResponseModel("Error Occur while User Updation !", false),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 

@@ -16,6 +16,7 @@ public class EcommUriConstants {
 	public static final String LOGIN_TOKEN = "/loginToken";
 	public static final String REFRESH_TOKEN_URI = "/refreshToken";
 	public static final String REGISTER_USER_URI = "/registerUser";
+	public static final String UPDATE_USER_URI = "/updateUser";
 	public static final String AES = "AES";
 	public static final String USERS = "USERS";
 	public static final String GENERATE_KEY = "/generateKey";

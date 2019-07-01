@@ -19,6 +19,8 @@ public interface UserServiceInf {
 
 	Users getUserDetailsByIdStatus(Long id ,Boolean status) throws CustomException;
 
+	Users updateUserCurrentContext(Users users) throws Exception;
+
 
 
 }
