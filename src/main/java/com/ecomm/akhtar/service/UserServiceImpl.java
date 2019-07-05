@@ -14,6 +14,7 @@ import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ImagesModel;
 import com.ecomm.akhtar.model.Users;
+import com.ecomm.akhtar.model.UsersUpdateModel;
 import com.ecomm.akhtar.repository.ImagesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 
@@ -71,12 +72,11 @@ public class UserServiceImpl implements UserServiceInf {
 	}
 
 	@Override
-	public Users updateUserCurrentContext(Users users) throws Exception {
-
-		UsersEntity usersEntity = usersRepository.findByIdAndStatus(users.getId(), true)
-				.orElseThrow(() -> new Exception("Record not found with userID and status..!!"));
+	public UsersUpdateModel updateUserCurrentContext(UsersUpdateModel users) throws Exception {
+		UsersEntity usersEntity = usersRepository.findByPhoneNumberAndStatus(users.getPhoneNumber(), true)
+				.orElseThrow(() -> new Exception("Record not found with phoneNumber and status..!!"));
 		BeanUtils.copyProperties(users, usersEntity);
-		Users users2 = new Users();
+		UsersUpdateModel users2 = new UsersUpdateModel();
 		UsersEntity usersEntityNew = usersRepository.save(usersEntity);
 		BeanUtils.copyProperties(usersEntityNew, users2);
 		return users2;

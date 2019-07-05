@@ -26,6 +26,7 @@ import com.ecomm.akhtar.model.StatusModel;
 import com.ecomm.akhtar.model.UserSummary;
 import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.model.UsersCheckRequest;
+import com.ecomm.akhtar.model.UsersUpdateModel;
 import com.ecomm.akhtar.repository.RolesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.CurrentUser;
@@ -121,9 +122,9 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.UPDATE_USER_URI)
-	public ResponseEntity<Users> updateUser(@RequestBody Users users) {
+	public ResponseEntity<UsersUpdateModel> updateUser(@RequestBody UsersUpdateModel users) {
 		try {
-			Users user = userServiceInf.updateUserCurrentContext(users);
+			UsersUpdateModel user = userServiceInf.updateUserCurrentContext(users);
 			return ResponseEntity.status(HttpStatus.OK).body(user);			
 		} catch (Exception e) {
 			return new ResponseEntity(new ApiResponseModel("Error Occur while User Updation !", false),

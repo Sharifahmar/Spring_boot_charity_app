@@ -5,6 +5,7 @@ package com.ecomm.akhtar.service;
 
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.Users;
+import com.ecomm.akhtar.model.UsersUpdateModel;
 
 /**
  * @author Ahmar
@@ -19,7 +20,7 @@ public interface UserServiceInf {
 
 	Users getUserDetailsByIdStatus(Long id ,Boolean status) throws CustomException;
 
-	Users updateUserCurrentContext(Users users) throws Exception;
+	UsersUpdateModel updateUserCurrentContext(UsersUpdateModel users) throws Exception;
 
 
 
