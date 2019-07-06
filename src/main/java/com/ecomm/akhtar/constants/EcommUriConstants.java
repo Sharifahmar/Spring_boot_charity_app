@@ -31,5 +31,7 @@ public class EcommUriConstants {
 	public static final String AWS_BUCKET_DEFAULT_IMAGE = "https://s3.amazonaws.com/akhtar-ecommerce/ecomm-default.jpg";
 	public static final String SINGLE_FILE_UPLOAD = "/fileupload";
 	public static final String MULTI_FILE_UPLOAD = "/multiplefiles";
+	public static final String DONAR_PHONENUMBER_EXIST_URI = "/donar/checkPhoneNumberAvailability";
+	public static final String DONAR_EMAIL_EXIST_URI = "/donar/checkEmailAvailability";
 
 }
