@@ -5,8 +5,8 @@ package com.ecomm.akhtar.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.ImagesEntity;
@@ -16,7 +16,7 @@ import com.ecomm.akhtar.entity.ImagesEntity;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "userimages", path = "userimages")
-public interface ImagesRepository extends JpaRepository<ImagesEntity, Long> {
+public interface ImagesRepository extends CrudRepository<ImagesEntity, Long> {
 
 	//@PreAuthorize("hasAnyRole('USER', 'ADMIN')")
 	@Query(name = "findByFileType", nativeQuery = true)

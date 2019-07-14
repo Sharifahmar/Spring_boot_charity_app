@@ -3,7 +3,7 @@
  *//*
 package com.ecomm.akhtar.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.StatesEntity;
@@ -13,7 +13,7 @@ import com.ecomm.akhtar.entity.StatesEntity;
  *
  *//*
 @RepositoryRestResource(collectionResourceRel = "states", path = "states")
-public interface StatesRepository extends JpaRepository<StatesEntity, Integer> {
+public interface StatesRepository extends CrudRepository<StatesEntity, Integer> {
 
 }
 */

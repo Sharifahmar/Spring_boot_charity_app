@@ -3,7 +3,7 @@
  */
 package com.ecomm.akhtar.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.DonarSlipDetailsEntity;
@@ -14,7 +14,7 @@ import com.ecomm.akhtar.entity.UsersEntity;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "donarSlipDetailsRepo", path = "donarSlipDetailsRepo")
-public interface DonarSlipDetailsRepository extends JpaRepository<DonarSlipDetailsEntity, Long> {
+public interface DonarSlipDetailsRepository extends CrudRepository<DonarSlipDetailsEntity, Long> {
 
 	void save(UsersEntity userData);
 

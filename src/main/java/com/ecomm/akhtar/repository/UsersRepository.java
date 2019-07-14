@@ -6,7 +6,7 @@ package com.ecomm.akhtar.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.UsersEntity;
@@ -17,7 +17,7 @@ import com.ecomm.akhtar.entity.UsersEntity;
  */
 // @PreAuthorize("hasRole('ROLE_USER')")
 @RepositoryRestResource(collectionResourceRel = "usersRepo", path = "usersRepo")
-public interface UsersRepository extends JpaRepository<UsersEntity, Long> {
+public interface UsersRepository extends CrudRepository<UsersEntity, Long> {
 
 
 	Optional<UsersEntity> findByEmail(String email);

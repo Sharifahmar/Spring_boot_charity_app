@@ -2,6 +2,7 @@ package com.ecomm.akhtar.controller;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -79,10 +80,13 @@ public class AuthenticationController {
 	private void saveRefreshToken(UserPrincipal userPrincipal, String refreshToken) {
 		// Persist Refresh Token
 		JwtRefreshTokenEntity jwtRefreshToken = new JwtRefreshTokenEntity(refreshToken);
-		jwtRefreshToken.setUser(userRepository.getOne(userPrincipal.getId()));
+		Optional<UsersEntity> user=userRepository.findById(userPrincipal.getId());
+		if(user.isPresent()){
+		jwtRefreshToken.setUser(user.get());
 		Instant expirationDateTime = Instant.now().plus(360, ChronoUnit.DAYS);
 		jwtRefreshToken.setExpirationDateTime(expirationDateTime);
 		jwtRefreshTokenRepository.save(jwtRefreshToken);
+		}
 	}
 
 }

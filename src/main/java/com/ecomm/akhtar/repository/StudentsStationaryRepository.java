@@ -3,7 +3,7 @@
  */
 package com.ecomm.akhtar.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.StudentsStationaryEntity;
@@ -14,6 +14,6 @@ import com.ecomm.akhtar.entity.StudentsStationaryEntity;
  */
 // @PreAuthorize("hasRole('ROLE_USER')")
 @RepositoryRestResource(collectionResourceRel = "studentsStationaryRepo", path = "studentsStationaryRepo")
-public interface StudentsStationaryRepository extends JpaRepository<StudentsStationaryEntity, Long> {
+public interface StudentsStationaryRepository extends CrudRepository<StudentsStationaryEntity, Long> {
 
 }

@@ -3,14 +3,16 @@
  */
 package com.ecomm.akhtar.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecomm.akhtar.entity.DonarsEntity;
-
-
 
 /**
  * @author Ahmar
@@ -18,12 +20,18 @@ import com.ecomm.akhtar.entity.DonarsEntity;
  */
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('USER')")
-@RepositoryRestResource(collectionResourceRel = "donarsRepo", path = "donarsRepo")
-public interface DonarsRepository extends JpaRepository<DonarsEntity, Long> {
-	
+@RepositoryRestResource(path = "donarsRepo")
+public interface DonarsRepository extends CrudRepository<DonarsEntity, Long> {
+
 	Boolean existsByPhoneNumber(String phoneNumber);
 
 	Boolean existsByEmail(String email);
+
+	@RestResource(path = "donarList")
+	List<DonarsEntity> findByStatus(@RequestParam("value") Boolean value);
 	
+	@RestResource(exported = false)
+	Iterable<DonarsEntity> findAll();
+
 
 }

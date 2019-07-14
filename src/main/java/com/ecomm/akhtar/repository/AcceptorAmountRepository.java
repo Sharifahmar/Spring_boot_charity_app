@@ -3,7 +3,7 @@
  */
 package com.ecomm.akhtar.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.AcceptorAmountEntity;
@@ -13,6 +13,6 @@ import com.ecomm.akhtar.entity.AcceptorAmountEntity;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "acceptorAmountRepo", path = "acceptorAmountRepo")
-public interface AcceptorAmountRepository extends JpaRepository<AcceptorAmountEntity, Long> {
+public interface AcceptorAmountRepository extends CrudRepository<AcceptorAmountEntity, Long> {
 
 }

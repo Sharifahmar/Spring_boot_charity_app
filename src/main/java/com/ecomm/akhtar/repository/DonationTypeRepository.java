@@ -5,7 +5,7 @@ package com.ecomm.akhtar.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.DonationTypeEntity;
@@ -15,7 +15,7 @@ import com.ecomm.akhtar.entity.DonationTypeEntity;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "donationTypeRepo", path = "donationTypeRepo")
-public interface DonationTypeRepository extends JpaRepository<DonationTypeEntity, Long> {
+public interface DonationTypeRepository extends CrudRepository<DonationTypeEntity, Long> {
 
 	Optional<DonationTypeEntity> findBydonationTypeIdAndStatus(Long id,Boolean status);
 

@@ -69,7 +69,7 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 	public List<FileUploadMetaDataModel> getfileUploadMetaData() {
 		List<FileUploadMetaDataModel> list = new ArrayList<>();
 
-		List<UserImageEntity> fileMetaData = fileUploadMetaData.findAll();
+		List<UserImageEntity> fileMetaData = (List<UserImageEntity>) fileUploadMetaData.findAll();
 
 		fileMetaData
 				.forEach(x -> {

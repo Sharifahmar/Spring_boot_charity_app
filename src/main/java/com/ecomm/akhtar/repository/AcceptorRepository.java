@@ -5,7 +5,7 @@ package com.ecomm.akhtar.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.ecomm.akhtar.entity.AcceptorEntity;
@@ -15,7 +15,7 @@ import com.ecomm.akhtar.entity.AcceptorEntity;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "acceptorRepo", path = "acceptorRepo")
-public interface AcceptorRepository extends JpaRepository<AcceptorEntity, Long> {
+public interface AcceptorRepository extends CrudRepository<AcceptorEntity, Long> {
 
 	Optional<AcceptorEntity> findByPhoneAndStatus(String phone, boolean b);
 
