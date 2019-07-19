@@ -3,12 +3,16 @@ package com.ecomm.akhtar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.model.ApiResponseModel;
+import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.IdentityAvailability;
+import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.model.UsersCheckRequest;
 import com.ecomm.akhtar.service.DonarServiceInf;
 
@@ -17,8 +21,6 @@ public class DonarController {
 
 	@Autowired
 	private DonarServiceInf donarServiceInf;
-
-
 
 	@PostMapping(EcommUriConstants.DONAR_PHONENUMBER_EXIST_URI)
 	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody UsersCheckRequest donar) {
@@ -44,5 +46,15 @@ public class DonarController {
 		}
 	}
 
+	@PostMapping(EcommUriConstants.DELETE_DONAR_URI)
+	public ResponseEntity<ApiResponseModel> deleteDonar(@RequestBody Donars donar) {
+		Donars donarNew = donarServiceInf.findById(donar.getDonarId());
+		if (!ObjectUtils.isEmpty(donarNew)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel("Donar Deleted Successfully..!!", true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+		}
+	}
 
 }

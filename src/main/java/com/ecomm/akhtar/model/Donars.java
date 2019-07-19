@@ -1,8 +1,5 @@
 package com.ecomm.akhtar.model;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import com.ecomm.akhtar.audit.AuditModel;
 
 public class Donars extends AuditModel {
@@ -22,8 +19,6 @@ public class Donars extends AuditModel {
 	private String state;
 	private String country;
 	private String zipCode;
-	@NotNull
-	@NotEmpty
 	private String phone;
 	private String gst;
 	private Boolean status;
