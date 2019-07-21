@@ -33,13 +33,13 @@ public class UserServiceImpl implements UserServiceInf {
 
 	@Override
 	public Boolean existsByPhoneNumber(String phoneNumber) {
-		return !usersRepository.existsByPhoneNumber(phoneNumber);
+		return !usersRepository.existsByPhoneNumberAndStatus(phoneNumber,true);
 
 	}
 
 	@Override
 	public Boolean existsByEmailId(String emailId) {
-		return !usersRepository.existsByEmail(emailId);
+		return !usersRepository.existsByEmailAndStatus(emailId,true);
 
 	}
 

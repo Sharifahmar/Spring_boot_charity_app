@@ -23,9 +23,9 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @RepositoryRestResource(path = "donarsRepo")
 public interface DonarsRepository extends CrudRepository<DonarsEntity, Long> {
 
-	Boolean existsByPhoneNumber(String phoneNumber);
+	Boolean existsByPhoneNumberAndStatus(String phoneNumber,Boolean value);
 
-	Boolean existsByEmail(String email);
+	Boolean existsByEmailAndStatus(String email,Boolean value);
 
 	@RestResource(path = "donarList")
 	List<DonarsEntity> findByStatus(@RequestParam("value") Boolean value);

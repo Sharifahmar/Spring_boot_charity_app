@@ -25,12 +25,12 @@ public class DonarServiceImpl implements DonarServiceInf {
 
 	@Override
 	public Boolean existsByPhoneNumber(String phoneNumber) {
-		return !donarsRepository.existsByPhoneNumber(phoneNumber);
+		return !donarsRepository.existsByPhoneNumberAndStatus(phoneNumber,true);
 	}
 
 	@Override
 	public Boolean existsByEmailId(String email) {
-		return !donarsRepository.existsByEmail(email);
+		return !donarsRepository.existsByEmailAndStatus(email,true);
 	}
 
 	@Override

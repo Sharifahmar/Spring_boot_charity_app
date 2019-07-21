@@ -24,6 +24,9 @@ public class DonationTypeEntity extends AuditModel {
 	@Column(name = "DONATION_TYPE_ID")
 	private Long donationTypeId;
 
+	@Size(max = 100)
+	@Column(name = "DONATION_TYPE_NAME")
+	private String donationTypeName;
 	
 	@Size(max = 100)
 	@Column(name = "DONATION_TYPE", nullable = false)
@@ -33,6 +36,7 @@ public class DonationTypeEntity extends AuditModel {
 	@Column(name = "DONATION_TYPE_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
 
+
 	public Long getDonationTypeId() {
 		return donationTypeId;
 	}
@@ -40,6 +44,16 @@ public class DonationTypeEntity extends AuditModel {
 
 	public void setDonationTypeId(Long donationTypeId) {
 		this.donationTypeId = donationTypeId;
+	}
+
+
+	public String getDonationTypeName() {
+		return donationTypeName;
+	}
+
+
+	public void setDonationTypeName(String donationTypeName) {
+		this.donationTypeName = donationTypeName;
 	}
 
 

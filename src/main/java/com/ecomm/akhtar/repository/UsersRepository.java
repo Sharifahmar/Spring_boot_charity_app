@@ -26,9 +26,9 @@ public interface UsersRepository extends CrudRepository<UsersEntity, Long> {
 
 	//Optional<UsersEntity> findByUserNameOrEmailId(String username, String email);
 
-	Boolean existsByPhoneNumber(String phoneNumber);
+	Boolean existsByPhoneNumberAndStatus(String phoneNumber,Boolean value);
 
-	Boolean existsByEmail(String email);
+	Boolean existsByEmailAndStatus(String email,Boolean value);
 
 	@Override
 	List<UsersEntity> findAll();
