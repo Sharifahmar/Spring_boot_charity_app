@@ -7,6 +7,8 @@ public class DonationTypeModel {
 	private Long donationTypeId;
 
 	private String donationType;
+	
+	private String donationTypeName;
 
 	private Boolean status;
 
@@ -53,5 +55,14 @@ public class DonationTypeModel {
 	public void setUpdatedDt(Date updatedDt) {
 		this.updatedDt = updatedDt;
 	}
+
+	public String getDonationTypeName() {
+		return donationTypeName;
+	}
+
+	public void setDonationTypeName(String donationTypeName) {
+		this.donationTypeName = donationTypeName;
+	}
+	
 
 }

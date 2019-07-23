@@ -35,5 +35,7 @@ public class EcommUriConstants {
 	public static final String DONAR_EMAIL_EXIST_URI = "/donar/checkEmailAvailability";
 	public static final String DELETE_DONAR_URI = "/donar/delete";
 	public static final String DONATION_TYPE_EXIST_URI = "/donationType/isDonationTypeExists";
+	
+	
 
 }
