@@ -26,4 +26,6 @@ public interface DonationTypeRepository extends CrudRepository<DonationTypeEntit
 	@RestResource(path = "donationTypeByIdAndStatus")
 	Optional<DonationTypeEntity> findBydonationTypeIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
 
+	boolean existsByDonationType(String donationType);
+
 }

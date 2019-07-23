@@ -37,10 +37,16 @@ public class DonationAmountEntity extends AuditModel {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID")
 	private UsersEntity usersEntity;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "DONAR_ID")
+	private DonarsEntity donarsEntity;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "DONATION_TYPE_ID")
 	private DonationTypeEntity donationTypeEntity;
+	
+	
 
 	public Long getDonationAmountId() {
 		return donationAmountId;
