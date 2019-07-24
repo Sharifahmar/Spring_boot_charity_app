@@ -3,6 +3,7 @@
  */
 package com.ecomm.akhtar.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -25,7 +26,10 @@ public interface DonationTypeRepository extends CrudRepository<DonationTypeEntit
 	
 	@RestResource(path = "donationTypeByIdAndStatus")
 	Optional<DonationTypeEntity> findBydonationTypeIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
-
+	
+	@RestResource(path = "donationTypeList")
+	List<DonationTypeEntity> findByStatus(@RequestParam("value") Boolean value);
+	
 	boolean existsByDonationType(String donationType);
 
 }
