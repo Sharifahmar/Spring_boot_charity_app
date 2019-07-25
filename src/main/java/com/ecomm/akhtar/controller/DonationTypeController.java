@@ -3,11 +3,14 @@ package com.ecomm.akhtar.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.model.ApiResponseModel;
+import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationTypeModel;
 import com.ecomm.akhtar.model.IdentityAvailability;
 import com.ecomm.akhtar.service.DonationTypeInf;
@@ -29,5 +32,18 @@ public class DonationTypeController {
 					HttpStatus.OK);
 		}
 	}
+	
+	
+	@PostMapping(EcommUriConstants.DONATION_TYPE_DELETE_URI)
+	public ResponseEntity<ApiResponseModel> deleteDonar(@RequestBody DonationTypeModel donationTypeModel) {
+		DonationTypeModel donationTypeModelRetrn = donationTypeInf.findById(donationTypeModel.getDonationTypeId());
+		if (!ObjectUtils.isEmpty(donationTypeModelRetrn)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel("Donation Type Deleted Successfully..!!", true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+		}
+	}
+
 
 }
