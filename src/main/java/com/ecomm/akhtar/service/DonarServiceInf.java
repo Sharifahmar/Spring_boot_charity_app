@@ -12,6 +12,8 @@ public interface DonarServiceInf {
 	Boolean existsByEmailId(String email);
 
 	Donars findById(Long donarId);
+
+	Donars updateDonar(Donars donar);
 	
 	
 	

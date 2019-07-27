@@ -35,6 +35,8 @@ public interface DonarsRepository extends CrudRepository<DonarsEntity, Long> {
 	
 	@RestResource(path = "donarListByIdAndStatus")
 	List<DonarsEntity> findByDonarIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
-
+		
+	
+	
 
 }
