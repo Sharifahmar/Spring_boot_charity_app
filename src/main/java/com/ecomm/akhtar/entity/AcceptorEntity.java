@@ -28,7 +28,7 @@ public class AcceptorEntity extends AuditModel {
 	@Email
 	@Size(max = 100)
 	@Column(name = "EMAIL_ID")
-	private String emailId;
+	private String email;
 
 	@Size(max = 100)
 	@Column(name = "FIRST_NAME")
@@ -59,7 +59,7 @@ public class AcceptorEntity extends AuditModel {
 
 	@Size(max = 100)
 	@Column(name = "PHONE", nullable = false)
-	private String phone;
+	private String phoneNumber;
 
 	@Column(name = "ACCEPTOR_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
@@ -72,12 +72,14 @@ public class AcceptorEntity extends AuditModel {
 		this.acceptorId = acceptorId;
 	}
 
-	public String getEmailId() {
-		return emailId;
+	
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getFirstName() {
@@ -136,12 +138,14 @@ public class AcceptorEntity extends AuditModel {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone() {
-		return phone;
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Boolean getStatus() {

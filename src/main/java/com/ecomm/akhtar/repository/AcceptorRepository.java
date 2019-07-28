@@ -25,16 +25,16 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @RepositoryRestResource(path = "acceptorRepo")
 public interface AcceptorRepository extends CrudRepository<AcceptorEntity, Long> {
 
-	Optional<AcceptorEntity> findByPhoneAndStatus(String phone, boolean b);
+	Optional<AcceptorEntity> findByPhoneNumberAndStatus(String phone, boolean b);
 
 	Optional<AcceptorEntity> findByAcceptorIdAndStatus(Long acceptorId, boolean b);
 
 	@RestResource(path = "acceptorList")
-	List<DonarsEntity> findByStatus(@RequestParam("value") Boolean value);
+	List<AcceptorEntity> findByStatus(@RequestParam("value") Boolean value);
 	
 	@RestResource(exported = false)
 	Iterable<AcceptorEntity> findAll();
 	
 	@RestResource(path = "acceptorIdByIdAndStatus")
-	List<DonarsEntity> findByAcceptorIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
+	List<AcceptorEntity> findByAcceptorIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
 }
