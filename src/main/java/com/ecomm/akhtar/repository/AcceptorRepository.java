@@ -24,6 +24,11 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @PreAuthorize("hasRole('USER')")
 @RepositoryRestResource(path = "acceptorRepo")
 public interface AcceptorRepository extends CrudRepository<AcceptorEntity, Long> {
+	
+	Boolean existsByPhoneNumber(String phoneNumber);
+
+	Boolean existsByEmail(String email);
+
 
 	Optional<AcceptorEntity> findByPhoneNumberAndStatus(String phone, boolean b);
 

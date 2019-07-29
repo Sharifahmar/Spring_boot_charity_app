@@ -53,7 +53,7 @@ public class AcceptorAmountServiceImpl implements AcceptorAmountServiceInf {
 
 		acceptorAmountEntity = new AcceptorAmountEntity();
 		acceptorAmountModel = new AcceptorAmountModel();
-		AcceptorEntity acceptorData = acceptorRepository.findByPhoneNumberAndStatus(value.getAcceptor().getPhone(), true)
+		AcceptorEntity acceptorData = acceptorRepository.findByPhoneNumberAndStatus(value.getAcceptor().getPhoneNumber(), true)
 				.orElseThrow(
 						() -> new CustomException("Acceptor Data not found with specific Mobile Number..!", false));
 

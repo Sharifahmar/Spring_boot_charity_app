@@ -4,7 +4,7 @@ public class Acceptor {
 
 	private Long acceptorId;
 
-	private String emailId;
+	private String email;
 
 	private String firstName;
 
@@ -20,7 +20,7 @@ public class Acceptor {
 
 	private String zipCode;
 
-	private String phone;
+	private String phoneNumber;
 
 	private Boolean status;
 
@@ -32,13 +32,7 @@ public class Acceptor {
 		this.acceptorId = acceptorId;
 	}
 
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
+	
 
 	public String getFirstName() {
 		return firstName;
@@ -96,12 +90,22 @@ public class Acceptor {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone() {
-		return phone;
+	
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Boolean getStatus() {
