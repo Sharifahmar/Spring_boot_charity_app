@@ -34,6 +34,10 @@ public class StudentsEntity extends AuditModel {
 	private Long id;
 
 	@Size(max = 100)
+	@Column(name = "STUDENTS_ID_NUMBER")
+	private Integer subIdNumber;
+	
+	@Size(max = 100)
 	@Column(name = "STUDENTS_SUB_ID")
 	private Integer subId;
 

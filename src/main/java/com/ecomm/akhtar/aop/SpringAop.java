@@ -40,7 +40,7 @@ public class SpringAop {
 	 */
 	@Around("core()")
 	public Object aroundTest(ProceedingJoinPoint pjp) throws Throwable {
-		Object obj = new Object();
+		Object obj = null;
 		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
 				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 		obj = pjp.proceed();
@@ -53,7 +53,7 @@ public class SpringAop {
 
 	@Around("repository()")
 	public Object aroundTestSec(ProceedingJoinPoint pjp) throws Throwable {
-		Object obj = new Object();
+		Object obj = null;
 		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
 				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" + Arrays.toString(pjp.getArgs()));
 		obj = pjp.proceed();
