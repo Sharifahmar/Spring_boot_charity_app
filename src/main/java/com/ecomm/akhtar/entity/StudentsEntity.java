@@ -23,7 +23,6 @@ import com.ecomm.akhtar.audit.AuditModel;
  */
 @Entity
 @Table(name = "STUDENTS")
-
 public class StudentsEntity extends AuditModel {
 
 	private static final long serialVersionUID = 1L;
@@ -31,7 +30,7 @@ public class StudentsEntity extends AuditModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "STUDENTS_ID")
-	private Long id;
+	private Long studentId;
 
 	@Size(max = 100)
 	@Column(name = "STUDENTS_ID_NUMBER")
@@ -93,7 +92,7 @@ public class StudentsEntity extends AuditModel {
 
 	@Size(max = 100)
 	@Column(name = "PHONE", nullable = false)
-	private String phone;
+	private String phoneNumber;
 
 	@Column(name = "STUDENT_STS", nullable = false, columnDefinition = "BIT")
 	private Boolean status;
@@ -101,12 +100,21 @@ public class StudentsEntity extends AuditModel {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "studentsEntity")
 	private Set<StudentsStationaryEntity> studentsStationaryEntities;
 
-	public Long getId() {
-		return id;
+
+	public Long getStudentId() {
+		return studentId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
+	}
+
+	public Integer getSubIdNumber() {
+		return subIdNumber;
+	}
+
+	public void setSubIdNumber(Integer subIdNumber) {
+		this.subIdNumber = subIdNumber;
 	}
 
 	public Integer getSubId() {
@@ -220,13 +228,13 @@ public class StudentsEntity extends AuditModel {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-
-	public String getPhone() {
-		return phone;
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Boolean getStatus() {
