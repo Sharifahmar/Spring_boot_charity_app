@@ -34,11 +34,11 @@ public class StudentsEntity extends AuditModel {
 
 	@Size(max = 100)
 	@Column(name = "STUDENTS_ID_NUMBER")
-	private Integer subIdNumber;
-	
+	private String idNumber;
+
 	@Size(max = 100)
 	@Column(name = "STUDENTS_SUB_ID")
-	private Integer subId;
+	private String subId;
 
 	@Size(max = 100)
 	@Column(name = "FIRST_NAME")
@@ -50,7 +50,7 @@ public class StudentsEntity extends AuditModel {
 
 	@Size(max = 100)
 	@Column(name = "AADHAAR_NUMBER")
-	private Integer aadharNumber;
+	private String aadhaarNumber;
 
 	@Size(max = 100)
 	@Column(name = "MOTHER_NAME")
@@ -100,29 +100,12 @@ public class StudentsEntity extends AuditModel {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "studentsEntity")
 	private Set<StudentsStationaryEntity> studentsStationaryEntities;
 
-
 	public Long getStudentId() {
 		return studentId;
 	}
 
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
-	}
-
-	public Integer getSubIdNumber() {
-		return subIdNumber;
-	}
-
-	public void setSubIdNumber(Integer subIdNumber) {
-		this.subIdNumber = subIdNumber;
-	}
-
-	public Integer getSubId() {
-		return subId;
-	}
-
-	public void setSubId(Integer subId) {
-		this.subId = subId;
 	}
 
 	public String getFirstName() {
@@ -141,12 +124,31 @@ public class StudentsEntity extends AuditModel {
 		this.lastName = lastName;
 	}
 
-	public Integer getAadharNumber() {
-		return aadharNumber;
+	
+	public String getIdNumber() {
+		return idNumber;
 	}
 
-	public void setAadharNumber(Integer aadharNumber) {
-		this.aadharNumber = aadharNumber;
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+
+	public String getSubId() {
+		return subId;
+	}
+
+	public void setSubId(String subId) {
+		this.subId = subId;
+	}
+
+	
+
+	public String getAadhaarNumber() {
+		return aadhaarNumber;
+	}
+
+	public void setAadhaarNumber(String aadhaarNumber) {
+		this.aadhaarNumber = aadhaarNumber;
 	}
 
 	public String getMotherName() {
@@ -228,7 +230,7 @@ public class StudentsEntity extends AuditModel {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -252,7 +254,5 @@ public class StudentsEntity extends AuditModel {
 	public void setStudentsStationaryEntities(Set<StudentsStationaryEntity> studentsStationaryEntities) {
 		this.studentsStationaryEntities = studentsStationaryEntities;
 	}
-
-	
 
 }
