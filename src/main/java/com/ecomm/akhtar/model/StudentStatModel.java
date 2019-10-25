@@ -9,15 +9,16 @@ package com.ecomm.akhtar.model;
  */
 public class StudentStatModel {
 
-	private StudentsModel studentsModel;
+	private Students studentsModel;
 
 	private String studentStationaryType;
 
-	public StudentsModel getStudentsModel() {
+
+	public Students getStudentsModel() {
 		return studentsModel;
 	}
 
-	public void setStudentsModel(StudentsModel studentsModel) {
+	public void setStudentsModel(Students studentsModel) {
 		this.studentsModel = studentsModel;
 	}
 

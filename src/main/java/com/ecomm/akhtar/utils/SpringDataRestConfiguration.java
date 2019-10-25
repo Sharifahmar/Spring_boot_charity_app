@@ -10,6 +10,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import com.ecomm.akhtar.entity.AcceptorEntity;
 import com.ecomm.akhtar.entity.DonarsEntity;
 import com.ecomm.akhtar.entity.DonationTypeEntity;
+import com.ecomm.akhtar.entity.StudentsEntity;
 
 /**
  * @author Ahmar
@@ -20,6 +21,6 @@ public class SpringDataRestConfiguration extends RepositoryRestConfigurerAdapter
 
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(DonationTypeEntity.class,AcceptorEntity.class,DonarsEntity.class);
+		config.exposeIdsFor(DonationTypeEntity.class,AcceptorEntity.class,DonarsEntity.class,StudentsEntity.class);
 	}
 }

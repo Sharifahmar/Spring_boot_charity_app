@@ -41,5 +41,6 @@ public class EcommUriConstants {
 	public static final String ACCEPTOR_PHONENUMBER_EXIST_URI = "/acceptor/checkPhoneNumberAvailability";
 	public static final String ACCEPTOR_EMAIL_EXIST_URI = "/acceptor/checkEmailAvailability";
 	public static final String UPDATE_ACCEPTOR_URI = "/acceptor/update";
-
+	public static final String DELETE_STUDENT_URI = "/student/delete";
+	public static final String UPDATE_STUDENT_URI = "/student/update";
 }

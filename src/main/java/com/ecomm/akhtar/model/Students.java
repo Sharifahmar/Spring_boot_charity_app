@@ -3,21 +3,17 @@
  */
 package com.ecomm.akhtar.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Size;
-
 /**
  * @author Ahmar
  *
  */
-public class StudentsModel {
+public class Students {
 
-	private Long id;
+	private Long studentId;
 
-	private Integer subId;
+	private String subId;
+	
+	private String idNumber;
 
 	private String firstName;
 
@@ -49,21 +45,6 @@ public class StudentsModel {
 
 	private Boolean status;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Integer getSubId() {
-		return subId;
-	}
-
-	public void setSubId(Integer subId) {
-		this.subId = subId;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -183,6 +164,30 @@ public class StudentsModel {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public Long getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getSubId() {
+		return subId;
+	}
+
+	public void setSubId(String subId) {
+		this.subId = subId;
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 	
 	

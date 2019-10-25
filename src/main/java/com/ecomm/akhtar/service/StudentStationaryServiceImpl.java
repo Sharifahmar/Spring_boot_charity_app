@@ -36,7 +36,7 @@ public class StudentStationaryServiceImpl implements StudentStationaryServiceInf
 		studentsStationaryEntity = new StudentsStationaryEntity();
 
 		StudentsEntity studData = studentsRepository
-				.findByStudentIdAndStatus(studentStatModel.getStudentsModel().getId(), true)
+				.findByStudentIdAndStatus(studentStatModel.getStudentsModel().getStudentId(), true)
 				.orElseThrow(() -> new CustomException("User not found with specific details..!!", false));
 
 		studentsStationaryEntity.setStudentsEntity(studData);
