@@ -50,8 +50,11 @@ public class AcceptorServiceImpl implements AcceptorServiceInf {
 		Acceptor acceptor2 = new Acceptor();
 		Optional<AcceptorEntity> acOptional = acceptorRepository.findById(acceptor.getAcceptorId());
 		if (acOptional.isPresent()) {
-			BeanUtils.copyProperties(acceptor, acOptional.get());
-			AcceptorEntity acceptorEntity = acceptorRepository.save(acOptional.get());
+			AcceptorEntity acceptorEntityNew = new AcceptorEntity();
+			BeanUtils.copyProperties(acceptor, acceptorEntityNew);
+			acceptorEntityNew.setPhoneNumber(acOptional.get().getPhoneNumber());
+			acceptorEntityNew.setEmail(acOptional.get().getEmail());
+			AcceptorEntity acceptorEntity = acceptorRepository.save(acceptorEntityNew);
 			BeanUtils.copyProperties(acceptorEntity, acceptor2);
 		}
 		return acceptor2;

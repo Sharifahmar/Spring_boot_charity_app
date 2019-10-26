@@ -1,9 +1,10 @@
 package com.ecomm.akhtar.model;
 
-public class Acceptor {
+
+public class Acceptor  {
 
 	private Long acceptorId;
-
+	
 	private String email;
 
 	private String firstName;
@@ -19,7 +20,7 @@ public class Acceptor {
 	private String country;
 
 	private String zipCode;
-
+	
 	private String phoneNumber;
 
 	private Boolean status;
@@ -31,8 +32,6 @@ public class Acceptor {
 	public void setAcceptorId(Long acceptorId) {
 		this.acceptorId = acceptorId;
 	}
-
-	
 
 	public String getFirstName() {
 		return firstName;
@@ -89,8 +88,6 @@ public class Acceptor {
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
-
-	
 
 	public String getEmail() {
 		return email;

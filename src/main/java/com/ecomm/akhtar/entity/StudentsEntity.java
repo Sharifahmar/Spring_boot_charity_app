@@ -49,7 +49,8 @@ public class StudentsEntity extends AuditModel {
 	private String lastName;
 
 	@Size(max = 100)
-	@Column(name = "AADHAAR_NUMBER")
+
+	@Column(name = "AADHAAR_NUMBER", nullable = false)
 	private String aadhaarNumber;
 
 	@Size(max = 100)
@@ -124,7 +125,6 @@ public class StudentsEntity extends AuditModel {
 		this.lastName = lastName;
 	}
 
-	
 	public String getIdNumber() {
 		return idNumber;
 	}
@@ -140,8 +140,6 @@ public class StudentsEntity extends AuditModel {
 	public void setSubId(String subId) {
 		this.subId = subId;
 	}
-
-	
 
 	public String getAadhaarNumber() {
 		return aadhaarNumber;

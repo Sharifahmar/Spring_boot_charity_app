@@ -9,7 +9,7 @@ public class Donars extends AuditModel {
 	 */
 	private static final long serialVersionUID = -7802456994740527978L;
 	private Long donarId;
-	private String emailId;
+	private String email;
 	private String password;
 	private String firstName;
 	private String lastName;
@@ -19,8 +19,7 @@ public class Donars extends AuditModel {
 	private String state;
 	private String country;
 	private String zipCode;
-	private String phone;
-	private String gst;
+	private String phoneNumber;
 	private Boolean status;
 
 	/*
@@ -34,13 +33,6 @@ public class Donars extends AuditModel {
 		this.donarId = donarId;
 	}
 
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
 
 	public String getPassword() {
 		return password;
@@ -114,20 +106,21 @@ public class Donars extends AuditModel {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone() {
-		return phone;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getGst() {
-		return gst;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setGst(String gst) {
-		this.gst = gst;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Boolean getStatus() {

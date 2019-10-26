@@ -50,8 +50,11 @@ public class DonarServiceImpl implements DonarServiceInf {
 		Donars donars = new Donars();
 		Optional<DonarsEntity> donarEntity  = donarsRepository.findById(donar.getDonarId());
 		if (donarEntity.isPresent()) {
-			BeanUtils.copyProperties(donar, donarEntity.get());
-			DonarsEntity donarsEntity = donarsRepository.save(donarEntity.get());
+			DonarsEntity doEntity = new DonarsEntity();	
+			BeanUtils.copyProperties(donar, doEntity);
+			doEntity.setPhoneNumber(donarEntity.get().getPhoneNumber());
+			doEntity.setEmail(donarEntity.get().getEmail());
+			DonarsEntity donarsEntity = donarsRepository.save(doEntity);
 			BeanUtils.copyProperties(donarsEntity, donars);
 		}
 		return donars;

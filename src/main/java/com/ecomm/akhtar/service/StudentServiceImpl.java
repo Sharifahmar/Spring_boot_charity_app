@@ -40,8 +40,11 @@ public class StudentServiceImpl implements StudentServiceInf {
 		Students studentsNew = new Students();
 		Optional<StudentsEntity> studEntity = studentsRepository.findById(students.getStudentId());
 		if (studEntity.isPresent()) {
-			BeanUtils.copyProperties(students, studEntity.get());
-			StudentsEntity studentEntity = studentsRepository.save(studEntity.get());
+			StudentsEntity stEntity=new StudentsEntity();	
+			BeanUtils.copyProperties(students, stEntity);
+			stEntity.setPhoneNumber(studEntity.get().getPhoneNumber());
+			stEntity.setAadhaarNumber(studEntity.get().getAadhaarNumber());
+			StudentsEntity studentEntity = studentsRepository.save(stEntity);
 			BeanUtils.copyProperties(studentEntity, studentsNew);
 		}
 		return studentsNew;
