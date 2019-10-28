@@ -42,4 +42,19 @@ public class DonationTypeImpl implements DonationTypeInf {
 
 	}
 
+	@Override
+	public DonationTypeModel updateDonationType(DonationTypeModel donationTypeModel) {
+		DonationTypeEntity donationTypeEntity = new DonationTypeEntity();
+		DonationTypeModel donationTypeModel2 = new DonationTypeModel();
+		Optional<DonationTypeEntity> donationTypeEntityRtrn = donationTypeRepository
+				.findById(donationTypeModel.getDonationTypeId());
+		if (donationTypeEntityRtrn.isPresent()) {
+			BeanUtils.copyProperties(donationTypeModel, donationTypeEntity);
+			donationTypeEntity.setDonationType(donationTypeEntityRtrn.get().getDonationType());
+			DonationTypeEntity donationTypeEntityNew = donationTypeRepository.save(donationTypeEntity);
+			BeanUtils.copyProperties(donationTypeEntityNew, donationTypeModel2);
+		}
+		return donationTypeModel2;
+	}
+
 }

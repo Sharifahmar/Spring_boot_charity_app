@@ -35,8 +35,20 @@ public class DonationTypeController {
 	
 	
 	@PostMapping(EcommUriConstants.DONATION_TYPE_DELETE_URI)
-	public ResponseEntity<ApiResponseModel> deleteDonar(@RequestBody DonationTypeModel donationTypeModel) {
+	public ResponseEntity<ApiResponseModel> deleteDonarType(@RequestBody DonationTypeModel donationTypeModel) {
 		DonationTypeModel donationTypeModelRetrn = donationTypeInf.findById(donationTypeModel.getDonationTypeId());
+		if (!ObjectUtils.isEmpty(donationTypeModelRetrn)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel("Donation Type Deleted Successfully..!!", true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+		}
+	}
+
+	
+	@PostMapping(EcommUriConstants.DONATION_TYPE_UPDATE_URI)
+	public ResponseEntity<ApiResponseModel> updateDonarType(@RequestBody DonationTypeModel donationTypeModel) {
+		DonationTypeModel donationTypeModelRetrn = donationTypeInf.updateDonationType(donationTypeModel);
 		if (!ObjectUtils.isEmpty(donationTypeModelRetrn)) {
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new ApiResponseModel("Donation Type Deleted Successfully..!!", true));

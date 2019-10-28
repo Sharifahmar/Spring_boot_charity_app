@@ -21,6 +21,6 @@ public class SpringDataRestConfiguration extends RepositoryRestConfigurerAdapter
 
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-		config.exposeIdsFor(DonationTypeEntity.class,AcceptorEntity.class,DonarsEntity.class,StudentsEntity.class);
+		config.exposeIdsFor(DonationTypeEntity.class,AcceptorEntity.class,DonarsEntity.class,StudentsEntity.class,DonationTypeEntity.class);
 	}
 }

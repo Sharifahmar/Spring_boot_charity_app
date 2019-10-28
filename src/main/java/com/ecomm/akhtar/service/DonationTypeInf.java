@@ -10,6 +10,8 @@ public interface DonationTypeInf {
 	Boolean existsByDonationType(String donationType);
 
 	DonationTypeModel findById(Long donationTypeId);
+
+	DonationTypeModel updateDonationType(DonationTypeModel donationTypeModel);
 	
 	
 	
