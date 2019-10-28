@@ -55,17 +55,5 @@ public class StudentController {
 		}
 	}
 
-	/*@PostMapping(EcommUriConstants.DONAR_EMAIL_EXIST_URI)
-	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@RequestBody UsersCheckRequest donar) {
-		Boolean isAvailable = donarServiceInf.existsByEmailId(donar.getEmail());
-		if (isAvailable) {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new IdentityAvailability(isAvailable, "Email not exist..!!"));
-		} else {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new IdentityAvailability(isAvailable, "Email already exist..!!"));
-		}
-	}*/
-
 
 }
