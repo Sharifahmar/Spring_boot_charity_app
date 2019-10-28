@@ -51,7 +51,7 @@ public class DonationTypeController {
 		DonationTypeModel donationTypeModelRetrn = donationTypeInf.updateDonationType(donationTypeModel);
 		if (!ObjectUtils.isEmpty(donationTypeModelRetrn)) {
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ApiResponseModel("Donation Type Deleted Successfully..!!", true));
+					.body(new ApiResponseModel("Donation Type Update Successfully..!!", true));
 		} else {
 			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
 		}
