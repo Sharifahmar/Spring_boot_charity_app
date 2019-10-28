@@ -11,6 +11,8 @@ public interface StudentServiceInf {
 	Students findById(Long studentId);
 
 	Students updateStudent(Students student);
+
+	Boolean existsByAadharNumber(String aadharNumber);
 	
 	
 	

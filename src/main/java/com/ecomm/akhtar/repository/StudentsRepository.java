@@ -13,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ecomm.akhtar.entity.AcceptorEntity;
 import com.ecomm.akhtar.entity.StudentsEntity;
 
 /**
@@ -33,4 +32,5 @@ public interface StudentsRepository extends CrudRepository<StudentsEntity, Long>
 	@RestResource(path = "studentIdByIdAndStatus")
 	List<StudentsEntity> findByStudentIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
 
+	Boolean existsByAadhaarNumber(String aadhaarNumber);
 }

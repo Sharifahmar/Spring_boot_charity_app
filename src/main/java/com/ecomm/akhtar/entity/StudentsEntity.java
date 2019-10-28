@@ -141,6 +141,7 @@ public class StudentsEntity extends AuditModel {
 		this.subId = subId;
 	}
 
+
 	public String getAadhaarNumber() {
 		return aadhaarNumber;
 	}

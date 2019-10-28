@@ -19,7 +19,7 @@ public class Students {
 
 	private String lastName;
 
-	private Integer aadharNumber;
+	private String aadhaarNumber;
 
 	private String motherName;
 
@@ -62,12 +62,13 @@ public class Students {
 		this.lastName = lastName;
 	}
 
-	public Integer getAadharNumber() {
-		return aadharNumber;
+
+	public String getAadhaarNumber() {
+		return aadhaarNumber;
 	}
 
-	public void setAadharNumber(Integer aadharNumber) {
-		this.aadharNumber = aadharNumber;
+	public void setAadhaarNumber(String aadhaarNumber) {
+		this.aadhaarNumber = aadhaarNumber;
 	}
 
 	public String getMotherName() {

@@ -50,4 +50,9 @@ public class StudentServiceImpl implements StudentServiceInf {
 		return studentsNew;
 	}
 
+	@Override
+	public Boolean existsByAadharNumber(String aadharNumber) {
+		return !studentsRepository.existsByAadhaarNumber(aadharNumber);
+	}
+
 }

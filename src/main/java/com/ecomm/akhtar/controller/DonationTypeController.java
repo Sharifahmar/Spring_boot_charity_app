@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.model.ApiResponseModel;
-import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationTypeModel;
 import com.ecomm.akhtar.model.IdentityAvailability;
 import com.ecomm.akhtar.service.DonationTypeInf;

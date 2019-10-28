@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.model.ApiResponseModel;
+import com.ecomm.akhtar.model.DonationTypeModel;
+import com.ecomm.akhtar.model.IdentityAvailability;
 import com.ecomm.akhtar.model.Students;
 import com.ecomm.akhtar.service.StudentServiceInf;
 
@@ -41,19 +43,19 @@ public class StudentController {
 		}
 	}
 	
-	/*@PostMapping(EcommUriConstants.DONAR_PHONENUMBER_EXIST_URI)
-	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody UsersCheckRequest donar) {
-		Boolean isAvailable = donarServiceInf.existsByPhoneNumber(donar.getPhoneNumber());
+	@PostMapping(EcommUriConstants.STUDENT_AADHARNUMBER_EXIST_URI)
+	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody Students students) {
+		Boolean isAvailable = studentServiceInf.existsByAadharNumber(students.getAadhaarNumber());
 		if (isAvailable) {
-			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Phone Number not exist..!!"),
+			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Aadhar Number not exist..!!"),
 					HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Phone Number already exist..!!"),
+			return new ResponseEntity<>(new IdentityAvailability(isAvailable, "Aadhar Number already exist..!!"),
 					HttpStatus.OK);
 		}
 	}
 
-	@PostMapping(EcommUriConstants.DONAR_EMAIL_EXIST_URI)
+	/*@PostMapping(EcommUriConstants.DONAR_EMAIL_EXIST_URI)
 	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@RequestBody UsersCheckRequest donar) {
 		Boolean isAvailable = donarServiceInf.existsByEmailId(donar.getEmail());
 		if (isAvailable) {
