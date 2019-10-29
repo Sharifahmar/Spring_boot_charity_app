@@ -1,5 +1,7 @@
 package com.ecomm.akhtar.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.ecomm.akhtar.model.Donars;
@@ -14,6 +16,8 @@ public interface DonarServiceInf {
 	Donars findById(Long donarId);
 
 	Donars updateDonar(Donars donar);
+
+	List<Donars> searchCriteria(Donars donar);
 	
 	
 	

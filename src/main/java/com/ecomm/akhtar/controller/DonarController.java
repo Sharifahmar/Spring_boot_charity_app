@@ -1,16 +1,17 @@
 package com.ecomm.akhtar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.IdentityAvailability;
@@ -66,6 +67,17 @@ public class DonarController {
 					.body(new ApiResponseModel("Donar Updated Successfully..!!", true));
 		} else {
 			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+		}
+	}
+
+	@PostMapping(EcommUriConstants.DONAR_SEARCH_CRITERIA_DONAR_URI)
+	public ResponseEntity<ApiResponseGenericModel<List<Donars>>> searchCriteria(@RequestBody Donars donar) {
+		List<Donars> donarNew = donarServiceInf.searchCriteria(donar);
+		if (!ObjectUtils.isEmpty(donarNew)) {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseGenericModel<List<Donars>>(donarNew, true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
 		}
 	}
 

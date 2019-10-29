@@ -100,7 +100,7 @@ public class CommonUtils {
 	public static Mail setEmailObject(String to, String subject) {
 
 		Mail mail = new Mail();
-		//mail.setFrom("Akhtar Ecommerce");
+		// mail.setFrom("Akhtar Ecommerce");
 		mail.setTo(to);
 		mail.setSubject(subject);
 		return mail;

@@ -3,15 +3,21 @@
  */
 package com.ecomm.akhtar.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 
 import com.ecomm.akhtar.entity.DonarsEntity;
 import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.repository.DonarsRepository;
+import com.ecomm.akhtar.utils.CommonUtils;
 
 /**
  * @author Ahmar
@@ -48,9 +54,9 @@ public class DonarServiceImpl implements DonarServiceInf {
 	@Override
 	public Donars updateDonar(Donars donar) {
 		Donars donars = new Donars();
-		Optional<DonarsEntity> donarEntity  = donarsRepository.findById(donar.getDonarId());
+		Optional<DonarsEntity> donarEntity = donarsRepository.findById(donar.getDonarId());
 		if (donarEntity.isPresent()) {
-			DonarsEntity doEntity = new DonarsEntity();	
+			DonarsEntity doEntity = new DonarsEntity();
 			BeanUtils.copyProperties(donar, doEntity);
 			doEntity.setPhoneNumber(donarEntity.get().getPhoneNumber());
 			doEntity.setEmail(donarEntity.get().getEmail());
@@ -58,6 +64,16 @@ public class DonarServiceImpl implements DonarServiceInf {
 			BeanUtils.copyProperties(donarsEntity, donars);
 		}
 		return donars;
+	}
+
+	@Override
+	public List<Donars> searchCriteria(Donars donar) {	
+		List<DonarsEntity> donarEntity = donarsRepository.findByFirstNameLikeAndPhoneNumberLikeAndEmailLike(donar.getFirstName(),donar.getPhoneNumber(),donar.getEmail());
+		return donarEntity.stream().map(x -> {
+			Donars donars = new Donars();
+			BeanUtils.copyProperties(x, donars);
+			return donars;
+		}).collect(Collectors.toList());
 	}
 
 }
