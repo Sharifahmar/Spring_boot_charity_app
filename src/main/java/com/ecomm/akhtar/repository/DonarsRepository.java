@@ -6,6 +6,7 @@ package com.ecomm.akhtar.repository;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,7 +22,7 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('USER')")
 @RepositoryRestResource(path = "donarsRepo")
-public interface DonarsRepository extends CrudRepository<DonarsEntity, Long> {
+public interface DonarsRepository extends CrudRepository<DonarsEntity, Long>,QueryByExampleExecutor<DonarsEntity>{
 
 	Boolean existsByPhoneNumber(String phoneNumber);
 
@@ -35,7 +36,5 @@ public interface DonarsRepository extends CrudRepository<DonarsEntity, Long> {
 
 	@RestResource(path = "donarListByIdAndStatus")
 	List<DonarsEntity> findByDonarIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
-
-	List<DonarsEntity> findByFirstNameLikeAndPhoneNumberLikeAndEmailLike(String firstName, String phoneNumber, String email);
 
 }

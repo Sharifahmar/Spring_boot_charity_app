@@ -12,12 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import com.ecomm.akhtar.entity.DonarsEntity;
 import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.repository.DonarsRepository;
-import com.ecomm.akhtar.utils.CommonUtils;
 
 /**
  * @author Ahmar
@@ -68,7 +66,13 @@ public class DonarServiceImpl implements DonarServiceInf {
 
 	@Override
 	public List<Donars> searchCriteria(Donars donar) {
-		List<DonarsEntity> donarEntity = donarsRepository.findByFirstNameLikeAndPhoneNumberLikeAndEmailLike(donar.getFirstName(),donar.getPhoneNumber(),donar.getEmail());
+		DonarsEntity donarsEntityNew = new DonarsEntity();
+		donarsEntityNew.setPhoneNumber(donar.getPhoneNumber());
+		donarsEntityNew.setFirstName(donar.getFirstName());
+		donarsEntityNew.setEmail(donar.getEmail());
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+		Example<DonarsEntity> exampleQuery = Example.of(donarsEntityNew, matcher);
+		List<DonarsEntity> donarEntity = (List<DonarsEntity>) donarsRepository.findAll(exampleQuery);
 		return donarEntity.stream().map(x -> {
 			Donars donars = new Donars();
 			BeanUtils.copyProperties(x, donars);
