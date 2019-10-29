@@ -67,7 +67,7 @@ public class DonarServiceImpl implements DonarServiceInf {
 	}
 
 	@Override
-	public List<Donars> searchCriteria(Donars donar) {	
+	public List<Donars> searchCriteria(Donars donar) {
 		List<DonarsEntity> donarEntity = donarsRepository.findByFirstNameLikeAndPhoneNumberLikeAndEmailLike(donar.getFirstName(),donar.getPhoneNumber(),donar.getEmail());
 		return donarEntity.stream().map(x -> {
 			Donars donars = new Donars();
