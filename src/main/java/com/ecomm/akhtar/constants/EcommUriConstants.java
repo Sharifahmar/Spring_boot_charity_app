@@ -35,7 +35,7 @@ public class EcommUriConstants {
 	public static final String DONAR_EMAIL_EXIST_URI = "/donar/checkEmailAvailability";
 	public static final String DELETE_DONAR_URI = "/donar/delete";
 	public static final String UPDATE_DONAR_URI = "/donar/update";
-	public static final String DONAR_SEARCH_CRITERIA_DONAR_URI = "/donar/searchCriteria";
+	public static final String DONAR_SEARCH_CRITERIA_DONAR_URI = "/donar/donarSearchCriteria";
 	public static final String DONATION_TYPE_EXIST_URI = "/donationType/isDonationTypeExists";
 	public static final String DONATION_TYPE_DELETE_URI = "/donationType/delete";
 	public static final String DONATION_TYPE_UPDATE_URI = "/donationType/update";
@@ -43,7 +43,9 @@ public class EcommUriConstants {
 	public static final String ACCEPTOR_PHONENUMBER_EXIST_URI = "/acceptor/checkPhoneNumberAvailability";
 	public static final String ACCEPTOR_EMAIL_EXIST_URI = "/acceptor/checkEmailAvailability";
 	public static final String UPDATE_ACCEPTOR_URI = "/acceptor/update";
+	public static final String ACCEPTOR_SEARCH_CRITERIA_DONAR_URI = "/acceptor/acceptorSearchCriteria";
 	public static final String DELETE_STUDENT_URI = "/student/delete";
 	public static final String UPDATE_STUDENT_URI = "/student/update";
 	public static final String STUDENT_AADHARNUMBER_EXIST_URI = "/student/checkAadharNumberAvailability";
+	public static final String STUDENT_SEARCH_CRITERIA_DONAR_URI = "/student/studentSearchCriteria";
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,12 +24,12 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('USER')")
 @RepositoryRestResource(path = "acceptorRepo")
-public interface AcceptorRepository extends CrudRepository<AcceptorEntity, Long> {
-	
+public interface AcceptorRepository
+		extends CrudRepository<AcceptorEntity, Long>, QueryByExampleExecutor<AcceptorEntity> {
+
 	Boolean existsByPhoneNumber(String phoneNumber);
 
 	Boolean existsByEmail(String email);
-
 
 	Optional<AcceptorEntity> findByPhoneNumberAndStatus(String phone, boolean b);
 
@@ -36,10 +37,10 @@ public interface AcceptorRepository extends CrudRepository<AcceptorEntity, Long>
 
 	@RestResource(path = "acceptorList")
 	List<AcceptorEntity> findByStatus(@RequestParam("value") Boolean value);
-	
+
 	@RestResource(exported = false)
 	Iterable<AcceptorEntity> findAll();
-	
+
 	@RestResource(path = "acceptorIdByIdAndStatus")
-	List<AcceptorEntity> findByAcceptorIdAndStatus(@RequestParam("id") long id,@RequestParam("value") Boolean value);
+	List<AcceptorEntity> findByAcceptorIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
 }

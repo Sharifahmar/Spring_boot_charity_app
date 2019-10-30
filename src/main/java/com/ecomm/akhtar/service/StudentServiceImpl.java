@@ -3,10 +3,14 @@
  */
 package com.ecomm.akhtar.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
 
 import com.ecomm.akhtar.entity.StudentsEntity;
@@ -40,7 +44,7 @@ public class StudentServiceImpl implements StudentServiceInf {
 		Students studentsNew = new Students();
 		Optional<StudentsEntity> studEntity = studentsRepository.findById(students.getStudentId());
 		if (studEntity.isPresent()) {
-			StudentsEntity stEntity=new StudentsEntity();	
+			StudentsEntity stEntity = new StudentsEntity();
 			BeanUtils.copyProperties(students, stEntity);
 			stEntity.setPhoneNumber(studEntity.get().getPhoneNumber());
 			stEntity.setAadhaarNumber(studEntity.get().getAadhaarNumber());
@@ -53,6 +57,22 @@ public class StudentServiceImpl implements StudentServiceInf {
 	@Override
 	public Boolean existsByAadharNumber(String aadharNumber) {
 		return !studentsRepository.existsByAadhaarNumber(aadharNumber);
+	}
+
+	@Override
+	public List<Students> searchCriteria(Students students) {
+		StudentsEntity studentsEntity = new StudentsEntity();
+		studentsEntity.setFirstName(students.getFirstName());
+		studentsEntity.setPhoneNumber(students.getPhoneNumber());
+		studentsEntity.setAadhaarNumber(students.getAadhaarNumber());
+		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+		Example<StudentsEntity> exampleQuery = Example.of(studentsEntity, matcher);
+		List<StudentsEntity> studentEntity = (List<StudentsEntity>) studentsRepository.findAll(exampleQuery);
+		return studentEntity.stream().map(x -> {
+			Students studentsRtrn = new Students();
+			BeanUtils.copyProperties(x, studentsRtrn);
+			return studentsRtrn;
+		}).collect(Collectors.toList());
 	}
 
 }

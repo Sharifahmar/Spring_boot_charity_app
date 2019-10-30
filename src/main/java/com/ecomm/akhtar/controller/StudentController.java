@@ -1,5 +1,7 @@
 package com.ecomm.akhtar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
-import com.ecomm.akhtar.model.DonationTypeModel;
 import com.ecomm.akhtar.model.IdentityAvailability;
 import com.ecomm.akhtar.model.Students;
 import com.ecomm.akhtar.service.StudentServiceInf;
@@ -42,7 +44,7 @@ public class StudentController {
 			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
 		}
 	}
-	
+
 	@PostMapping(EcommUriConstants.STUDENT_AADHARNUMBER_EXIST_URI)
 	public ResponseEntity<IdentityAvailability> checkUsernameAvailability(@RequestBody Students students) {
 		Boolean isAvailable = studentServiceInf.existsByAadharNumber(students.getAadhaarNumber());
@@ -55,5 +57,16 @@ public class StudentController {
 		}
 	}
 
+	@PostMapping(EcommUriConstants.STUDENT_SEARCH_CRITERIA_DONAR_URI)
+	public ResponseEntity<ApiResponseGenericModel<List<Students>>> searchCriteria(@RequestBody Students students) {
+		List<Students> studentList = studentServiceInf.searchCriteria(students);
+		if (!ObjectUtils.isEmpty(studentList)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseGenericModel<List<Students>>(studentList, true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
+		}
+	}
 
 }

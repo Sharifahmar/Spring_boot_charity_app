@@ -12,7 +12,7 @@ public class Students {
 	private Long studentId;
 
 	private String subId;
-	
+
 	private String idNumber;
 
 	private String firstName;
@@ -41,10 +41,9 @@ public class Students {
 
 	private String zipCode;
 
-	private String phone;
+	private String phoneNumber;
 
 	private Boolean status;
-
 
 	public String getFirstName() {
 		return firstName;
@@ -61,7 +60,6 @@ public class Students {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 
 	public String getAadhaarNumber() {
 		return aadhaarNumber;
@@ -151,12 +149,12 @@ public class Students {
 		this.zipCode = zipCode;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Boolean getStatus() {
@@ -190,7 +188,5 @@ public class Students {
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
-	
-	
 
 }

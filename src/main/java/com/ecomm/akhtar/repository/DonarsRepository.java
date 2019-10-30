@@ -22,7 +22,7 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('USER')")
 @RepositoryRestResource(path = "donarsRepo")
-public interface DonarsRepository extends CrudRepository<DonarsEntity, Long>,QueryByExampleExecutor<DonarsEntity>{
+public interface DonarsRepository extends CrudRepository<DonarsEntity, Long>, QueryByExampleExecutor<DonarsEntity> {
 
 	Boolean existsByPhoneNumber(String phoneNumber);
 
