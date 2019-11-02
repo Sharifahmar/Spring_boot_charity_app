@@ -5,6 +5,6 @@ import com.ecomm.akhtar.model.DonationAmountModel;
 
 public interface DonationAmountServiceInf {
 
-	public String addDonationAmountService(DonationAmountModel value) throws CustomException;
+	public DonationAmountModel addDonationAmountService(DonationAmountModel value) throws CustomException;
 
 }

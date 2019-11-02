@@ -88,4 +88,13 @@ public class DonationAmountEntity extends AuditModel {
 		this.donationTypeEntity = donationTypeEntity;
 	}
 
+	public DonarsEntity getDonarsEntity() {
+		return donarsEntity;
+	}
+
+	public void setDonarsEntity(DonarsEntity donarsEntity) {
+		this.donarsEntity = donarsEntity;
+	}
+	
+
 }

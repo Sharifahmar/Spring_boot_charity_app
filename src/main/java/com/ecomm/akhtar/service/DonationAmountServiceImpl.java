@@ -5,17 +5,21 @@ package com.ecomm.akhtar.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
+import com.ecomm.akhtar.entity.DonarsEntity;
 import com.ecomm.akhtar.entity.DonationAmountEntity;
 import com.ecomm.akhtar.entity.DonationTypeEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.DonationAmountModel;
+import com.ecomm.akhtar.repository.DonarsRepository;
 import com.ecomm.akhtar.repository.DonationAmountRepository;
 import com.ecomm.akhtar.repository.DonationTypeRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
+import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
 /**
  * @author Ahmar
@@ -33,52 +37,40 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 	@Autowired
 	private DonationAmountRepository donationAmountRepository;
 
-	DonationAmountEntity donationAmountEntity = null;
+	@Autowired
+	private DonarsRepository donarsRepository;
 
-	DonationAmountModel donationAmountModel = null;
-
-	String message = null;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.ecomm.akhtar.service.DonationAmountServiceInf#addDonationAmountService(
-	 * com.ecomm.akhtar.model.DonationAmountModel)
-	 */
 	@Override
-	public String addDonationAmountService(DonationAmountModel value) throws CustomException {
-
-		donationAmountEntity = new DonationAmountEntity();
-		donationAmountModel = new DonationAmountModel();
-		UsersEntity userData = userRepository.findByPhoneNumberAndStatus(value.getUsers().getPhoneNumber(), true)
-				.orElseThrow(() -> new CustomException("User Data not found with specific Mobile Number..!", false));
-
-		if (!ObjectUtils.isEmpty(userData)) {
-
+	public DonationAmountModel addDonationAmountService(DonationAmountModel donationAmountModel)
+			throws CustomException {
+		DonationAmountEntity donationAmountEntity = new DonationAmountEntity();
+		DonationAmountModel donationAmountModel2 = new DonationAmountModel();
+		UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		DonarsEntity donarsEntity = donarsRepository
+				.findByPhoneNumberAndStatus(donationAmountModel.getDonars().getPhoneNumber(), true)
+				.orElseThrow(() -> new CustomException("Donar Mobile Number not found or it was deleted..!", false));
+		
+		if (!ObjectUtils.isEmpty(donarsEntity)) {
 			DonationTypeEntity donationTypeData = donationTypeRepository
-					.findBydonationTypeIdAndStatus(value.getDonationTypeModel().getDonationTypeId(), true)
-					.orElseThrow(() -> new CustomException("Donation Type Data not found with specific Id..!", false));
-
+					.findBydonationTypeIdAndStatus(donationAmountModel.getDonationTypeModel().getDonationTypeId(), true)
+					.orElseThrow(() -> new CustomException("Donation Type not found or it was deleted..!", false));
+			
 			if (!ObjectUtils.isEmpty(donationTypeData)) {
-
-				BeanUtils.copyProperties(value, donationAmountEntity);
-				donationAmountEntity.setUsersEntity(userData);
-				donationAmountEntity.setDonationTypeEntity(donationTypeData);
-				DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
-
-				if (!ObjectUtils.isEmpty(donationAmountEntity2)) {
-					message = "Donation Amount added Successfully..!!";
-				} else {
-					message = "Error Occurred while saving Amount..!!";
+				if (userPrincipal.getId() != null) {
+					UsersEntity usersEntity = userRepository.findById(userPrincipal.getId())
+							.orElseThrow(() -> new CustomException("User Information not found ..!", false));
+					donationAmountEntity.setDonarsEntity(donarsEntity);
+					donationAmountEntity.setDonationTypeEntity(donationTypeData);
+					donationAmountEntity.setUsersEntity(usersEntity);
+					donationAmountEntity.setDonationAmount(donationAmountModel.getDonationAmount());
+					donationAmountEntity.setStatus(true);
 				}
-
+				DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
+				BeanUtils.copyProperties(donationAmountEntity2, donationAmountModel2);
+				donationAmountModel2.setDonationAmount(donationAmountEntity2.getDonationAmount());
 			}
-
 		}
-
-		return message;
-
+		return donationAmountModel2;
 	}
-
 }

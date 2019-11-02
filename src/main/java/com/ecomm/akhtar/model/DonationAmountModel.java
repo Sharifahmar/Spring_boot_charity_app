@@ -9,18 +9,19 @@ package com.ecomm.akhtar.model;
  */
 public class DonationAmountModel {
 
-	private Users users;
+	
+	private Donars donars;
 
 	private DonationTypeModel donationTypeModel;
 	
 	private String donationAmount;
 
-	public Users getUsers() {
-		return users;
+	public Donars getDonars() {
+		return donars;
 	}
 
-	public void setUsers(Users users) {
-		this.users = users;
+	public void setDonars(Donars donars) {
+		this.donars = donars;
 	}
 
 	public DonationTypeModel getDonationTypeModel() {
@@ -38,7 +39,9 @@ public class DonationAmountModel {
 	public void setDonationAmount(String donationAmount) {
 		this.donationAmount = donationAmount;
 	}
+
 	
+
 	
 
 }

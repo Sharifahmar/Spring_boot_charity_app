@@ -1,18 +1,15 @@
-/**
- * 
- */
 package com.ecomm.akhtar.controller;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.service.DonationAmountServiceInf;
@@ -28,22 +25,20 @@ public class DonationAmountController {
 	private DonationAmountServiceInf donationAmountServiceInf;
 
 	@PostMapping(EcommUriConstants.DONATION_AMOUNT)
-	public ResponseEntity<ApiResponseModel> addDonationAmount(
-			@Valid @RequestBody DonationAmountModel donationAmountModel) {
+	public ResponseEntity<ApiResponseModel> addDonationAmount(@RequestBody DonationAmountModel donationAmountModel) {
+		DonationAmountModel donationTypeModelRetrn = null;
 
 		try {
-			String msg = donationAmountServiceInf.addDonationAmountService(donationAmountModel);
+			donationTypeModelRetrn = donationAmountServiceInf.addDonationAmountService(donationAmountModel);
+			if (!ObjectUtils.isEmpty(donationTypeModelRetrn)) {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApiResponseModel("Donation Amount Insert Successfully..!!", true));
+			}
+		} catch (CustomException e) {
 
-			return new ResponseEntity<>(new ApiResponseModel(msg, true), HttpStatus.OK);
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-			return new ResponseEntity<>(new ApiResponseModel("Error Occured while saving Amount..!!", false), HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
 
 		}
-
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseModel("Something went wrong.!!", false));
 	}
-
 }
