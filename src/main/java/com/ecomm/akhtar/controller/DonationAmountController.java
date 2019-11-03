@@ -35,7 +35,7 @@ public class DonationAmountController {
 						.body(new ApiResponseModel("Donation Amount Insert Successfully..!!", true));
 			}
 		} catch (CustomException e) {
-			    e.printStackTrace();
+			   
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
 
 		}

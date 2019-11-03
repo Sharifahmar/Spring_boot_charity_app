@@ -43,7 +43,17 @@ public class SpringAop {
 		Object obj = null;
 		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
 				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
-		obj = pjp.proceed();
+		try {
+			
+			obj = pjp.proceed();
+			
+		} catch (Throwable e) {
+			
+			logger.error("Throw Custom Exception Class Name : " + pjp.getSignature().getDeclaringTypeName()
+					+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()),e);
+			throw e;
+		}
+	
 		logger.info("After Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
 				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 
