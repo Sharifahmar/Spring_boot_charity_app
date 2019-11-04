@@ -3,6 +3,8 @@
  */
 package com.ecomm.akhtar.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +16,7 @@ import com.ecomm.akhtar.entity.DonationAmountEntity;
 import com.ecomm.akhtar.entity.DonationTypeEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
+import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.repository.DonarsRepository;
 import com.ecomm.akhtar.repository.DonationAmountRepository;
@@ -50,12 +53,12 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 		DonarsEntity donarsEntity = donarsRepository
 				.findByPhoneNumberAndStatus(donationAmountModel.getDonars().getPhoneNumber(), true)
 				.orElseThrow(() -> new CustomException("Donar Mobile Number not found or it was deleted..!", false));
-		
+
 		if (!ObjectUtils.isEmpty(donarsEntity)) {
 			DonationTypeEntity donationTypeData = donationTypeRepository
 					.findBydonationTypeIdAndStatus(donationAmountModel.getDonationTypeModel().getDonationTypeId(), true)
 					.orElseThrow(() -> new CustomException("Donation Type not found or it was deleted..!", false));
-			
+
 			if (!ObjectUtils.isEmpty(donationTypeData)) {
 				if (userPrincipal.getId() != null) {
 					UsersEntity usersEntity = userRepository.findById(userPrincipal.getId())
@@ -72,5 +75,11 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 			}
 		}
 		return donationAmountModel2;
+	}
+
+	@Override
+	public List<DonarContributionDTO> getContributionDetails() {
+		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin();
+		return data;
 	}
 }
