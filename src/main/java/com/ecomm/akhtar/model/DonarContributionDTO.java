@@ -3,28 +3,33 @@
  */
 package com.ecomm.akhtar.model;
 
+import java.text.SimpleDateFormat;
+
 /**
  * @author Ahmar
  *
  */
 public class DonarContributionDTO {
-	
+
 	private String firstName;
-	
+
 	private String lastName;
-	
+
 	private String phoneNumber;
-	
+
 	private String email;
-	
+
 	private String donationType;
-	
+
 	private Long donationTypeValue;
-	
+
 	private String donationAmount;
 
+	private java.util.Date date;
+	
+
 	public DonarContributionDTO(String firstName, String lastName, String phoneNumber, String email,
-			String donationType, Long donationTypeValue, String donationAmount) {
+			String donationType, Long donationTypeValue, String donationAmount, java.util.Date date) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -33,6 +38,7 @@ public class DonarContributionDTO {
 		this.donationType = donationType;
 		this.donationTypeValue = donationTypeValue;
 		this.donationAmount = donationAmount;
+		this.date = date;
 	}
 
 	public String getFirstName() {
@@ -91,6 +97,17 @@ public class DonarContributionDTO {
 		this.donationAmount = donationAmount;
 	}
 
+	public java.util.Date getDate() {
+		return date;
+	}
 
+	public void Date(java.util.Date date) {
+		this.date = date;
+	}
 	
+	public String getDateString() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		return formatter.format(this.getDate());
+	}
+
 }
