@@ -17,6 +17,7 @@ import com.ecomm.akhtar.entity.DonationTypeEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.DonarContributionDTO;
+import com.ecomm.akhtar.model.DonarContributionRequestDTO;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.repository.DonarsRepository;
 import com.ecomm.akhtar.repository.DonationAmountRepository;
@@ -78,8 +79,8 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 	}
 
 	@Override
-	public List<DonarContributionDTO> getContributionDetails() {
-		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin();
+	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request) {
+		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin(request.getPhoneNumber(),request.getDonationTypeId(),request.getStatus());
 		return data;
 	}
 }

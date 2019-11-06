@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.DonarContributionDTO;
+import com.ecomm.akhtar.model.DonarContributionRequestDTO;
 import com.ecomm.akhtar.model.DonationAmountModel;
 
 public interface DonationAmountServiceInf {
 
 	public DonationAmountModel addDonationAmountService(DonationAmountModel value) throws CustomException;
 
-	public List<DonarContributionDTO> getContributionDetails();
+	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request);
 
 }

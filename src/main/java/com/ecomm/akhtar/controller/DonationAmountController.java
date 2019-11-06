@@ -16,6 +16,7 @@ import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.DonarContributionDTO;
+import com.ecomm.akhtar.model.DonarContributionRequestDTO;
 import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.service.DonationAmountServiceInf;
@@ -48,12 +49,12 @@ public class DonationAmountController {
 	
 	
 	@PostMapping(EcommUriConstants.DONAR_CONTRIBUTION_DETAILS)
-	public ResponseEntity<ApiResponseGenericModel<List<DonarContributionDTO>>> getContributionDetails() {
-		List<DonarContributionDTO> donarContributionDTO = donationAmountServiceInf.getContributionDetails();
+	public ResponseEntity<ApiResponseGenericModel<List<DonarContributionDTO>>> getContributionDetails(@RequestBody DonarContributionRequestDTO request) {
+		List<DonarContributionDTO> donarContributionDTO = donationAmountServiceInf.getContributionDetails(request);
 		if (!CollectionUtils.isEmpty(donarContributionDTO)) {
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new ApiResponseGenericModel<List<DonarContributionDTO>>(donarContributionDTO, true));
 		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseGenericModel<>("Something went wrong..or No Data present for related Search!!", false));
 	}
 }
