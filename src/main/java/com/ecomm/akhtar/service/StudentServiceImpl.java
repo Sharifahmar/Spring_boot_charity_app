@@ -61,13 +61,7 @@ public class StudentServiceImpl implements StudentServiceInf {
 
 	@Override
 	public List<Students> searchCriteria(Students students) {
-		StudentsEntity studentsEntity = new StudentsEntity();
-		studentsEntity.setFirstName(students.getFirstName());
-		studentsEntity.setPhoneNumber(students.getPhoneNumber());
-		studentsEntity.setAadhaarNumber(students.getAadhaarNumber());
-		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
-		Example<StudentsEntity> exampleQuery = Example.of(studentsEntity, matcher);
-		List<StudentsEntity> studentEntity = (List<StudentsEntity>) studentsRepository.findAll(exampleQuery);
+		List<StudentsEntity> studentEntity = studentsRepository.findByStudentSearchCriteria(students.getFirstName(), students.getPhoneNumber(), students.getAadhaarNumber(), students.getStatus());
 		return studentEntity.stream().map(x -> {
 			Students studentsRtrn = new Students();
 			BeanUtils.copyProperties(x, studentsRtrn);

@@ -6,8 +6,9 @@ package com.ecomm.akhtar.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.QueryByExampleExecutor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +25,7 @@ import com.ecomm.akhtar.entity.StudentsEntity;
 @PreAuthorize("hasRole('ROLE_USER')")
 @RepositoryRestResource(collectionResourceRel = "studentsRepo", path = "studentsRepo")
 public interface StudentsRepository
-		extends CrudRepository<StudentsEntity, Long>, QueryByExampleExecutor<StudentsEntity> {
+		extends CrudRepository<StudentsEntity, Long> {
 
 	Optional<StudentsEntity> findByStudentIdAndStatus(Long id, boolean b);
 
@@ -35,4 +36,8 @@ public interface StudentsRepository
 	List<StudentsEntity> findByStudentIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
 
 	Boolean existsByAadhaarNumber(String aadhaarNumber);
+	
+	@Query(name = "studentSearchCriteria")
+	List<StudentsEntity> findByStudentSearchCriteria(@Param("firstName") String firstName,
+			@Param("phoneNumber") String phoneNumber, @Param("aadhaarNumber") String aadhaarNumber, @Param("status") Boolean status);
 }
