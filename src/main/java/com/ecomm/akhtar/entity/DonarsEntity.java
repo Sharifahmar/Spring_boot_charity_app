@@ -15,6 +15,7 @@ import com.ecomm.akhtar.audit.AuditModel;
 @Entity
 @Table(name = "DONARS", uniqueConstraints = { @UniqueConstraint(columnNames = { "EMAIL_ID" }),
 		@UniqueConstraint(columnNames = { "PHONE" }) })
+
 public class DonarsEntity extends AuditModel {
 	/**
 	 * 

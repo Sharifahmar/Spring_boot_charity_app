@@ -3,7 +3,6 @@ package com.ecomm.akhtar.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,22 +30,24 @@ public class DonationAmountEntity extends AuditModel {
 	@Column(name = "DONATION_AMOUNT", nullable = false)
 	private String donationAmount;
 
+	@Size(max = 100)
+	@Column(name = "RECEIPT_NUMBER", nullable = false)
+	private String receiptNumber;
+
 	@Column(name = "DONATION_AMOUNT_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USER_ID")
 	private UsersEntity usersEntity;
-	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "DONAR_ID")
 	private DonarsEntity donarsEntity;
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "DONATION_TYPE_ID")
 	private DonationTypeEntity donationTypeEntity;
-	
-	
 
 	public Long getDonationAmountId() {
 		return donationAmountId;
@@ -95,6 +96,13 @@ public class DonationAmountEntity extends AuditModel {
 	public void setDonarsEntity(DonarsEntity donarsEntity) {
 		this.donarsEntity = donarsEntity;
 	}
-	
+
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
+
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
 
 }

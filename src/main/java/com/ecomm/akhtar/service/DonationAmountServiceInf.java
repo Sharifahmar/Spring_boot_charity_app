@@ -13,4 +13,6 @@ public interface DonationAmountServiceInf {
 
 	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request) throws CustomException;
 
+	public DonarContributionDTO getContributionDetailsById(Long id);
+
 }

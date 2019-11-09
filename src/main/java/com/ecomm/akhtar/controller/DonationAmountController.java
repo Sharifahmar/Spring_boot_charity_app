@@ -1,6 +1,5 @@
 package com.ecomm.akhtar.controller;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +18,6 @@ import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonarContributionRequestDTO;
-import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.service.DonationAmountServiceInf;
 
@@ -65,6 +64,20 @@ public class DonationAmountController {
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new ApiResponseGenericModel<>(e.getMessage(), e.getSuccess()));
+		}
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
+	}
+
+	@PostMapping(EcommUriConstants.DONAR_CONTRIBUTION_DETAILS_BY_ID)
+	public ResponseEntity<ApiResponseGenericModel<DonarContributionDTO>> getContributionDetailsById(
+			@PathVariable Long id) {
+
+		DonarContributionDTO donarContributionDTO = donationAmountServiceInf.getContributionDetailsById(id);
+		if (!ObjectUtils.isEmpty(donarContributionDTO)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseGenericModel<DonarContributionDTO>(donarContributionDTO, true));
 		}
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

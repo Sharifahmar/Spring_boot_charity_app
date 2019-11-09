@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
  */
 public class DonarContributionDTO {
 
+	private Long donationAmountId;
+	
 	private String firstName;
 
 	private String lastName;
@@ -18,6 +20,10 @@ public class DonarContributionDTO {
 	private String phoneNumber;
 
 	private String email;
+	
+	private String address;
+	
+	private String receiptNumber;
 
 	private String donationType;
 
@@ -28,18 +34,30 @@ public class DonarContributionDTO {
 	private java.util.Date date;
 	
 
-	public DonarContributionDTO(String firstName, String lastName, String phoneNumber, String email,
-			String donationType, Long donationTypeValue, String donationAmount, java.util.Date date) {
+	public DonarContributionDTO(Long donationAmountId, String firstName, String lastName, String phoneNumber,
+			String email, String address, String receiptNumber, String donationType, Long donationTypeValue,
+			String donationAmount, java.util.Date date) {
 		super();
+		this.donationAmountId = donationAmountId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.email = email;
+		this.address = address;
+		this.receiptNumber = receiptNumber;
 		this.donationType = donationType;
 		this.donationTypeValue = donationTypeValue;
 		this.donationAmount = donationAmount;
 		this.date = date;
 	}
+	
+	
+
+	public DonarContributionDTO() {
+		super();
+	
+	}
+
 
 	public String getFirstName() {
 		return firstName;
@@ -101,13 +119,38 @@ public class DonarContributionDTO {
 		return date;
 	}
 
-	public void Date(java.util.Date date) {
+	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
+
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
+	public Long getDonationAmountId() {
+		return donationAmountId;
+	}
+
+	public void setDonationAmountId(Long donationAmountId) {
+		this.donationAmountId = donationAmountId;
+	}
+
 	public String getDateString() {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 		return formatter.format(this.getDate());
 	}
 
+	
 }

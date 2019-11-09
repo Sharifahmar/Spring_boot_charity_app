@@ -25,6 +25,7 @@ public class EcommUriConstants {
 	public static final String THANKS_FOR_REG = "Welcome To Akhtar Ecommerce.";
 	public static final String DONATION_AMOUNT = "/donationAmount";
 	public static final String DONAR_CONTRIBUTION_DETAILS = "/donarContributionDetails";
+	public static final String DONAR_CONTRIBUTION_DETAILS_BY_ID = "/donarContributionDetails/{id}";
 	public static final String DONAR_SLIP_DETAILS = "/donarSlipDetails";
 	public static final String ACCEPTOR_AMOUNT = "/acceptorAmount";
 	public static final String ACCEPTOR_TOKEN = "/acceptorToken";
