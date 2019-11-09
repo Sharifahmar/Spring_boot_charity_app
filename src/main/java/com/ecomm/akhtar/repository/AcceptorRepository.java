@@ -6,7 +6,9 @@ package com.ecomm.akhtar.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -25,7 +27,7 @@ import com.ecomm.akhtar.entity.DonarsEntity;
 @PreAuthorize("hasRole('USER')")
 @RepositoryRestResource(path = "acceptorRepo")
 public interface AcceptorRepository
-		extends CrudRepository<AcceptorEntity, Long>, QueryByExampleExecutor<AcceptorEntity> {
+		extends CrudRepository<AcceptorEntity, Long>{
 
 	Boolean existsByPhoneNumber(String phoneNumber);
 
@@ -43,4 +45,9 @@ public interface AcceptorRepository
 
 	@RestResource(path = "acceptorIdByIdAndStatus")
 	List<AcceptorEntity> findByAcceptorIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
+
+	@Query(name = "acceptorSearchCriteria")
+	List<AcceptorEntity> findByAcceptorSearchCriteria(@Param("firstName") String firstName,
+			@Param("phoneNumber") String phoneNumber, @Param("email") String email, @Param("status") Boolean status);
+
 }

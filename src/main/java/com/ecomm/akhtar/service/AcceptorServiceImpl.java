@@ -68,13 +68,7 @@ public class AcceptorServiceImpl implements AcceptorServiceInf {
 
 	@Override
 	public List<Acceptor> searchCriteria(Acceptor acceptor) {
-		AcceptorEntity acceptorEntity = new AcceptorEntity();
-		acceptorEntity.setFirstName(acceptor.getFirstName());
-		acceptorEntity.setPhoneNumber(acceptor.getPhoneNumber());
-		acceptorEntity.setEmail(acceptor.getEmail());
-		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
-		Example<AcceptorEntity> exampleQuery = Example.of(acceptorEntity, matcher);
-		List<AcceptorEntity> acceptorEntityRtrn = (List<AcceptorEntity>) acceptorRepository.findAll(exampleQuery);
+		List<AcceptorEntity> acceptorEntityRtrn=acceptorRepository.findByAcceptorSearchCriteria(acceptor.getFirstName(), acceptor.getPhoneNumber(), acceptor.getEmail(), acceptor.getStatus());
 		return acceptorEntityRtrn.stream().map(x -> {
 			Acceptor acceptorNew = new Acceptor();
 			BeanUtils.copyProperties(x, acceptorNew);
