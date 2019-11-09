@@ -66,13 +66,8 @@ public class DonarServiceImpl implements DonarServiceInf {
 
 	@Override
 	public List<Donars> searchCriteria(Donars donar) {
-		DonarsEntity donarsEntityNew = new DonarsEntity();
-		donarsEntityNew.setPhoneNumber(donar.getPhoneNumber());
-		donarsEntityNew.setFirstName(donar.getFirstName());
-		donarsEntityNew.setEmail(donar.getEmail());
-		ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
-		Example<DonarsEntity> exampleQuery = Example.of(donarsEntityNew, matcher);
-		List<DonarsEntity> donarEntity = (List<DonarsEntity>) donarsRepository.findAll(exampleQuery);
+		List<DonarsEntity> donarEntity = donarsRepository.findByDonarSearchCriteria(donar.getFirstName(),
+				donar.getPhoneNumber(), donar.getEmail(), donar.getStatus());
 		return donarEntity.stream().map(x -> {
 			Donars donars = new Donars();
 			BeanUtils.copyProperties(x, donars);

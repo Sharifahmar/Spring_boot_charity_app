@@ -6,7 +6,9 @@ package com.ecomm.akhtar.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
@@ -39,5 +41,9 @@ public interface DonarsRepository extends CrudRepository<DonarsEntity, Long>, Qu
 	List<DonarsEntity> findByDonarIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
 
 	Optional<DonarsEntity> findByPhoneNumberAndStatus(String phoneNumber, boolean b);
+
+	@Query(name = "donarSearchCriteria")
+	List<DonarsEntity> findByDonarSearchCriteria(@Param("firstName") String firstName,
+			@Param("phoneNumber") String phoneNumber, @Param("email") String email, @Param("status") Boolean status);
 
 }
