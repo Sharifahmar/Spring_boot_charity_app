@@ -3,6 +3,8 @@
  */
 package com.ecomm.akhtar.model;
 
+import java.util.Date;
+
 /**
  * @author Ahmar
  *
@@ -14,6 +16,10 @@ public class DonarContributionRequestDTO {
 	private Long donationTypeId;
 	
 	private String fromDate;
+	
+	private Date fromDateObj;
+	
+	private Date toDateObj;
 	
 	private String toDate;
 	
@@ -57,6 +63,22 @@ public class DonarContributionRequestDTO {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public Date getFromDateObj() {
+		return fromDateObj;
+	}
+
+	public void setFromDateObj(Date fromDateObj) {
+		this.fromDateObj = fromDateObj;
+	}
+
+	public Date getToDateObj() {
+		return toDateObj;
+	}
+
+	public void setToDateObj(Date toDateObj) {
+		this.toDateObj = toDateObj;
 	}
 	
 	

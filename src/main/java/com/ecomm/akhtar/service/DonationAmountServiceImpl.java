@@ -3,6 +3,10 @@
  */
 package com.ecomm.akhtar.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -79,8 +83,35 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 	}
 
 	@Override
-	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request) {
-		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin(request.getPhoneNumber(),request.getDonationTypeId(),request.getStatus());
+	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request) throws CustomException  {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		if (request.getFromDate() != null) {
+			Date fromDate = null;
+				try {
+					fromDate = formatter.parse(request.getFromDate());
+				} catch (ParseException e) {
+					throw new CustomException("From Date Format should be wrong..!", false);
+				}		
+			request.setFromDateObj(fromDate);
+		}
+
+		if (request.getToDate() != null) {
+			Date toDate = null;
+			Date datePlusOne = null;
+				try {
+					toDate = formatter.parse(request.getToDate());
+				} catch (ParseException e) {
+					throw new CustomException("To Date Format should be wrong..!", false);
+				}
+				Calendar c = Calendar.getInstance();
+				c.setTime(toDate);
+				c.add(Calendar.DATE, 1);
+				datePlusOne = c.getTime();	
+			request.setToDateObj(datePlusOne);
+		}
+
+		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin(request.getPhoneNumber(),
+				request.getDonationTypeId(), request.getStatus(), request.getFromDateObj(), request.getToDateObj());
 		return data;
 	}
 }

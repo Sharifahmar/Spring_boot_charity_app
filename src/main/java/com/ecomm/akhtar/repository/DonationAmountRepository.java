@@ -3,6 +3,7 @@
  */
 package com.ecomm.akhtar.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -29,12 +30,9 @@ public interface DonationAmountRepository extends CrudRepository<DonationAmountE
 	@RestResource(path = "donationAmountList")
 	List<DonationAmountEntity> findByStatus(@RequestParam("value") Boolean value);
 
-	// @Query(name="donarContributionJoinQuery")
-	// List<DonarContributionDTO>
-	// donarContributionJoin(DonarContributionRequestDTO request);
-
 	@Query(name = "donarContributionJoinQuerySearchCriteria")
 	List<DonarContributionDTO> donarContributionJoin(@Param("phoneNumber") String phoneNumber,
-			@Param("donationTypeId") Long donationTypeId, @Param("status") Boolean status);
+			@Param("donationTypeId") Long donationTypeId, @Param("status") Boolean status,
+			@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
 }

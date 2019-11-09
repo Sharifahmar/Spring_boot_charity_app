@@ -1,5 +1,6 @@
 package com.ecomm.akhtar.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,27 +35,39 @@ public class DonationAmountController {
 	@PostMapping(EcommUriConstants.DONATION_AMOUNT)
 	public ResponseEntity<ApiResponseModel> addDonationAmount(@RequestBody DonationAmountModel donationAmountModel) {
 		try {
-			DonationAmountModel	donationTypeModelRetrn = donationAmountServiceInf.addDonationAmountService(donationAmountModel);
+			DonationAmountModel donationTypeModelRetrn = donationAmountServiceInf
+					.addDonationAmountService(donationAmountModel);
 			if (!ObjectUtils.isEmpty(donationTypeModelRetrn)) {
 				return ResponseEntity.status(HttpStatus.OK)
 						.body(new ApiResponseModel("Donation Amount Insert Successfully..!!", true));
 			}
 		} catch (CustomException e) {
-			   
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
 
 		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseModel("Something went wrong.!!", false));
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(new ApiResponseModel("Something went wrong.!!", false));
 	}
-	
-	
+
 	@PostMapping(EcommUriConstants.DONAR_CONTRIBUTION_DETAILS)
-	public ResponseEntity<ApiResponseGenericModel<List<DonarContributionDTO>>> getContributionDetails(@RequestBody DonarContributionRequestDTO request) {
-		List<DonarContributionDTO> donarContributionDTO = donationAmountServiceInf.getContributionDetails(request);
-		if (!CollectionUtils.isEmpty(donarContributionDTO)) {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ApiResponseGenericModel<List<DonarContributionDTO>>(donarContributionDTO, true));
+	public ResponseEntity<ApiResponseGenericModel<List<DonarContributionDTO>>> getContributionDetails(
+			@RequestBody DonarContributionRequestDTO request) {
+
+		try {
+			List<DonarContributionDTO> donarContributionDTO = donationAmountServiceInf.getContributionDetails(request);
+			if (!CollectionUtils.isEmpty(donarContributionDTO)) {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApiResponseGenericModel<List<DonarContributionDTO>>(donarContributionDTO, true));
+			}
+		} catch (CustomException e) {
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseGenericModel<>(e.getMessage(), e.getSuccess()));
 		}
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponseGenericModel<>("Something went wrong..or No Data present for related Search!!", false));
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
 	}
 }

@@ -11,6 +11,6 @@ public interface DonationAmountServiceInf {
 
 	public DonationAmountModel addDonationAmountService(DonationAmountModel value) throws CustomException;
 
-	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request);
+	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request) throws CustomException;
 
 }
