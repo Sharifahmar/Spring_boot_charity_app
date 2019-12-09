@@ -7,10 +7,12 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -138,6 +140,16 @@ public class CommonUtils {
 		} catch (Exception e) {
 			throw new CustomException(e.getMessage(), false);
 		}
+
+	}
+
+	public static String randomReceiptNumberGenerator() {
+		Random generator = new Random();
+		generator.setSeed(System.currentTimeMillis());
+		int i = generator.nextInt(100000) % 100000;
+		DecimalFormat f = new DecimalFormat("00000");
+		String recptNumber = "AH" + f.format(i);
+		return recptNumber;
 
 	}
 

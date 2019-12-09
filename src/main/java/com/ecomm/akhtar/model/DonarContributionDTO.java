@@ -26,8 +26,8 @@ public class DonarContributionDTO {
 	private String receiptNumber;
 
 	private String donationType;
-
-	private Long donationTypeValue;
+	
+	private Long donationTypeId;
 
 	private String donationAmount;
 
@@ -35,7 +35,7 @@ public class DonarContributionDTO {
 	
 
 	public DonarContributionDTO(Long donationAmountId, String firstName, String lastName, String phoneNumber,
-			String email, String address, String receiptNumber, String donationType, Long donationTypeValue,
+			String email, String address, String receiptNumber, String donationType, Long donationTypeId,
 			String donationAmount, java.util.Date date) {
 		super();
 		this.donationAmountId = donationAmountId;
@@ -46,7 +46,7 @@ public class DonarContributionDTO {
 		this.address = address;
 		this.receiptNumber = receiptNumber;
 		this.donationType = donationType;
-		this.donationTypeValue = donationTypeValue;
+		this.donationTypeId = donationTypeId;
 		this.donationAmount = donationAmount;
 		this.date = date;
 	}
@@ -99,13 +99,17 @@ public class DonarContributionDTO {
 		this.donationType = donationType;
 	}
 
-	public Long getDonationTypeValue() {
-		return donationTypeValue;
+
+	public Long getDonationTypeId() {
+		return donationTypeId;
 	}
 
-	public void setDonationTypeValue(Long donationTypeValue) {
-		this.donationTypeValue = donationTypeValue;
+
+	public void setDonationTypeId(Long donationTypeId) {
+		this.donationTypeId = donationTypeId;
 	}
+
+
 
 	public String getDonationAmount() {
 		return donationAmount;

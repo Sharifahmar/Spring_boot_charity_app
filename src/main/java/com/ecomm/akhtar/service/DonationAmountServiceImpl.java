@@ -29,6 +29,7 @@ import com.ecomm.akhtar.repository.DonationAmountRepository;
 import com.ecomm.akhtar.repository.DonationTypeRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.UserPrincipal;
+import com.ecomm.akhtar.utils.CommonUtils;
 
 /**
  * @author Ahmar
@@ -74,6 +75,7 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 					donationAmountEntity.setUsersEntity(usersEntity);
 					donationAmountEntity.setDonationAmount(donationAmountModel.getDonationAmount());
 					donationAmountEntity.setStatus(true);
+					donationAmountEntity.setReceiptNumber(CommonUtils.randomReceiptNumberGenerator());
 				}
 				DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
 				BeanUtils.copyProperties(donationAmountEntity2, donationAmountModel2);
