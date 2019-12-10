@@ -12,10 +12,12 @@
 
 
 -- Dumping database structure for charity_db
+DROP DATABASE IF EXISTS `charity_db`;
 CREATE DATABASE IF NOT EXISTS `charity_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `charity_db`;
 
 -- Dumping structure for table charity_db.acceptor
+DROP TABLE IF EXISTS `acceptor`;
 CREATE TABLE IF NOT EXISTS `acceptor` (
   `ACCEPTOR_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -30,7 +32,8 @@ CREATE TABLE IF NOT EXISTS `acceptor` (
   `STATE` varchar(100) DEFAULT NULL,
   `ACCEPTOR_STS` bit(1) NOT NULL,
   `ZIPCODE` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`ACCEPTOR_ID`)
+  PRIMARY KEY (`ACCEPTOR_ID`),
+  UNIQUE KEY `UK4cxs1d1kblpqkiq2kdiewduhw` (`PHONE`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.acceptor: 2 rows
@@ -41,6 +44,7 @@ INSERT IGNORE INTO `acceptor` (`ACCEPTOR_ID`, `CREATED_DATE`, `UPDATED_DATE`, `A
 /*!40000 ALTER TABLE `acceptor` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.acceptor_amount
+DROP TABLE IF EXISTS `acceptor_amount`;
 CREATE TABLE IF NOT EXISTS `acceptor_amount` (
   `ACCEPTOR_AMOUNT_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -49,9 +53,12 @@ CREATE TABLE IF NOT EXISTS `acceptor_amount` (
   `ACCEPTOR_AMOUNT_STS` bit(1) NOT NULL,
   `ACCEPTOR_ID` bigint(20) DEFAULT NULL,
   `DONATION_TYPE_ID` bigint(20) DEFAULT NULL,
+  `TOKEN_NUMBER` varchar(100) NOT NULL,
+  `USER_ID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ACCEPTOR_AMOUNT_ID`),
   KEY `FKsnnuelrgkovg4uof9qfkd4t45` (`ACCEPTOR_ID`),
-  KEY `FKr3hydhro16e3dlyi2mrf4njdi` (`DONATION_TYPE_ID`)
+  KEY `FKr3hydhro16e3dlyi2mrf4njdi` (`DONATION_TYPE_ID`),
+  KEY `FK709e3fe8vdybe0lnl7bgqycon` (`USER_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.acceptor_amount: 0 rows
@@ -59,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `acceptor_amount` (
 /*!40000 ALTER TABLE `acceptor_amount` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.acceptor_token_details
+DROP TABLE IF EXISTS `acceptor_token_details`;
 CREATE TABLE IF NOT EXISTS `acceptor_token_details` (
   `ACCEPTOR_TOKEN_DETAILS_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -73,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `acceptor_token_details` (
 /*!40000 ALTER TABLE `acceptor_token_details` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.cities
+DROP TABLE IF EXISTS `cities`;
 CREATE TABLE IF NOT EXISTS `cities` (
   `CITY_ID` int(11) NOT NULL AUTO_INCREMENT,
   `CITY_CODE` varchar(100) NOT NULL,
@@ -86,6 +95,7 @@ CREATE TABLE IF NOT EXISTS `cities` (
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.donars
+DROP TABLE IF EXISTS `donars`;
 CREATE TABLE IF NOT EXISTS `donars` (
   `DONARS_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -100,7 +110,9 @@ CREATE TABLE IF NOT EXISTS `donars` (
   `STATE` varchar(100) DEFAULT NULL,
   `DONAR_STS` bit(1) NOT NULL,
   `ZIPCODE` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`DONARS_ID`)
+  PRIMARY KEY (`DONARS_ID`),
+  UNIQUE KEY `UK50kccpkk0n6mtb1c4s8p85i2q` (`EMAIL_ID`),
+  UNIQUE KEY `UKnqbtley12h0wka100jbu221oq` (`PHONE`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.donars: 5 rows
@@ -114,6 +126,7 @@ INSERT IGNORE INTO `donars` (`DONARS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRE
 /*!40000 ALTER TABLE `donars` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.donar_slip_details
+DROP TABLE IF EXISTS `donar_slip_details`;
 CREATE TABLE IF NOT EXISTS `donar_slip_details` (
   `DONAR_SLIP_DETAILS_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -130,6 +143,7 @@ INSERT IGNORE INTO `donar_slip_details` (`DONAR_SLIP_DETAILS_ID`, `CREATED_DATE`
 /*!40000 ALTER TABLE `donar_slip_details` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.donation_amount
+DROP TABLE IF EXISTS `donation_amount`;
 CREATE TABLE IF NOT EXISTS `donation_amount` (
   `DONATION_AMOUNT_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -144,9 +158,9 @@ CREATE TABLE IF NOT EXISTS `donation_amount` (
   KEY `FKem8v52bdtx2su5pyws3u7g4k3` (`DONAR_ID`),
   KEY `FKt3rfsoy40ax7syfn1fog3wslk` (`DONATION_TYPE_ID`),
   KEY `FK4457y87oer796dg7xlyrigxnx` (`USER_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.donation_amount: 6 rows
+-- Dumping data for table charity_db.donation_amount: 7 rows
 /*!40000 ALTER TABLE `donation_amount` DISABLE KEYS */;
 INSERT IGNORE INTO `donation_amount` (`DONATION_AMOUNT_ID`, `CREATED_DATE`, `UPDATED_DATE`, `DONATION_AMOUNT`, `DONATION_AMOUNT_STS`, `DONATION_TYPE_ID`, `USER_ID`, `DONAR_ID`, `RECEIPT_NUMBER`) VALUES
 	(1, '2019-11-04 01:47:59', '2019-11-03 01:47:59', '500', b'1', 2, 3, 5, '00479'),
@@ -154,10 +168,12 @@ INSERT IGNORE INTO `donation_amount` (`DONATION_AMOUNT_ID`, `CREATED_DATE`, `UPD
 	(3, '2019-11-23 02:08:20', '2019-11-03 02:08:20', '566', b'1', 2, 3, 5, '75499'),
 	(4, '2019-11-03 15:37:19', '2019-11-03 15:37:19', '500', b'1', 2, 3, 3, '68479'),
 	(5, '2019-11-09 23:33:03', '2019-11-09 23:33:03', '1000', b'1', 2, 3, 2, '78567'),
-	(6, '2019-11-09 23:54:09', '2019-11-09 23:54:09', '1000', b'1', 2, 3, 2, '78479');
+	(6, '2019-11-09 23:54:09', '2019-11-09 23:54:09', '1000', b'1', 2, 3, 2, '78479'),
+	(7, '2019-12-09 22:42:03', '2019-12-09 22:42:03', '1000', b'1', 2, 3, 5, 'AH42941');
 /*!40000 ALTER TABLE `donation_amount` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.donation_type
+DROP TABLE IF EXISTS `donation_type`;
 CREATE TABLE IF NOT EXISTS `donation_type` (
   `DONATION_TYPE_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -165,7 +181,8 @@ CREATE TABLE IF NOT EXISTS `donation_type` (
   `DONATION_TYPE` varchar(100) NOT NULL,
   `DONATION_TYPE_STS` bit(1) NOT NULL,
   `DONATION_TYPE_NAME` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`DONATION_TYPE_ID`)
+  PRIMARY KEY (`DONATION_TYPE_ID`),
+  UNIQUE KEY `UKr2rws1kujaw32toewj52ak7he` (`DONATION_TYPE`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.donation_type: 4 rows
@@ -178,6 +195,7 @@ INSERT IGNORE INTO `donation_type` (`DONATION_TYPE_ID`, `CREATED_DATE`, `UPDATED
 /*!40000 ALTER TABLE `donation_type` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.refresh_tokens
+DROP TABLE IF EXISTS `refresh_tokens`;
 CREATE TABLE IF NOT EXISTS `refresh_tokens` (
   `token` varchar(255) NOT NULL,
   `expirationDateTime` datetime DEFAULT NULL,
@@ -186,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `refresh_tokens` (
   KEY `FKhspjwa36lvj54jpx0kuyx4b33` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.refresh_tokens: 161 rows
+-- Dumping data for table charity_db.refresh_tokens: 169 rows
 /*!40000 ALTER TABLE `refresh_tokens` DISABLE KEYS */;
 INSERT IGNORE INTO `refresh_tokens` (`token`, `expirationDateTime`, `user_id`) VALUES
 	('90f9403c-b04d-41e5-87cc-8d6c428172b5', '2020-04-29 15:37:28', 2),
@@ -349,10 +367,21 @@ INSERT IGNORE INTO `refresh_tokens` (`token`, `expirationDateTime`, `user_id`) V
 	('04586d6b-c990-4639-892c-486b4f3c3936', '2020-11-03 02:03:30', 3),
 	('1973b615-4f5f-4d33-a3dc-e49f93327a45', '2020-11-03 13:18:07', 3),
 	('dbf5a848-69c6-4cc1-8b3d-3cddf33b135c', '2020-11-03 15:27:14', 3),
-	('d7d68d19-8213-435e-bec5-3efbe0481172', '2020-11-03 23:23:07', 3);
+	('d7d68d19-8213-435e-bec5-3efbe0481172', '2020-11-03 23:23:07', 3),
+	('df13616d-2fb3-4a8c-aa5e-ba48d3f5d3f3', '2020-11-18 00:06:48', 3),
+	('69e56405-e4d0-46c5-8b64-802ad3214f7d', '2020-11-20 21:24:33', 3),
+	('30debdfe-3634-47c0-ab78-c01b7b99a1d4', '2020-11-22 22:31:15', 3),
+	('fff38812-5250-4010-a507-c79b42270814', '2020-11-22 23:17:26', 3),
+	('120fb160-927a-4efe-aca7-c23629e31d73', '2020-11-23 00:21:03', 3),
+	('0d5c4c71-c5cd-4ebb-b2a1-0df33d107ef7', '2020-12-03 22:20:03', 3),
+	('687f68a9-68f5-48ac-bbde-2ac9310514a8', '2020-12-04 19:58:52', 3),
+	('d8b7c42b-102b-482c-8b3f-64a296ad34a6', '2020-12-04 20:28:44', 3),
+	('0d7dc724-ab65-4726-b22a-3a705ddb6a39', '2020-12-04 20:53:04', 3),
+	('8cba5e56-7a39-4ef7-bb23-272aa038f70c', '2020-12-04 20:54:12', 3);
 /*!40000 ALTER TABLE `refresh_tokens` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.roles
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `ROLE_ID` int(11) NOT NULL AUTO_INCREMENT,
   `ROLE_DESC` text,
@@ -369,6 +398,7 @@ INSERT IGNORE INTO `roles` (`ROLE_ID`, `ROLE_DESC`, `ROLE_NAME`) VALUES
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.shipping
+DROP TABLE IF EXISTS `shipping`;
 CREATE TABLE IF NOT EXISTS `shipping` (
   `SHIPPING_ID` int(11) NOT NULL AUTO_INCREMENT,
   `SHIPPING_AMT` varchar(100) DEFAULT NULL,
@@ -382,6 +412,7 @@ CREATE TABLE IF NOT EXISTS `shipping` (
 /*!40000 ALTER TABLE `shipping` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.students
+DROP TABLE IF EXISTS `students`;
 CREATE TABLE IF NOT EXISTS `students` (
   `STUDENTS_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -411,10 +442,11 @@ CREATE TABLE IF NOT EXISTS `students` (
 INSERT IGNORE INTO `students` (`STUDENTS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `AADHAAR_NUMBER`, `ADDRESS`, `CITY`, `CLASS_NAME`, `COUNTRY`, `FATHER_NAME`, `FIRST_NAME`, `GRADE`, `LAST_NAME`, `MOTHER_NAME`, `PHONE`, `SCHOOL_NAME`, `STATE`, `STUDENT_STS`, `STUDENTS_SUB_ID`, `ZIPCODE`, `STUDENTS_ID_NUMBER`) VALUES
 	(4, '2019-08-26 20:39:14', '2019-10-26 01:01:55', '98765432', 'Camp', 'Amravati', 'Fourth', 'India', 'akhtar', 'amar', 'A', 'sharif', 'biquis', '9876543210', 'Paradise', 'Maharashtra', b'1', 789, '411048', 987),
 	(5, '2019-08-26 20:46:11', '2019-10-26 00:19:30', '7894561230', 'camp', 'Amravati', '4', 'India', 'akhtar', 'nagma', 'A', 'sharif', 'nagma', '9876543210', 'Allana', 'Maharashtra', b'1', 987, '411048', 789),
-	(6, '2019-10-25 22:16:52', '2019-10-27 02:15:40', '9876543210', 'camp,Amravati, 444602', 'Amravati', '5th', 'India', 'begum', 'ahmar', 'A', 'sharif', 'bilquis', '9876543210', 'St Thomas English', 'Maharashtra', b'1', 123, '444602', 123);
+	(6, '2019-10-25 22:16:52', '2019-12-10 20:13:20', '9876543210', 'camp,Amravati, 444602', 'Amravati', '5th', 'India', 'begum', 'ahmar', 'A', 'sharif', 'bilquis', '9876543210', 'St Thomas English', 'Maharashtra', b'1', 123, '444602', 123);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.student_stationary
+DROP TABLE IF EXISTS `student_stationary`;
 CREATE TABLE IF NOT EXISTS `student_stationary` (
   `STUDENT_STATIONARY_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -434,6 +466,7 @@ INSERT IGNORE INTO `student_stationary` (`STUDENT_STATIONARY_ID`, `CREATED_DATE`
 /*!40000 ALTER TABLE `student_stationary` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `USER_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `CREATED_DATE` datetime NOT NULL,
@@ -450,7 +483,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `STATE` varchar(100) DEFAULT NULL,
   `USER_STS` bit(1) NOT NULL,
   `ZIPCODE` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`USER_ID`)
+  PRIMARY KEY (`USER_ID`),
+  UNIQUE KEY `UKq7m1l7d7rjcxryb6bs64nmord` (`EMAIL_ID`),
+  UNIQUE KEY `UKig284flnsskg3l7df8ty1d9o9` (`PHONE`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.users: 5 rows
@@ -464,6 +499,7 @@ INSERT IGNORE INTO `users` (`USER_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.user_images
+DROP TABLE IF EXISTS `user_images`;
 CREATE TABLE IF NOT EXISTS `user_images` (
   `FILE_ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `FILE_NAME` varchar(255) DEFAULT NULL,
@@ -481,6 +517,7 @@ CREATE TABLE IF NOT EXISTS `user_images` (
 /*!40000 ALTER TABLE `user_images` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.user_roles
+DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE IF NOT EXISTS `user_roles` (
   `USER_ID` bigint(20) NOT NULL,
   `ROLE_ID` int(11) NOT NULL,

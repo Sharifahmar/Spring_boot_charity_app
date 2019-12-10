@@ -31,8 +31,16 @@ public class AcceptorAmountEntity extends AuditModel {
 	@Column(name = "ACCEPTOR_AMOUNT", nullable = false)
 	private String acceptorAmount;
 
+	@Size(max = 100)
+	@Column(name = "TOKEN_NUMBER", nullable = false)
+	private String tokenNumber;
+
 	@Column(name = "ACCEPTOR_AMOUNT_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "USER_ID")
+	private UsersEntity usersEntity;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCEPTOR_ID")
@@ -81,7 +89,22 @@ public class AcceptorAmountEntity extends AuditModel {
 	public void setDonationTypeEntity(DonationTypeEntity donationTypeEntity) {
 		this.donationTypeEntity = donationTypeEntity;
 	}
-	
+
+	public String getTokenNumber() {
+		return tokenNumber;
+	}
+
+	public void setTokenNumber(String tokenNumber) {
+		this.tokenNumber = tokenNumber;
+	}
+
+	public UsersEntity getUsersEntity() {
+		return usersEntity;
+	}
+
+	public void setUsersEntity(UsersEntity usersEntity) {
+		this.usersEntity = usersEntity;
+	}
 	
 	
 
