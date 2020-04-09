@@ -23,6 +23,7 @@ import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonarContributionRequestDTO;
+import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.repository.DonarsRepository;
 import com.ecomm.akhtar.repository.DonationAmountRepository;
@@ -75,7 +76,7 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 					donationAmountEntity.setUsersEntity(usersEntity);
 					donationAmountEntity.setDonationAmount(donationAmountModel.getDonationAmount());
 					donationAmountEntity.setStatus(true);
-					donationAmountEntity.setReceiptNumber(CommonUtils.randomReceiptNumberGenerator());
+					donationAmountEntity.setReceiptNumber(donationAmountModel.getReceiptNumber());
 				}
 				DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
 				BeanUtils.copyProperties(donationAmountEntity2, donationAmountModel2);
@@ -125,9 +126,23 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 		DonarContributionDTO donarContributionDTO = new DonarContributionDTO();
 		if (entities.isPresent()) {
 			BeanUtils.copyProperties(entities.get(), donarContributionDTO);
-			BeanUtils.copyProperties(entities.get().getUsersEntity(), donarContributionDTO);
+			BeanUtils.copyProperties(entities.get().getDonarsEntity(), donarContributionDTO);
 			BeanUtils.copyProperties(entities.get().getDonationTypeEntity(), donarContributionDTO);
 			donarContributionDTO.setDate(entities.get().getCreatedDt());
+		}
+		return donarContributionDTO;
+	}
+
+	@Override
+	public DonarContributionDTO findById(Long donationAmountId) {
+		DonarContributionDTO donarContributionDTO = new DonarContributionDTO();
+		Optional<DonationAmountEntity> donationAmountEntity = donationAmountRepository.findById(donationAmountId);
+		if (donationAmountEntity.isPresent()) {
+			donationAmountEntity.get().setStatus(false);
+			DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity.get());
+			BeanUtils.copyProperties(donationAmountEntity2, donarContributionDTO);
+			BeanUtils.copyProperties(donationAmountEntity2.getDonarsEntity(), donarContributionDTO);
+			BeanUtils.copyProperties(donationAmountEntity2.getDonationTypeEntity(), donarContributionDTO);
 		}
 		return donarContributionDTO;
 	}

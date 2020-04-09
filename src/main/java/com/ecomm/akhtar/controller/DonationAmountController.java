@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.entity.DonationAmountEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonarContributionRequestDTO;
+import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.service.DonationAmountServiceInf;
 
@@ -82,5 +84,20 @@ public class DonationAmountController {
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
+	}
+
+	@PostMapping(EcommUriConstants.DELETE_DONAR_CONTRIBUTION_DETAILS)
+	public ResponseEntity<ApiResponseModel> deleteDonationContribution(
+			@RequestBody DonarContributionDTO donarContributionDTO) {
+		
+		DonarContributionDTO donationAmtDto = donationAmountServiceInf
+				.findById(donarContributionDTO.getDonationAmountId());
+		
+		if (!ObjectUtils.isEmpty(donationAmtDto)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel("Donation Amount Deleted Successfully..!!", true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+		}
 	}
 }

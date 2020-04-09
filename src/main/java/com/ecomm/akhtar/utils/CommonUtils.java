@@ -143,14 +143,4 @@ public class CommonUtils {
 
 	}
 
-	public static String randomReceiptNumberGenerator() {
-		Random generator = new Random();
-		generator.setSeed(System.currentTimeMillis());
-		int i = generator.nextInt(100000) % 100000;
-		DecimalFormat f = new DecimalFormat("00000");
-		String recptNumber = "AH" + f.format(i);
-		return recptNumber;
-
-	}
-
 }

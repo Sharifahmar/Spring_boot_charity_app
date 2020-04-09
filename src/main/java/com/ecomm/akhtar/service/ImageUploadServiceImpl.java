@@ -53,11 +53,10 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 	 */
 	public void saveMetaData(MultipartFile file, Path path) throws IOException {
 		UserImageEntity metaData = new UserImageEntity();
-	/*	metaData.setName(file.getOriginalFilename());
-		metaData.setContentType(file.getContentType());
-		metaData.setContentSize(file.getSize());
-		metaData.setPath(path.toString());
-*/
+		metaData.setFileName(file.getOriginalFilename());
+		metaData.setFileType(file.getContentType());
+		metaData.setFilePath(path.toString());
+		metaData.setStatus(true);
 		fileUploadMetaData.save(metaData);
 	}
 

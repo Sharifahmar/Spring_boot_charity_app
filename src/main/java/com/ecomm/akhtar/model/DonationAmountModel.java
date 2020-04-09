@@ -15,6 +15,8 @@ public class DonationAmountModel {
 	private DonationTypeModel donationTypeModel;
 	
 	private String donationAmount;
+	
+	private String receiptNumber;
 
 	public Donars getDonars() {
 		return donars;
@@ -40,8 +42,13 @@ public class DonationAmountModel {
 		this.donationAmount = donationAmount;
 	}
 
-	
+	public String getReceiptNumber() {
+		return receiptNumber;
+	}
 
-	
+	public void setReceiptNumber(String receiptNumber) {
+		this.receiptNumber = receiptNumber;
+	}
+
 
 }
