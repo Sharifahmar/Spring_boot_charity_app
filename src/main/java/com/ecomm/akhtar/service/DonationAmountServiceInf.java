@@ -18,4 +18,6 @@ public interface DonationAmountServiceInf {
 
 	public DonarContributionDTO findById(Long donationAmountId);
 
+	public DonarContributionDTO updateDonarContribution(DonarContributionDTO donarContributionDTO) throws CustomException;
+
 }

@@ -146,4 +146,53 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 		}
 		return donarContributionDTO;
 	}
+
+	@Override
+	public DonarContributionDTO updateDonarContribution(DonarContributionDTO donarContributionDTO)
+			throws CustomException {
+
+		DonarContributionDTO donarContributionDTORtrn = new DonarContributionDTO();
+
+		Optional<DonationAmountEntity> donationAmountEntity = donationAmountRepository
+				.findById(donarContributionDTO.getDonationAmountId());
+
+		if (donationAmountEntity.isPresent()) {
+
+			DonarsEntity donarsEntity = donarsRepository
+					.findByPhoneNumberAndStatus(donarContributionDTO.getPhoneNumber(), true)
+					.orElseThrow(
+							() -> new CustomException("Donar Mobile Number not found or it was deleted..!", false));
+
+			if (!ObjectUtils.isEmpty(donarsEntity)) {
+
+				DonationTypeEntity donationTypeData = donationTypeRepository
+						.findBydonationTypeIdAndStatus(
+								donarContributionDTO.getDonationTypeId(), true)
+						.orElseThrow(() -> new CustomException("Donation Type not found or it was deleted..!", false));
+
+				if (!ObjectUtils.isEmpty(donationTypeData)) {
+
+					donationAmountEntity.get().setDonarsEntity(donarsEntity);
+					donationAmountEntity.get().setDonationTypeEntity(donationTypeData);
+					if (!ObjectUtils.isEmpty(donarContributionDTO.getDonationAmount())
+							&& !ObjectUtils.isEmpty(donarContributionDTO.getReceiptNumber())) {
+						donationAmountEntity.get().setDonationAmount(donarContributionDTO.getDonationAmount());
+						donationAmountEntity.get().setReceiptNumber(donarContributionDTO.getReceiptNumber());
+					}
+
+					DonationAmountEntity donationAmountEntityLatest = donationAmountRepository
+							.save(donationAmountEntity.get());
+					BeanUtils.copyProperties(donationAmountEntityLatest, donarContributionDTORtrn);
+					BeanUtils.copyProperties(donationAmountEntityLatest.getDonarsEntity(), donarContributionDTORtrn);
+					BeanUtils.copyProperties(donationAmountEntityLatest.getDonationTypeEntity(),
+							donarContributionDTORtrn);
+
+				}
+
+			}
+
+		}
+
+		return donarContributionDTORtrn;
+	}
 }
