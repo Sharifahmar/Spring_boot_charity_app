@@ -12,6 +12,6 @@ public interface AcceptorAmountServiceInf {
 	 * com.ecomm.akhtar.service.DonationAmountServiceInf#addDonationAmountService(
 	 * com.ecomm.akhtar.model.DonationAmountModel)
 	 */
-	String addAcceptorAmountService(AcceptorAmountModel value) throws CustomException;
+	AcceptorAmountModel addAcceptorAmountService(AcceptorAmountModel value) throws CustomException;
 
 }

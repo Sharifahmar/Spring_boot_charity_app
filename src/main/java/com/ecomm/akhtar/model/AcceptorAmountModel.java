@@ -14,6 +14,8 @@ public class AcceptorAmountModel {
 	private DonationTypeModel donationTypeModel;
 	
 	private String donationAmount;
+	
+	private String tokenNumber;
 
 	public Acceptor getAcceptor() {
 		return acceptor;
@@ -39,7 +41,13 @@ public class AcceptorAmountModel {
 		this.donationAmount = donationAmount;
 	}
 
-	
-	
+	public String getTokenNumber() {
+		return tokenNumber;
+	}
 
+	public void setTokenNumber(String tokenNumber) {
+		this.tokenNumber = tokenNumber;
+	}
+
+	
 }

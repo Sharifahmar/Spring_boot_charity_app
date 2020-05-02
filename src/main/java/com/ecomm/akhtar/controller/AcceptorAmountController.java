@@ -8,11 +8,13 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.AcceptorAmountModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.service.AcceptorAmountServiceInf;
@@ -28,21 +30,24 @@ public class AcceptorAmountController {
 	private AcceptorAmountServiceInf acceptorAmountServiceInf;
 
 	@PostMapping(EcommUriConstants.ACCEPTOR_AMOUNT)
-	public ResponseEntity<ApiResponseModel> addDonationAmount(
-			@Valid @RequestBody AcceptorAmountModel acceptorAmountModel) {
+	public ResponseEntity<ApiResponseModel> addDonationAmount(@RequestBody AcceptorAmountModel acceptorAmountModel) {
 
 		try {
-			String msg = acceptorAmountServiceInf.addAcceptorAmountService(acceptorAmountModel);
+			AcceptorAmountModel msg = acceptorAmountServiceInf.addAcceptorAmountService(acceptorAmountModel);
 
-			return new ResponseEntity<>(new ApiResponseModel(msg, true), HttpStatus.OK);
+			if (!ObjectUtils.isEmpty(msg)) {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApiResponseModel("Acceptor Donation Amount Insert Successfully..!!", true));
+			}
 
-		} catch (Exception e) {
+		} catch (CustomException e) {
 
-			e.printStackTrace();
-
-			return new ResponseEntity<>(new ApiResponseModel("Error Occured while saving Amount..!!", false), HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
 
 		}
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(new ApiResponseModel("Something went wrong.!!", false));
 
 	}
 

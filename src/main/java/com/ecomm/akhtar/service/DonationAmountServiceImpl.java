@@ -77,10 +77,15 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 					donationAmountEntity.setDonationAmount(donationAmountModel.getDonationAmount());
 					donationAmountEntity.setStatus(true);
 					donationAmountEntity.setReceiptNumber(donationAmountModel.getReceiptNumber());
+					DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
+					BeanUtils.copyProperties(donationAmountEntity2, donationAmountModel2);
+					donationAmountModel2.setDonationAmount(donationAmountEntity2.getDonationAmount());
+				} else {
+
+					throw new CustomException("User Information not found ..!", false);
+
 				}
-				DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
-				BeanUtils.copyProperties(donationAmountEntity2, donationAmountModel2);
-				donationAmountModel2.setDonationAmount(donationAmountEntity2.getDonationAmount());
+
 			}
 		}
 		return donationAmountModel2;
@@ -159,15 +164,13 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 		if (donationAmountEntity.isPresent()) {
 
 			DonarsEntity donarsEntity = donarsRepository
-					.findByPhoneNumberAndStatus(donarContributionDTO.getPhoneNumber(), true)
-					.orElseThrow(
+					.findByPhoneNumberAndStatus(donarContributionDTO.getPhoneNumber(), true).orElseThrow(
 							() -> new CustomException("Donar Mobile Number not found or it was deleted..!", false));
 
 			if (!ObjectUtils.isEmpty(donarsEntity)) {
 
 				DonationTypeEntity donationTypeData = donationTypeRepository
-						.findBydonationTypeIdAndStatus(
-								donarContributionDTO.getDonationTypeId(), true)
+						.findBydonationTypeIdAndStatus(donarContributionDTO.getDonationTypeId(), true)
 						.orElseThrow(() -> new CustomException("Donation Type not found or it was deleted..!", false));
 
 				if (!ObjectUtils.isEmpty(donationTypeData)) {
