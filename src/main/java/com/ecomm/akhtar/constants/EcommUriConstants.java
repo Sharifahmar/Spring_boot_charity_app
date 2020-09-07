@@ -52,4 +52,5 @@ public class EcommUriConstants {
 	public static final String UPDATE_STUDENT_URI = "/student/update";
 	public static final String STUDENT_AADHARNUMBER_EXIST_URI = "/student/checkAadharNumberAvailability";
 	public static final String STUDENT_SEARCH_CRITERIA_DONAR_URI = "/student/studentSearchCriteria";
+	public static final String ACCEPTOR_CONTRIBUTION_DETAILS = "/acceptorContributionDetails";
 }

@@ -3,11 +3,12 @@
  */
 package com.ecomm.akhtar.controller;
 
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.AcceptorAmountModel;
+import com.ecomm.akhtar.model.AcceptorContributionDTO;
+import com.ecomm.akhtar.model.AcceptorContributionRequestDTO;
+import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.service.AcceptorAmountServiceInf;
 
@@ -49,6 +53,29 @@ public class AcceptorAmountController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body(new ApiResponseModel("Something went wrong.!!", false));
 
+	}
+
+	@PostMapping(EcommUriConstants.ACCEPTOR_CONTRIBUTION_DETAILS)
+	public ResponseEntity<ApiResponseGenericModel<List<AcceptorContributionDTO>>> getContributionDetails(
+			@RequestBody AcceptorContributionRequestDTO request) {
+
+		try {
+			List<AcceptorContributionDTO> filteredRes = acceptorAmountServiceInf.getContributionDetails(request);
+
+			if (!CollectionUtils.isEmpty(filteredRes)) {
+
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApiResponseGenericModel<List<AcceptorContributionDTO>>(filteredRes, true));
+			}
+
+		} catch (CustomException e) {
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseGenericModel<>(e.getMessage(), e.getSuccess()));
+		}
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
 	}
 
 }

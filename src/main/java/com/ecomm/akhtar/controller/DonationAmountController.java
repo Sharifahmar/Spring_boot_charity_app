@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
-import com.ecomm.akhtar.entity.DonationAmountEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonarContributionRequestDTO;
-import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.service.DonationAmountServiceInf;
 
@@ -114,7 +112,7 @@ public class DonationAmountController {
 			}
 
 		} catch (CustomException e) {
-			
+
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
 		}

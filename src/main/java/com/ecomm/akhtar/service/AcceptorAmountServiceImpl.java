@@ -3,6 +3,12 @@
  */
 package com.ecomm.akhtar.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,11 +17,12 @@ import org.springframework.util.ObjectUtils;
 
 import com.ecomm.akhtar.entity.AcceptorAmountEntity;
 import com.ecomm.akhtar.entity.AcceptorEntity;
-import com.ecomm.akhtar.entity.DonationAmountEntity;
 import com.ecomm.akhtar.entity.DonationTypeEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.AcceptorAmountModel;
+import com.ecomm.akhtar.model.AcceptorContributionDTO;
+import com.ecomm.akhtar.model.AcceptorContributionRequestDTO;
 import com.ecomm.akhtar.repository.AcceptorAmountRepository;
 import com.ecomm.akhtar.repository.AcceptorRepository;
 import com.ecomm.akhtar.repository.DonationTypeRepository;
@@ -91,6 +98,41 @@ public class AcceptorAmountServiceImpl implements AcceptorAmountServiceInf {
 
 		return acceptorAmountModelNew;
 
+	}
+
+
+
+	@Override
+	public List<AcceptorContributionDTO> getContributionDetails(AcceptorContributionRequestDTO request) throws CustomException {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		if (request.getFromDate() != null) {
+			Date fromDate = null;
+			try {
+				fromDate = formatter.parse(request.getFromDate());
+			} catch (ParseException e) {
+				throw new CustomException("From Date Format should be wrong..!", false);
+			}
+			request.setFromDateObj(fromDate);
+		}
+
+		if (request.getToDate() != null) {
+			Date toDate = null;
+			Date datePlusOne = null;
+			try {
+				toDate = formatter.parse(request.getToDate());
+			} catch (ParseException e) {
+				throw new CustomException("To Date Format should be wrong..!", false);
+			}
+			Calendar c = Calendar.getInstance();
+			c.setTime(toDate);
+			c.add(Calendar.DATE, 1);
+			datePlusOne = c.getTime();
+			request.setToDateObj(datePlusOne);
+		}
+
+		List<AcceptorContributionDTO> data = acceptorAmountRepository.acceptorContributionJoin(request.getPhoneNumber(),
+				request.getDonationTypeId(), request.getStatus(), request.getFromDateObj(), request.getToDateObj());
+		return data;
 	}
 
 }

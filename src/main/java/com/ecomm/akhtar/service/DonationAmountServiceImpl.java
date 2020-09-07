@@ -23,14 +23,12 @@ import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonarContributionRequestDTO;
-import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.repository.DonarsRepository;
 import com.ecomm.akhtar.repository.DonationAmountRepository;
 import com.ecomm.akhtar.repository.DonationTypeRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
 import com.ecomm.akhtar.securityconfig.UserPrincipal;
-import com.ecomm.akhtar.utils.CommonUtils;
 
 /**
  * @author Ahmar
