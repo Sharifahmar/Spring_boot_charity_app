@@ -10,12 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.exception.CustomException;
+import com.ecomm.akhtar.model.Acceptor;
 import com.ecomm.akhtar.model.AcceptorAmountModel;
 import com.ecomm.akhtar.model.AcceptorContributionDTO;
 import com.ecomm.akhtar.model.AcceptorContributionRequestDTO;
@@ -69,7 +71,7 @@ public class AcceptorAmountController {
 			}
 
 		} catch (CustomException e) {
-			
+
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new ApiResponseGenericModel<>(e.getMessage(), e.getSuccess()));
 		}
@@ -77,5 +79,35 @@ public class AcceptorAmountController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
 	}
+
+	@PostMapping(EcommUriConstants.ACCEPTOR_DONATION_DETAILS_BY_ID)
+	public ResponseEntity<ApiResponseGenericModel<AcceptorContributionDTO>> getContributionDetailsById(
+			@PathVariable Long id) {
+
+		AcceptorContributionDTO res = acceptorAmountServiceInf.getDonationDetailsById(id);
+		if (!ObjectUtils.isEmpty(res)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseGenericModel<AcceptorContributionDTO>(res, true));
+		}
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
+	}
+	
+	@PostMapping(EcommUriConstants.DELETE_ACCEPTOR_DONATION_DETAILS)
+	public ResponseEntity<ApiResponseModel> deleteAcceptorDonation(
+			@RequestBody Acceptor acceptorDTO) {
+
+		AcceptorContributionDTO amtDto = acceptorAmountServiceInf
+				.findById(acceptorDTO.getAcceptorId());
+
+		if (!ObjectUtils.isEmpty(amtDto)) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel("Acceptor Donation Deleted Successfully..!!", true));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+		}
+	}
+
 
 }

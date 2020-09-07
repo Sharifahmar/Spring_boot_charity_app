@@ -13,4 +13,8 @@ public interface AcceptorAmountServiceInf {
 
 	List<AcceptorContributionDTO> getContributionDetails(AcceptorContributionRequestDTO request) throws CustomException;
 
+	AcceptorContributionDTO getDonationDetailsById(Long id);
+
+	AcceptorContributionDTO findById(Long acceptorAmountId);
+
 }

@@ -24,12 +24,17 @@ public class SpringAop {
 	public static final Logger logger = LogManager.getLogger(SpringAop.class);
 
 	@Pointcut("execution(* org.springframework.data.repository.Repository+.*(..))")
-	public void repository() {
+	private void repository() {
 	}
 
-	@Pointcut("execution(* com.ecomm.akhtar..*.*(..)) ")
-	public void core() {
+	@Pointcut("execution(* com.ecomm.akhtar.controller.*.*(..)) ")
+	private void controller() {
 	}
+	
+	@Pointcut("execution(* com.ecomm.akhtar.service.*.*(..)) ")
+	private void service() {
+	}
+
 
 	/**
 	 * AOP Around advice
@@ -38,10 +43,10 @@ public class SpringAop {
 	 * @return obj
 	 * @throws Throwable
 	 */
-	@Around("core()")
+	@Around("controller() || service() || repository()")
 	public Object aroundTest(ProceedingJoinPoint pjp) throws Throwable {
 		Object obj = null;
-		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
+		logger.info("Before Method execution in : " + pjp.getSignature().getDeclaringTypeName()
 				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 		try {
 			
@@ -49,25 +54,12 @@ public class SpringAop {
 			
 		} catch (Throwable e) {
 			
-			logger.error("Throw Custom Exception Class Name : " + pjp.getSignature().getDeclaringTypeName()
+			logger.error("Throw Custom Exception in : " + pjp.getSignature().getDeclaringTypeName()
 					+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()),e);
 			throw e;
 		}
 	
-		logger.info("After Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
-				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
-
-		return obj;
-
-	}
-
-	@Around("repository()")
-	public Object aroundTestSec(ProceedingJoinPoint pjp) throws Throwable {
-		Object obj = null;
-		logger.info("Before Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
-				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" + Arrays.toString(pjp.getArgs()));
-		obj = pjp.proceed();
-		logger.info("After Method execution Class Name : " + pjp.getSignature().getDeclaringTypeName()
+		logger.info("After Method execution in : " + pjp.getSignature().getDeclaringTypeName()
 				+ " Method Name : " + pjp.getSignature().getName() + " Arguments :" +  Arrays.toString(pjp.getArgs()));
 
 		return obj;
