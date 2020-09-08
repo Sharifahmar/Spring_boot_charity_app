@@ -74,12 +74,12 @@ public class AcceptorAmountServiceImpl implements AcceptorAmountServiceInf {
 					acceptorAmountEntity.setAcceptorEntity(acceptorData);
 					acceptorAmountEntity.setDonationTypeEntity(donationTypeData);
 					acceptorAmountEntity.setUsersEntity(usersEntity);
-					acceptorAmountEntity.setAcceptorAmount(acceptorAmountModel.getDonationAmount());
+					acceptorAmountEntity.setAcceptorAmount(acceptorAmountModel.getAcceptorAmount());
 					acceptorAmountEntity.setStatus(true);
 					acceptorAmountEntity.setTokenNumber(acceptorAmountModel.getTokenNumber());
 					AcceptorAmountEntity acceptorAmountEntity2 = acceptorAmountRepository.save(acceptorAmountEntity);
 					BeanUtils.copyProperties(acceptorAmountEntity2, acceptorAmountModelNew);
-					acceptorAmountModelNew.setDonationAmount(acceptorAmountEntity2.getAcceptorAmount());
+					acceptorAmountModelNew.setAcceptorAmount(acceptorAmountEntity2.getAcceptorAmount());
 					acceptorAmountModelNew.setTokenNumber(acceptorAmountEntity2.getTokenNumber());
 
 				}
@@ -148,5 +148,50 @@ public class AcceptorAmountServiceImpl implements AcceptorAmountServiceInf {
 			BeanUtils.copyProperties(amountEntity2.getDonationTypeEntity(), dto);
 		}
 		return dto;
+	}
+
+	@Override
+	public AcceptorContributionDTO updateAcceptorDonation(AcceptorContributionDTO acceptorContributionDTO)
+			throws CustomException {
+
+		AcceptorContributionDTO acceptorContributionDTORtrn = new AcceptorContributionDTO();
+
+		Optional<AcceptorAmountEntity> accAmountEntity = acceptorAmountRepository
+				.findById(acceptorContributionDTO.getAcceptorAmountId());
+
+		if (accAmountEntity.isPresent()) {
+
+			AcceptorEntity acptorsEntity = acceptorRepository
+					.findByPhoneNumberAndStatus(acceptorContributionDTO.getPhoneNumber(), true).orElseThrow(
+							() -> new CustomException("Acceptor Mobile Number not found or it was deleted..!", false));
+
+			if (!ObjectUtils.isEmpty(acptorsEntity)) {
+
+				DonationTypeEntity donationTypeData = donationTypeRepository
+						.findBydonationTypeIdAndStatus(acceptorContributionDTO.getDonationTypeId(), true)
+						.orElseThrow(() -> new CustomException("Donation Type not found or it was deleted..!", false));
+
+				if (!ObjectUtils.isEmpty(donationTypeData)) {
+
+					accAmountEntity.get().setAcceptorEntity(acptorsEntity);
+					accAmountEntity.get().setDonationTypeEntity(donationTypeData);
+					if (!ObjectUtils.isEmpty(acceptorContributionDTO.getAcceptorAmount())
+							&& !ObjectUtils.isEmpty(acceptorContributionDTO.getTokenNumber())) {
+						accAmountEntity.get().setAcceptorAmount(acceptorContributionDTO.getAcceptorAmount());
+						accAmountEntity.get().setTokenNumber(acceptorContributionDTO.getTokenNumber());
+					}
+
+					AcceptorAmountEntity accAmountEntityLatest = acceptorAmountRepository.save(accAmountEntity.get());
+					BeanUtils.copyProperties(accAmountEntityLatest, acceptorContributionDTORtrn);
+					BeanUtils.copyProperties(accAmountEntityLatest.getAcceptorEntity(), acceptorContributionDTORtrn);
+					BeanUtils.copyProperties(accAmountEntityLatest.getDonationTypeEntity(),
+							acceptorContributionDTORtrn);
+
+				}
+
+			}
+
+		}
+		return acceptorContributionDTORtrn;
 	}
 }

@@ -13,7 +13,7 @@ public class AcceptorAmountModel {
 
 	private DonationTypeModel donationTypeModel;
 	
-	private String donationAmount;
+	private String acceptorAmount;
 	
 	private String tokenNumber;
 
@@ -33,12 +33,12 @@ public class AcceptorAmountModel {
 		this.donationTypeModel = donationTypeModel;
 	}
 
-	public String getDonationAmount() {
-		return donationAmount;
+	public String getAcceptorAmount() {
+		return acceptorAmount;
 	}
 
-	public void setDonationAmount(String donationAmount) {
-		this.donationAmount = donationAmount;
+	public void setAcceptorAmount(String acceptorAmount) {
+		this.acceptorAmount = acceptorAmount;
 	}
 
 	public String getTokenNumber() {

@@ -93,13 +93,11 @@ public class AcceptorAmountController {
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body(new ApiResponseGenericModel<>("No Data present for related Search..!!", false));
 	}
-	
-	@PostMapping(EcommUriConstants.DELETE_ACCEPTOR_DONATION_DETAILS)
-	public ResponseEntity<ApiResponseModel> deleteAcceptorDonation(
-			@RequestBody Acceptor acceptorDTO) {
 
-		AcceptorContributionDTO amtDto = acceptorAmountServiceInf
-				.findById(acceptorDTO.getAcceptorId());
+	@PostMapping(EcommUriConstants.DELETE_ACCEPTOR_DONATION_DETAILS)
+	public ResponseEntity<ApiResponseModel> deleteAcceptorDonation(@RequestBody Acceptor acceptorDTO) {
+
+		AcceptorContributionDTO amtDto = acceptorAmountServiceInf.findById(acceptorDTO.getAcceptorId());
 
 		if (!ObjectUtils.isEmpty(amtDto)) {
 			return ResponseEntity.status(HttpStatus.OK)
@@ -109,5 +107,25 @@ public class AcceptorAmountController {
 		}
 	}
 
+	@PostMapping(EcommUriConstants.UPDATE_ACCEPTOR_DONATION_DETAILS)
+	public ResponseEntity<ApiResponseModel> updateAcceptorDonation(
+			@RequestBody AcceptorContributionDTO acceptorContributionDTO) {
+
+		try {
+			AcceptorContributionDTO dto = acceptorAmountServiceInf.updateAcceptorDonation(acceptorContributionDTO);
+			if (!ObjectUtils.isEmpty(dto)) {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApiResponseModel("Donation Record Update Successfully..!!", true));
+			}
+
+		} catch (CustomException e) {
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+
+	}
 
 }

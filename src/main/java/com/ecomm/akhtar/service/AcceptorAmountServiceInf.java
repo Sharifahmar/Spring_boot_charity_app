@@ -17,4 +17,6 @@ public interface AcceptorAmountServiceInf {
 
 	AcceptorContributionDTO findById(Long acceptorAmountId);
 
+	AcceptorContributionDTO updateAcceptorDonation(AcceptorContributionDTO acceptorContributionDTO) throws CustomException;
+
 }

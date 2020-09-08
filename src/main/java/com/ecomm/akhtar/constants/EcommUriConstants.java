@@ -30,6 +30,7 @@ public class EcommUriConstants {
 	public static final String DELETE_DONAR_CONTRIBUTION_DETAILS = "/deleteDonarContributionDetails";
 	public static final String UPDATE_DONAR_CONTRIBUTION_DETAILS = "/updateDonarContributionDetails";
 	public static final String DELETE_ACCEPTOR_DONATION_DETAILS = "/deleteAcceptorDonationDetails";
+	public static final String UPDATE_ACCEPTOR_DONATION_DETAILS = "/updateAcceptorDonationDetails";
 	public static final String DONAR_SLIP_DETAILS = "/donarSlipDetails";
 	public static final String ACCEPTOR_AMOUNT = "/acceptorAmount";
 	public static final String ACCEPTOR_TOKEN = "/acceptorToken";
