@@ -77,6 +77,9 @@ public class UsersEntity extends AuditModel {
 	@Size(max = 100)
 	@Column(name = "PHONE", nullable = false)
 	private String phoneNumber;
+	
+	@Column(name = "PROFILE_PICTURE", columnDefinition = "TEXT")
+	private String profilePictureUrl;
 
 	@Column(name = "USER_STS", nullable = false, columnDefinition = "BIT")
 	private Boolean status;
@@ -202,7 +205,14 @@ public class UsersEntity extends AuditModel {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
-	
+
+	public String getProfilePictureUrl() {
+		return profilePictureUrl;
+	}
+
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
+	}
+
 
 }

@@ -23,6 +23,7 @@ public class Users {
 	private Boolean status;
 	private Set<Roles> roles;
 	private ImagesModel images;
+	private String profilePictureUrl;
 
 	public Set<Roles> getRoles() {
 		return roles;
@@ -55,6 +56,7 @@ public class Users {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -86,7 +88,6 @@ public class Users {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 
 	public String getAddress() {
 		return address;
@@ -128,7 +129,6 @@ public class Users {
 		this.zipCode = zipCode;
 	}
 
-	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -145,5 +145,12 @@ public class Users {
 		this.status = status;
 	}
 
-	
+	public String getProfilePictureUrl() {
+		return profilePictureUrl;
+	}
+
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
+	}
+
 }

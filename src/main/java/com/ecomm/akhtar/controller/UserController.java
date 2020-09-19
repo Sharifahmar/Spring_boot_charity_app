@@ -102,6 +102,7 @@ public class UserController {
 			BeanUtils.copyProperties(user, usersEntity);
 			usersEntity.setPassword(passwordEncoder.encode(user.getPassword()));
 			usersEntity.setStatus(true);
+			usersEntity.setProfilePictureUrl(EcommUriConstants.PROFILE_PICTURE_URL);
 			RolesEntity userRole = roleRepository.findByRoleName(RoleName.ROLE_USER)
 					.orElseThrow(() -> new CustomException("User Role not set.", false));
 

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -13,73 +12,56 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ecomm.akhtar.entity.UserImageEntity;
-import com.ecomm.akhtar.model.FileUploadMetaDataModel;
-import com.ecomm.akhtar.repository.ImageUploadRepository;
+import com.ecomm.akhtar.entity.UsersEntity;
+import com.ecomm.akhtar.exception.CustomException;
+import com.ecomm.akhtar.model.Users;
+import com.ecomm.akhtar.repository.UsersRepository;
+import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
 @Service
 public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 
-	/** Save the uploaded file to this folder */
-	private static String UPLOADED_FOLDER = "C:" + File.separator + "Users"
-			+ File.separator + "Ahmar" + File.separator + "Desktop"
-			+ File.separator + "images" + File.separator;
-
-	/**
-	 * Thdis object is required to store file meta data into in memory database
-	 */
 	@Autowired
-	private ImageUploadRepository fileUploadMetaData;
+	private UsersRepository usersRepository;
 
 	/**
 	 * Method is use to save Uploaded files
+	 * 
+	 * @throws CustomException
 	 */
-	public void saveUploadedFiles(List<MultipartFile> files) throws IOException {
+	public Users saveUploadedFiles(List<MultipartFile> files, UserPrincipal currentUser)
+			throws IOException, CustomException {
+		String currentDirectory = System.getProperty("user.dir");
+		Users users = null;
+		String imagePath = currentDirectory + File.separator + "IMAGES" + File.separator + currentUser.getId();
 		for (MultipartFile file : files) {
-			/*if (file.isEmpty()) {
-				continue;
-			}*/
 			byte[] bytes = file.getBytes();
-			Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());//.toAbsolutePath().normalize()
-			Files.write(path, bytes);
-			saveMetaData(file, path);
+			Path path = Paths.get(imagePath);
+			Path pathNew = Paths.get(imagePath + File.separator + file.getOriginalFilename());
+			if (!Files.exists(path)) {
+				Files.createDirectories(path);
+				Files.write(pathNew, bytes);
+				users = updateUserImage(pathNew, currentUser);
+			} else {
+				Files.write(pathNew, bytes);
+				users = updateUserImage(pathNew, currentUser);
+			}
 
 		}
+		return users;
 
 	}
 
-	/**
-	 * Method is use to save metadata of multipart
-	 */
-	public void saveMetaData(MultipartFile file, Path path) throws IOException {
-		UserImageEntity metaData = new UserImageEntity();
-		metaData.setFileName(file.getOriginalFilename());
-		metaData.setFileType(file.getContentType());
-		metaData.setFilePath(path.toString());
-		metaData.setStatus(true);
-		fileUploadMetaData.save(metaData);
-	}
+	private Users updateUserImage(Path pathNew, UserPrincipal currentUser) throws CustomException {
 
-	/**
-	 * Method is use to return all metadata
-	 * 
-	 */
-
-	public List<FileUploadMetaDataModel> getfileUploadMetaData() {
-		List<FileUploadMetaDataModel> list = new ArrayList<>();
-
-		List<UserImageEntity> fileMetaData = (List<UserImageEntity>) fileUploadMetaData.findAll();
-
-		fileMetaData
-				.forEach(x -> {
-					FileUploadMetaDataModel fileUploadMetaDataModel = new FileUploadMetaDataModel();
-
-					BeanUtils.copyProperties(x, fileUploadMetaDataModel);
-
-					list.add(fileUploadMetaDataModel);
-				});
-
-		return list;
+		Users users = new Users();
+		UsersEntity userDetails = usersRepository.findByIdAndStatus(currentUser.getId(), true)
+				.orElseThrow(() -> new CustomException("User Details not found with specific id ", false));
+		userDetails.setProfilePictureUrl(pathNew.toString());
+		UsersEntity userDetailsUpdated = usersRepository.save(userDetails);
+		BeanUtils.copyProperties(userDetailsUpdated, users);
+		return users;
 
 	}
+
 }
