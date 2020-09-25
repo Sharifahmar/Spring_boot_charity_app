@@ -1,16 +1,12 @@
 package com.ecomm.akhtar.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,17 +53,11 @@ public class ImageUploadController {
 
 		try {
 
-			try {
+			users = imageUploadServiceInf.saveUploadedFiles(uploadfile, currentUser);
 
-				users = imageUploadServiceInf.saveUploadedFiles(Arrays.asList(uploadfile), currentUser);
+		} catch (IOException | CustomException e) {
 
-			} catch (CustomException e) {
-
-				return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-			}
-
-		} catch (IOException e) {
-			return new ResponseEntity<>("Error while image upload", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return new ResponseEntity<>(users, new HttpHeaders(), HttpStatus.OK);

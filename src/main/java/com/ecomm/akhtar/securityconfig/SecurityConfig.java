@@ -1,9 +1,7 @@
 package com.ecomm.akhtar.securityconfig;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,9 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import com.jwtauthfilter.JwtAuthenticationFilter;
 
@@ -38,8 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] AUTH_WHITELIST_POST = {
 
 			"/loginToken", "/registerUser", "/refreshToken", "/user/checkPhoneNumberAvailability",
-			"/user/checkEmailAvailability", "/generateKey", "/validateKey", "/donationType",
-			"/donationAmount", "/donarSlipDetails", "/acceptorRepo","/donar/checkPhoneNumberAvailability","/donar/checkEmailAvailability"};
+			"/user/checkEmailAvailability", "/generateKey", "/validateKey", "/donationType", "/donationAmount",
+			"/donarSlipDetails", "/acceptorRepo", "/donar/checkPhoneNumberAvailability",
+			"/donar/checkEmailAvailability" };
 
 	private static final String[] AUTH_WHITELIST_GET = {
 
@@ -80,6 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll() // access static folder content and bypass security
 				.antMatchers("/h2-console/**").permitAll().antMatchers(HttpMethod.GET, AUTH_WHITELIST_GET).permitAll()
 				.antMatchers(HttpMethod.POST, AUTH_WHITELIST_POST).permitAll().antMatchers(SWAGGER_AUTH_WHITELIST)
 				.permitAll().anyRequest().authenticated();
@@ -89,15 +86,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 
 	}
-	/*@Bean
-	public CorsFilter corsFilter() {
-	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    final CorsConfiguration config = new CorsConfiguration();
-	    config.setAllowCredentials(true);
-	    config.setAllowedOrigins(Collections.singletonList("*"));
-	    config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept"));
-	    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "OPTIONS", "DELETE", "PATCH"));
-	    source.registerCorsConfiguration("/**", config);
-	    return new CorsFilter(source);
-	}*/
+	/*
+	 * @Bean public CorsFilter corsFilter() { final
+	 * UrlBasedCorsConfigurationSource source = new
+	 * UrlBasedCorsConfigurationSource(); final CorsConfiguration config = new
+	 * CorsConfiguration(); config.setAllowCredentials(true);
+	 * config.setAllowedOrigins(Collections.singletonList("*"));
+	 * config.setAllowedHeaders(Arrays.asList("Origin", "Content-Type",
+	 * "Accept")); config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT",
+	 * "OPTIONS", "DELETE", "PATCH")); source.registerCorsConfiguration("/**",
+	 * config); return new CorsFilter(source); }
+	 */
+
+
 }

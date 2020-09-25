@@ -3,16 +3,16 @@
  */
 package com.ecomm.akhtar.service;
 
-import java.util.Optional;
+import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ecomm.akhtar.entity.ImagesEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
-import com.ecomm.akhtar.model.ImagesModel;
 import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.model.UsersUpdateModel;
 import com.ecomm.akhtar.repository.ImagesRepository;
@@ -28,8 +28,6 @@ public class UserServiceImpl implements UserServiceInf {
 	@Autowired
 	private UsersRepository usersRepository;
 
-	@Autowired
-	private ImagesRepository imagesRepository;
 
 	@Override
 	public Boolean existsByPhoneNumber(String phoneNumber) {
@@ -43,31 +41,14 @@ public class UserServiceImpl implements UserServiceInf {
 
 	}
 
-	///@Cacheable(value = "users")
+	/// @Cacheable(value = "users")
 	@Override
-	public Users getUserDetailsByIdStatus(Long id, Boolean status) throws CustomException {
+	public Users getUserDetailsByIdStatus(Long id, Boolean status) throws CustomException, IOException {
+		Users users = new Users();
 		UsersEntity userDetails = usersRepository.findByIdAndStatus(id, status)
 				.orElseThrow(() -> new CustomException("Data with Userid and Status not found ", false));
-		Optional<ImagesEntity> usersImage = imagesRepository.findByIdImgAndStatus(id, status);
-		Users users = new Users();
-		if (usersImage.isPresent()) {
-			BeanUtils.copyProperties(userDetails, users);
-			ImagesModel imagesModel = new ImagesModel();
-			imagesModel.setFileName(usersImage.get().getFileName());
-			imagesModel.setFileSize(usersImage.get().getFileSize());
-			imagesModel.setFileType(usersImage.get().getFileType());
-			imagesModel.setId(usersImage.get().getId());
-			imagesModel.setStatus(usersImage.get().getStatus());
-			imagesModel.setFilePath(usersImage.get().getFilePath());
-			users.setImages(imagesModel);
-
-		} else {
-			BeanUtils.copyProperties(userDetails, users);
-//			ImagesModel imagesModel = new ImagesModel();
-//			imagesModel.setFileName(EcommUriConstants.AWS_BUCKET_DEFAULT_IMAGE);
-//			users.setImages(imagesModel);
-		}
-
+		BeanUtils.copyProperties(userDetails, users);
+		users.setProfilePictureUrl(FileUtils.readFileToByteArray(new File(userDetails.getProfilePictureUrl())));
 		return users;
 	}
 

@@ -1,5 +1,6 @@
 package com.ecomm.akhtar.controller;
 
+import java.io.IOException;
 import java.util.Collections;
 
 import javax.validation.Valid;
@@ -84,14 +85,14 @@ public class UserController {
 	}
 
 	@PostMapping(EcommUriConstants.USERS_DETAILS_BY_ID_STATUS)
-	public ResponseEntity<Users> getUserDetailsByIdStatus(@Valid @CurrentUser UserPrincipal currentUser,
+	public ResponseEntity<?> getUserDetailsByIdStatus(@Valid @CurrentUser UserPrincipal currentUser,
 			@RequestBody StatusModel status) throws CustomException {
-		if (ObjectUtils.isEmpty(currentUser)) {
-
-			throw new CustomException("No record found in session", false);
+		Users user = null;	
+		try {
+			user = userServiceInf.getUserDetailsByIdStatus(currentUser.getId(), status.getStatus());
+		} catch (IOException | CustomException e) {		
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		Users user = userServiceInf.getUserDetailsByIdStatus(currentUser.getId(), status.getStatus());
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
@@ -126,7 +127,7 @@ public class UserController {
 	public ResponseEntity<UsersUpdateModel> updateUser(@RequestBody UsersUpdateModel users) {
 		try {
 			UsersUpdateModel user = userServiceInf.updateUserCurrentContext(users);
-			return ResponseEntity.status(HttpStatus.OK).body(user);			
+			return ResponseEntity.status(HttpStatus.OK).body(user);
 		} catch (Exception e) {
 			return new ResponseEntity(new ApiResponseModel("Error Occur while User Updation !", false),
 					HttpStatus.INTERNAL_SERVER_ERROR);

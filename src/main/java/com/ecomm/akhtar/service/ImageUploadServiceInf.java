@@ -1,7 +1,7 @@
 package com.ecomm.akhtar.service;
 
 import java.io.IOException;
-import java.util.List;
+import java.net.URISyntaxException;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,9 +19,10 @@ public interface ImageUploadServiceInf {
 	 * @return 
 	 * @throws IOException
 	 * @throws CustomException 
+	 * @throws URISyntaxException 
 	 */
 
-	public abstract Users saveUploadedFiles(List<MultipartFile> files,UserPrincipal currentUser)
+	public abstract Users saveUploadedFiles(MultipartFile files,UserPrincipal currentUser)
 			throws IOException, CustomException;
 
 
