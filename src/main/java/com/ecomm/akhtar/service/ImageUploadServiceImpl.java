@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,31 +33,33 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 	public Users saveUploadedFiles(MultipartFile files, UserPrincipal currentUser) throws IOException, CustomException {
 		Users users = null;
 		String currentDirectory = System.getProperty("user.dir");
-		String imagePath = currentDirectory + File.separator + "IMAGES" + File.separator + currentUser.getId();
+		String imagePath = currentDirectory + File.separator + "images" + File.separator + currentUser.getId();
 		Path path = Paths.get(imagePath);
 		Path pathNew = Paths.get(path + File.separator + files.getOriginalFilename());
 		if (!Files.exists(path)) {
 			Files.createDirectories(path);
 			Files.write(pathNew, files.getBytes());
-			users = updateUserImage(pathNew, currentUser);
+			users = updateUserImage(pathNew, currentUser, files);
 		} else {
 			Files.write(pathNew, files.getBytes());
-			users = updateUserImage(pathNew, currentUser);
+			users = updateUserImage(pathNew, currentUser, files);
 		}
 
 		return users;
 
 	}
 
-	private Users updateUserImage(Path pathNew, UserPrincipal currentUser) throws CustomException, IOException {
+	private Users updateUserImage(Path pathNew, UserPrincipal currentUser, MultipartFile file)
+			throws CustomException, IOException {
 
 		Users users = new Users();
 		UsersEntity userDetails = usersRepository.findByIdAndStatus(currentUser.getId(), true)
 				.orElseThrow(() -> new CustomException("User Details not found with specific id ", false));
-		userDetails.setProfilePictureUrl(pathNew.toFile().toString());
+		userDetails.setProfilePictureUrl(pathNew.toUri().toURL().toString());
 		UsersEntity userDetailsUpdated = usersRepository.save(userDetails);
 		BeanUtils.copyProperties(userDetailsUpdated, users);
-		users.setProfilePictureUrl(FileUtils.readFileToByteArray(pathNew.toFile()));	
+		users.setProfilePictureUrl(
+				"http://localhost:8081/images/" + currentUser.getId() + "/" + file.getOriginalFilename());
 		return users;
 
 	}

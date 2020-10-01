@@ -1,6 +1,8 @@
 package com.ecomm.akhtar.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Collections;
 
 import javax.validation.Valid;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -87,10 +90,10 @@ public class UserController {
 	@PostMapping(EcommUriConstants.USERS_DETAILS_BY_ID_STATUS)
 	public ResponseEntity<?> getUserDetailsByIdStatus(@Valid @CurrentUser UserPrincipal currentUser,
 			@RequestBody StatusModel status) throws CustomException {
-		Users user = null;	
+		Users user = null;
 		try {
-			user = userServiceInf.getUserDetailsByIdStatus(currentUser.getId(), status.getStatus());
-		} catch (IOException | CustomException e) {		
+			user = userServiceInf.getUserDetailsByIdStatus(currentUser, status.getStatus());
+		} catch (IOException | CustomException | URISyntaxException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(user, HttpStatus.OK);
@@ -99,11 +102,15 @@ public class UserController {
 	@PostMapping(EcommUriConstants.REGISTER_USER_URI)
 	public ResponseEntity<ApiResponseModel> registerUser(@Valid @RequestBody Users user) {
 		try {
+			String currentDirectory = System.getProperty("user.dir");
+			String imagePath = currentDirectory + File.separator + "src" + File.separator + "main" + File.separator
+					+ "resources" + File.separator + "static" + File.separator + "images" + File.separator
+					+ "default.png";
 			UsersEntity usersEntity = new UsersEntity();
 			BeanUtils.copyProperties(user, usersEntity);
 			usersEntity.setPassword(passwordEncoder.encode(user.getPassword()));
 			usersEntity.setStatus(true);
-			usersEntity.setProfilePictureUrl(EcommUriConstants.PROFILE_PICTURE_URL);
+			usersEntity.setProfilePictureUrl(imagePath);
 			RolesEntity userRole = roleRepository.findByRoleName(RoleName.ROLE_USER)
 					.orElseThrow(() -> new CustomException("User Role not set.", false));
 

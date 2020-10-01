@@ -3,10 +3,10 @@
  */
 package com.ecomm.akhtar.service;
 
-import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +15,8 @@ import com.ecomm.akhtar.entity.UsersEntity;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.model.UsersUpdateModel;
-import com.ecomm.akhtar.repository.ImagesRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
+import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
 /**
  * @author Ahmar
@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserServiceInf {
 
 	@Autowired
 	private UsersRepository usersRepository;
-
 
 	@Override
 	public Boolean existsByPhoneNumber(String phoneNumber) {
@@ -43,12 +42,16 @@ public class UserServiceImpl implements UserServiceInf {
 
 	/// @Cacheable(value = "users")
 	@Override
-	public Users getUserDetailsByIdStatus(Long id, Boolean status) throws CustomException, IOException {
+	public Users getUserDetailsByIdStatus(UserPrincipal currentUser, Boolean status)
+			throws CustomException, IOException, URISyntaxException {
 		Users users = new Users();
-		UsersEntity userDetails = usersRepository.findByIdAndStatus(id, status)
+		UsersEntity userDetails = usersRepository.findByIdAndStatus(currentUser.getId(), status)
 				.orElseThrow(() -> new CustomException("Data with Userid and Status not found ", false));
 		BeanUtils.copyProperties(userDetails, users);
-		users.setProfilePictureUrl(FileUtils.readFileToByteArray(new File(userDetails.getProfilePictureUrl())));
+		String path = new URI(userDetails.getProfilePictureUrl()).getPath();
+		path.substring(path.lastIndexOf('/') + 1);
+		users.setProfilePictureUrl("http://localhost:8081/images/" + currentUser.getId() + "/"
+				+ path.substring(path.lastIndexOf('/') + 1));
 		return users;
 	}
 

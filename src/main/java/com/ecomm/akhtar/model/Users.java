@@ -23,7 +23,8 @@ public class Users {
 	private Boolean status;
 	private Set<Roles> roles;
 	private ImagesModel images;
-	private byte[] profilePictureUrl;
+	private String profilePictureUrl;
+	private String imageString;
 
 	public Set<Roles> getRoles() {
 		return roles;
@@ -145,12 +146,22 @@ public class Users {
 		this.status = status;
 	}
 
-	public byte[] getProfilePictureUrl() {
+	
+
+	public String getProfilePictureUrl() {
 		return profilePictureUrl;
 	}
 
-	public void setProfilePictureUrl(byte[] profilePictureUrl) {
+	public void setProfilePictureUrl(String profilePictureUrl) {
 		this.profilePictureUrl = profilePictureUrl;
+	}
+
+	public String getImageString() {
+		return imageString;
+	}
+
+	public void setImageString(String imageString) {
+		this.imageString = imageString;
 	}
 
 	
