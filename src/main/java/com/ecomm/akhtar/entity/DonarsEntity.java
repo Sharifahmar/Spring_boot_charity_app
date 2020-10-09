@@ -7,14 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 import com.ecomm.akhtar.audit.AuditModel;
 
 @Entity
-@Table(name = "DONARS", uniqueConstraints = { @UniqueConstraint(columnNames = { "EMAIL_ID" }),
-		@UniqueConstraint(columnNames = { "PHONE" }) })
+@Table(name = "DONARS", uniqueConstraints = { @UniqueConstraint(columnNames = { "PHONE" }) })
 
 public class DonarsEntity extends AuditModel {
 	/**
@@ -27,18 +25,9 @@ public class DonarsEntity extends AuditModel {
 	@Column(name = "DONARS_ID")
 	private Long donarId;
 
-	@Email
-	@Size(max = 100)
-	@Column(name = "EMAIL_ID", nullable = false)
-	private String email;
-
-	@Size(max = 100)
-	@Column(name = "FIRST_NAME")
-	private String firstName;
-
-	@Size(max = 100)
-	@Column(name = "LAST_NAME")
-	private String lastName;
+	@Size(max = 256)
+	@Column(name = "FULL_NAME")
+	private String fullName;
 
 	@Column(name = "ADDRESS", columnDefinition = "TEXT")
 	private String address;
@@ -63,6 +52,9 @@ public class DonarsEntity extends AuditModel {
 	@Column(name = "PHONE", nullable = false)
 	private String phoneNumber;
 
+	@Column(name = "PROFILE_PICTURE", columnDefinition = "TEXT")
+	private String profilePictureUrl;
+
 	@Column(name = "DONAR_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
 
@@ -74,30 +66,12 @@ public class DonarsEntity extends AuditModel {
 		this.donarId = donarId;
 	}
 
-	
-
-	public String getEmail() {
-		return email;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getAddress() {
@@ -140,8 +114,6 @@ public class DonarsEntity extends AuditModel {
 		this.zipCode = zipCode;
 	}
 
-	
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -156,6 +128,14 @@ public class DonarsEntity extends AuditModel {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public String getProfilePictureUrl() {
+		return profilePictureUrl;
+	}
+
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
 	}
 
 }

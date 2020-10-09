@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
 
 import com.ecomm.akhtar.entity.DonarsEntity;
@@ -33,11 +31,6 @@ public class DonarServiceImpl implements DonarServiceInf {
 	}
 
 	@Override
-	public Boolean existsByEmailId(String email) {
-		return !donarsRepository.existsByEmail(email);
-	}
-
-	@Override
 	public Donars findById(Long donarId) {
 		Donars donars = new Donars();
 		Optional<DonarsEntity> donarEntity = donarsRepository.findById(donarId);
@@ -57,7 +50,6 @@ public class DonarServiceImpl implements DonarServiceInf {
 			DonarsEntity doEntity = new DonarsEntity();
 			BeanUtils.copyProperties(donar, doEntity);
 			doEntity.setPhoneNumber(donarEntity.get().getPhoneNumber());
-			doEntity.setEmail(donarEntity.get().getEmail());
 			DonarsEntity donarsEntity = donarsRepository.save(doEntity);
 			BeanUtils.copyProperties(donarsEntity, donars);
 		}
@@ -66,8 +58,8 @@ public class DonarServiceImpl implements DonarServiceInf {
 
 	@Override
 	public List<Donars> searchCriteria(Donars donar) {
-		List<DonarsEntity> donarEntity = donarsRepository.findByDonarSearchCriteria(donar.getFirstName(),
-				donar.getPhoneNumber(), donar.getEmail(), donar.getStatus());
+		List<DonarsEntity> donarEntity = donarsRepository.findByDonarSearchCriteria(donar.getFullName(),
+				donar.getPhoneNumber(), donar.getStatus());
 		return donarEntity.stream().map(x -> {
 			Donars donars = new Donars();
 			BeanUtils.copyProperties(x, donars);

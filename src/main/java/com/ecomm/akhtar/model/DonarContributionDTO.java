@@ -12,37 +12,30 @@ import java.text.SimpleDateFormat;
 public class DonarContributionDTO {
 
 	private Long donationAmountId;
-	
-	private String firstName;
 
-	private String lastName;
+	private String fullName;
 
 	private String phoneNumber;
 
-	private String email;
-	
 	private String address;
-	
+
 	private String receiptNumber;
 
 	private String donationType;
-	
+
 	private Long donationTypeId;
 
 	private String donationAmount;
 
 	private java.util.Date date;
-	
 
-	public DonarContributionDTO(Long donationAmountId, String firstName, String lastName, String phoneNumber,
-			String email, String address, String receiptNumber, String donationType, Long donationTypeId,
-			String donationAmount, java.util.Date date) {
+	public DonarContributionDTO(Long donationAmountId, String fullName, String phoneNumber, String address,
+			String receiptNumber, String donationType, Long donationTypeId, String donationAmount,
+			java.util.Date date) {
 		super();
 		this.donationAmountId = donationAmountId;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.fullName = fullName;
 		this.phoneNumber = phoneNumber;
-		this.email = email;
 		this.address = address;
 		this.receiptNumber = receiptNumber;
 		this.donationType = donationType;
@@ -50,29 +43,18 @@ public class DonarContributionDTO {
 		this.donationAmount = donationAmount;
 		this.date = date;
 	}
-	
-	
 
 	public DonarContributionDTO() {
 		super();
-	
+
 	}
 
-
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getPhoneNumber() {
@@ -83,14 +65,6 @@ public class DonarContributionDTO {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getDonationType() {
 		return donationType;
 	}
@@ -99,17 +73,13 @@ public class DonarContributionDTO {
 		this.donationType = donationType;
 	}
 
-
 	public Long getDonationTypeId() {
 		return donationTypeId;
 	}
 
-
 	public void setDonationTypeId(Long donationTypeId) {
 		this.donationTypeId = donationTypeId;
 	}
-
-
 
 	public String getDonationAmount() {
 		return donationAmount;
@@ -126,7 +96,7 @@ public class DonarContributionDTO {
 	public void setDate(java.util.Date date) {
 		this.date = date;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
@@ -152,9 +122,8 @@ public class DonarContributionDTO {
 	}
 
 	public String getDateString() {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		return formatter.format(this.getDate());
 	}
 
-	
 }

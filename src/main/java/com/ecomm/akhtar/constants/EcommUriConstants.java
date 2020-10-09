@@ -36,10 +36,9 @@ public class EcommUriConstants {
 	public static final String ACCEPTOR_TOKEN = "/acceptorToken";
 	public static final String STUDENT_STATIONARY = "/studentStationary";
 	public static final String AWS_BUCKET_DEFAULT_IMAGE = "https://s3.amazonaws.com/akhtar-ecommerce/ecomm-default.jpg";
-	public static final String IMAGE_UPLOAD = "/imageUpload";
+	public static final String IMAGE_UPLOAD = "/imageUpload/{component}";
 	public static final String MULTI_FILE_UPLOAD = "/multiplefiles";
 	public static final String DONAR_PHONENUMBER_EXIST_URI = "/donar/checkPhoneNumberAvailability";
-	public static final String DONAR_EMAIL_EXIST_URI = "/donar/checkEmailAvailability";
 	public static final String DELETE_DONAR_URI = "/donar/delete";
 	public static final String UPDATE_DONAR_URI = "/donar/update";
 	public static final String DONAR_SEARCH_CRITERIA_DONAR_URI = "/donar/donarSearchCriteria";

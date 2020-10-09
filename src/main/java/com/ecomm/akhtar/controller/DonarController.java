@@ -36,17 +36,6 @@ public class DonarController {
 		}
 	}
 
-	@PostMapping(EcommUriConstants.DONAR_EMAIL_EXIST_URI)
-	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@RequestBody UsersCheckRequest donar) {
-		Boolean isAvailable = donarServiceInf.existsByEmailId(donar.getEmail());
-		if (isAvailable) {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new IdentityAvailability(isAvailable, "Email not exist..!!"));
-		} else {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new IdentityAvailability(isAvailable, "Email already exist..!!"));
-		}
-	}
 
 	@PostMapping(EcommUriConstants.DELETE_DONAR_URI)
 	public ResponseEntity<ApiResponseModel> deleteDonar(@RequestBody Donars donar) {
@@ -60,13 +49,13 @@ public class DonarController {
 	}
 
 	@PostMapping(EcommUriConstants.UPDATE_DONAR_URI)
-	public ResponseEntity<ApiResponseModel> updateDonar(@RequestBody Donars donar) {
+	public ResponseEntity<ApiResponseGenericModel<?>> updateDonar(@RequestBody Donars donar) {
 		Donars donarNew = donarServiceInf.updateDonar(donar);
 		if (!ObjectUtils.isEmpty(donarNew)) {
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ApiResponseModel("Donar Updated Successfully..!!", true));
+					.body(new ApiResponseGenericModel<>(donarNew, true));
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
 		}
 	}
 

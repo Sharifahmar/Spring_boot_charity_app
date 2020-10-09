@@ -9,10 +9,7 @@ public class Donars extends AuditModel {
 	 */
 	private static final long serialVersionUID = -7802456994740527978L;
 	private Long donarId;
-	private String email;
-	private String password;
-	private String firstName;
-	private String lastName;
+	private String fullName;
 	private String profilePicture;
 	private String address;
 	private String city;
@@ -20,11 +17,9 @@ public class Donars extends AuditModel {
 	private String country;
 	private String zipCode;
 	private String phoneNumber;
+	private String profilePictureUrl;
 	private Boolean status;
 
-	/*
-	 * private Set<Roles> roles; private ImagesModel images;
-	 */
 	public Long getDonarId() {
 		return donarId;
 	}
@@ -33,29 +28,12 @@ public class Donars extends AuditModel {
 		this.donarId = donarId;
 	}
 
-
-	public String getPassword() {
-		return password;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public String getProfilePicture() {
@@ -107,14 +85,6 @@ public class Donars extends AuditModel {
 	}
 
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -130,5 +100,14 @@ public class Donars extends AuditModel {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
+
+	public String getProfilePictureUrl() {
+		return profilePictureUrl;
+	}
+
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
+	}
+	
 
 }

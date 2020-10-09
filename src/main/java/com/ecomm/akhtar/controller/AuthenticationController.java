@@ -8,11 +8,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.entity.JwtRefreshTokenEntity;
 import com.ecomm.akhtar.entity.UsersEntity;
+import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.JwtAuthenticationResponse;
 import com.ecomm.akhtar.model.LoginRequest;
 import com.ecomm.akhtar.model.RefreshTokenRequest;
@@ -54,7 +57,7 @@ public class AuthenticationController {
 	String privateKey = "";
 
 	@PostMapping(EcommUriConstants.LOGIN_TOKEN)
-	public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -62,8 +65,13 @@ public class AuthenticationController {
 		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 		String accessToken = tokenProvider.generateToken(userPrincipal);
 		String refreshToken = tokenProvider.generateRefreshToken();
-		saveRefreshToken(userPrincipal, refreshToken);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(accessToken, refreshToken, jwtExpirationInMs));
+		if(!StringUtils.isEmpty(refreshToken) && !StringUtils.isEmpty(accessToken)){
+			saveRefreshToken(userPrincipal, refreshToken);
+			return ResponseEntity.ok(new JwtAuthenticationResponse(accessToken, refreshToken, jwtExpirationInMs));
+		}else{
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new CustomException("Invalid Credentials", false));
+		}
+		
 	}
 
 	@PostMapping(EcommUriConstants.REFRESH_TOKEN_URI)

@@ -14,7 +14,6 @@ import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.model.Acceptor;
 import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
-import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.IdentityAvailability;
 import com.ecomm.akhtar.model.UsersCheckRequest;
 import com.ecomm.akhtar.service.AcceptorServiceInf;
