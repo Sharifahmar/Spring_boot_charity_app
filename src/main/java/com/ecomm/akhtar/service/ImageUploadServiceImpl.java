@@ -20,7 +20,6 @@ import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.model.Users;
 import com.ecomm.akhtar.repository.DonarsRepository;
 import com.ecomm.akhtar.repository.UsersRepository;
-import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
 @Service
 public class ImageUploadServiceImpl implements ImageUploadServiceInf {
@@ -37,7 +36,7 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 	 * @throws CustomException
 	 * @throws URISyntaxException
 	 */
-	public Object saveUploadedFiles(MultipartFile files, UserPrincipal currentUser, String component)
+	public Object saveUploadedFiles(MultipartFile files, Long id, String component)
 			throws IOException, CustomException {
 		String imagePath = null;
 		Object newRefObj = null;
@@ -46,12 +45,12 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 
 		case "userProfile":
 			imagePath = currentDirectory + File.separator + "images" + File.separator + "User-Profile" + File.separator
-					+ currentUser.getId();
+					+ id;
 			break;
 
 		case "donor":
 			imagePath = currentDirectory + File.separator + "images" + File.separator + "Donor" + File.separator
-					+ currentUser.getId();
+					+ id;
 			break;
 		}
 
@@ -60,38 +59,38 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 		if (!Files.exists(path)) {
 			Files.createDirectories(path);
 			Files.write(pathNew, files.getBytes());
-			newRefObj = updateImage(pathNew, currentUser, files, component);
+			newRefObj = updateImage(pathNew, id, files, component);
 		} else {
 			Files.write(pathNew, files.getBytes());
-			newRefObj = updateImage(pathNew, currentUser, files, component);
+			newRefObj = updateImage(pathNew, id, files, component);
 		}
 		return newRefObj;
 
 	}
 
-	private Object updateImage(Path pathNew, UserPrincipal currentUser, MultipartFile file, String component)
+	private Object updateImage(Path pathNew, Long id, MultipartFile file, String component)
 			throws CustomException, IOException {
 		Users users = new Users();
 		Donars donars = new Donars();
 		if ("userProfile".equalsIgnoreCase(component)) {
-			UsersEntity userDetails = usersRepository.findByIdAndStatus(currentUser.getId(), true)
+			UsersEntity userDetails = usersRepository.findByIdAndStatus(id, true)
 					.orElseThrow(() -> new CustomException("User Details not found with specific id ", false));
-			userDetails.setProfilePictureUrl(pathNew.toUri().toURL().toString());
+			userDetails.setProfilePicture(pathNew.toUri().toURL().toString());
+			userDetails.setProfilePictureUrl("http://localhost:8081/images/" + "User-Profile/" + id + "/"
+					+ file.getOriginalFilename());
 			UsersEntity userDetailsUpdated = usersRepository.save(userDetails);
 			BeanUtils.copyProperties(userDetailsUpdated, users);
-			users.setProfilePictureUrl("http://localhost:8081/images/" + "User-Profile/" + currentUser.getId() + "/"
-					+ file.getOriginalFilename());
 			return users;
 		} else if ("donor".equalsIgnoreCase(component)) {
 			DonarsEntity donarsEntity = Optional
-					.ofNullable(donarsRepository.findByDonarIdAndStatus(currentUser.getId(), true))
+					.ofNullable(donarsRepository.findByDonarIdAndStatus(id, true))
 					.orElseThrow(() -> new CustomException("Donar Details not found with specific id ", false));
 
-			donarsEntity.setProfilePictureUrl(pathNew.toUri().toURL().toString());
+			donarsEntity.setProfilePicture(pathNew.toUri().toURL().toString());
+			donarsEntity.setProfilePictureUrl("http://localhost:8081/images/" + "Donor/" + id + "/"
+					+ file.getOriginalFilename());
 			DonarsEntity donorDetailsUpdated = donarsRepository.save(donarsEntity);
 			BeanUtils.copyProperties(donorDetailsUpdated, donars);
-			donars.setProfilePictureUrl("http://localhost:8081/images/" + "Donor/" + currentUser.getId() + "/"
-					+ file.getOriginalFilename());
 			return donars;
 
 		}

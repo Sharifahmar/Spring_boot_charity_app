@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ecomm.akhtar.exception.CustomException;
-import com.ecomm.akhtar.securityconfig.UserPrincipal;
 
 
 public interface ImageUploadServiceInf {
@@ -21,7 +20,7 @@ public interface ImageUploadServiceInf {
 	 * @throws URISyntaxException 
 	 */
 
-	public abstract Object saveUploadedFiles(MultipartFile files,UserPrincipal currentUser,String component)
+	public abstract Object saveUploadedFiles(MultipartFile files,Long id,String component)
 			throws IOException, CustomException;
 
 

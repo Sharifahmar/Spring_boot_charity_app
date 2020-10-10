@@ -77,8 +77,11 @@ public class UsersEntity extends AuditModel {
 	@Size(max = 100)
 	@Column(name = "PHONE", nullable = false)
 	private String phoneNumber;
-	
+
 	@Column(name = "PROFILE_PICTURE", columnDefinition = "TEXT")
+	private String profilePicture;
+
+	@Column(name = "PROFILE_PICTURE_URL", columnDefinition = "TEXT")
 	private String profilePictureUrl;
 
 	@Column(name = "USER_STS", nullable = false, columnDefinition = "BIT")
@@ -106,8 +109,6 @@ public class UsersEntity extends AuditModel {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public String getEmail() {
 		return email;
@@ -181,7 +182,6 @@ public class UsersEntity extends AuditModel {
 		this.zipCode = zipCode;
 	}
 
-
 	public Boolean getStatus() {
 		return status;
 	}
@@ -214,5 +214,12 @@ public class UsersEntity extends AuditModel {
 		this.profilePictureUrl = profilePictureUrl;
 	}
 
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
 
 }

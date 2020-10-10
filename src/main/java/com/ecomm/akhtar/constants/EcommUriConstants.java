@@ -36,7 +36,7 @@ public class EcommUriConstants {
 	public static final String ACCEPTOR_TOKEN = "/acceptorToken";
 	public static final String STUDENT_STATIONARY = "/studentStationary";
 	public static final String AWS_BUCKET_DEFAULT_IMAGE = "https://s3.amazonaws.com/akhtar-ecommerce/ecomm-default.jpg";
-	public static final String IMAGE_UPLOAD = "/imageUpload/{component}";
+	public static final String IMAGE_UPLOAD = "/imageUpload/{component}/{id}";
 	public static final String MULTI_FILE_UPLOAD = "/multiplefiles";
 	public static final String DONAR_PHONENUMBER_EXIST_URI = "/donar/checkPhoneNumberAvailability";
 	public static final String DELETE_DONAR_URI = "/donar/delete";
@@ -56,5 +56,5 @@ public class EcommUriConstants {
 	public static final String STUDENT_SEARCH_CRITERIA_DONAR_URI = "/student/studentSearchCriteria";
 	public static final String ACCEPTOR_CONTRIBUTION_DETAILS = "/acceptorContributionDetails";
 	public static final String PROFILE_PICTURE_URL = "assets/img/default/default.png";
-	public static final String PROFILE_PICTURE_STORE_LOCATION = "file:///E:/Desktop/Spring_boot_charity_app/IMAGES/";
+	public static final String PROFILE_PICTURE_STORE_LOCATION = "file:///E:/Desktop/Spring_boot_charity_app/images/";
 }

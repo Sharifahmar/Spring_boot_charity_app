@@ -4,7 +4,6 @@
 package com.ecomm.akhtar.service;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.springframework.beans.BeanUtils;
@@ -40,7 +39,6 @@ public class UserServiceImpl implements UserServiceInf {
 
 	}
 
-	/// @Cacheable(value = "users")
 	@Override
 	public Users getUserDetailsByIdStatus(UserPrincipal currentUser, Boolean status)
 			throws CustomException, IOException, URISyntaxException {
@@ -48,10 +46,6 @@ public class UserServiceImpl implements UserServiceInf {
 		UsersEntity userDetails = usersRepository.findByIdAndStatus(currentUser.getId(), status)
 				.orElseThrow(() -> new CustomException("Data with Userid and Status not found ", false));
 		BeanUtils.copyProperties(userDetails, users);
-		String path = new URI(userDetails.getProfilePictureUrl()).getPath();
-		path.substring(path.lastIndexOf('/') + 1);
-		users.setProfilePictureUrl("http://localhost:8081/images/" + currentUser.getId() + "/"
-				+ path.substring(path.lastIndexOf('/') + 1));
 		return users;
 	}
 

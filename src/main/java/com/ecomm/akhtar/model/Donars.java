@@ -10,7 +10,6 @@ public class Donars extends AuditModel {
 	private static final long serialVersionUID = -7802456994740527978L;
 	private Long donarId;
 	private String fullName;
-	private String profilePicture;
 	private String address;
 	private String city;
 	private String state;
@@ -36,13 +35,6 @@ public class Donars extends AuditModel {
 		this.fullName = fullName;
 	}
 
-	public String getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(String profilePicture) {
-		this.profilePicture = profilePicture;
-	}
 
 	public String getAddress() {
 		return address;

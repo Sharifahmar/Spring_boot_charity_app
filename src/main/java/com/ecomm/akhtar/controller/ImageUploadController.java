@@ -16,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecomm.akhtar.constants.EcommUriConstants;
 import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ApiResponseGenericModel;
-import com.ecomm.akhtar.securityconfig.CurrentUser;
-import com.ecomm.akhtar.securityconfig.UserPrincipal;
 import com.ecomm.akhtar.service.ImageUploadServiceInf;
 
 @RestController
@@ -35,10 +33,10 @@ public class ImageUploadController {
 	 * @return
 	 */
 	@PostMapping(value = EcommUriConstants.IMAGE_UPLOAD)
-	public ResponseEntity<ApiResponseGenericModel<?>> uploadFile(@RequestParam("image") MultipartFile uploadfile,
-			@CurrentUser UserPrincipal currentUser, @PathVariable("component") String component) {
+	public ResponseEntity<ApiResponseGenericModel<?>> uploadFile(@RequestParam("image") MultipartFile uploadfile, @PathVariable("component") String component,@PathVariable("id") Long id) {
 		
-		Object obj = null;	
+		Object obj = null;
+		
 		logger.info("fileName : " + uploadfile.getOriginalFilename());
 		logger.info("contentType : " + uploadfile.getContentType());
 		logger.info("contentSize : " + uploadfile.getSize());
@@ -55,7 +53,7 @@ public class ImageUploadController {
 
 		try {
 
-			obj = imageUploadServiceInf.saveUploadedFiles(uploadfile, currentUser, component);
+			obj = imageUploadServiceInf.saveUploadedFiles(uploadfile, id, component);
 
 		} catch (IOException | CustomException e) {
 

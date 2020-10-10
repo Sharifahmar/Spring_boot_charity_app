@@ -53,6 +53,9 @@ public class DonarsEntity extends AuditModel {
 	private String phoneNumber;
 
 	@Column(name = "PROFILE_PICTURE", columnDefinition = "TEXT")
+	private String profilePicture;
+	
+	@Column(name = "PROFILE_PICTURE_URL", columnDefinition = "TEXT")
 	private String profilePictureUrl;
 
 	@Column(name = "DONAR_STS", columnDefinition = "BIT", nullable = false)
@@ -136,6 +139,14 @@ public class DonarsEntity extends AuditModel {
 
 	public void setProfilePictureUrl(String profilePictureUrl) {
 		this.profilePictureUrl = profilePictureUrl;
+	}
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 }
