@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               5.1.73-community - MySQL Community Server (GPL)
+-- Server version:               5.1.54-community - MySQL Community Server (GPL)
 -- Server OS:                    Win32
--- HeidiSQL Version:             10.2.0.5599
+-- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -34,13 +34,16 @@ CREATE TABLE IF NOT EXISTS `acceptor` (
   `ZIPCODE` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ACCEPTOR_ID`),
   UNIQUE KEY `UK4cxs1d1kblpqkiq2kdiewduhw` (`PHONE`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.acceptor: 2 rows
+-- Dumping data for table charity_db.acceptor: 4 rows
+DELETE FROM `acceptor`;
 /*!40000 ALTER TABLE `acceptor` DISABLE KEYS */;
-INSERT IGNORE INTO `acceptor` (`ACCEPTOR_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`, `CITY`, `COUNTRY`, `EMAIL_ID`, `FIRST_NAME`, `LAST_NAME`, `PHONE`, `STATE`, `ACCEPTOR_STS`, `ZIPCODE`) VALUES
-	(1, '2019-02-27 00:11:24', '2019-10-27 02:09:09', '444605', 'Amravati', 'India', 'azar@gmail.com', 'azar', 'shah', '9876543210', 'Maharashtra', b'1', '4411002'),
-	(2, '2019-07-29 20:42:23', '2019-10-26 00:39:31', 'Camp, Amravati, 444602', 'Amravati', 'India', 'ahmar93@gmail.co', 'SharifAhmar', 'Ahmar', '9876543217', 'Maharashtra', b'1', '411048');
+INSERT INTO `acceptor` (`ACCEPTOR_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`, `CITY`, `COUNTRY`, `EMAIL_ID`, `FIRST_NAME`, `LAST_NAME`, `PHONE`, `STATE`, `ACCEPTOR_STS`, `ZIPCODE`) VALUES
+	(1, '2019-02-27 00:11:24', '2020-05-03 01:10:39', '444605', 'Amravati', 'India', 'azar@gmail.com', 'azhar', 'shah', '9876543210', 'Maharashtra', b'1', '4411002'),
+	(2, '2019-07-29 20:42:23', '2019-10-26 00:39:31', 'Camp, Amravati, 444602', 'Amravati', 'India', 'ahmar93@gmail.co', 'SharifAhmar', 'Ahmar', '9876543217', 'Maharashtra', b'1', '411048'),
+	(3, '2020-09-07 15:43:41', '2020-09-07 15:43:41', 'Camp , Amravati', 'Amravati', 'India', 'nagma@gmail.com', 'Nagma', 'Sharif', '9025365255', 'Maharashtra', b'1', '444602'),
+	(4, '2020-09-27 18:35:55', '2020-09-27 18:35:55', 'Badnera', 'Amravati', 'India', 'waqar@gmail.com', 'waqar', 'nazish', '9822933122', 'Maharashtra', b'1', '444701');
 /*!40000 ALTER TABLE `acceptor` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.acceptor_amount
@@ -59,10 +62,17 @@ CREATE TABLE IF NOT EXISTS `acceptor_amount` (
   KEY `FKsnnuelrgkovg4uof9qfkd4t45` (`ACCEPTOR_ID`),
   KEY `FKr3hydhro16e3dlyi2mrf4njdi` (`DONATION_TYPE_ID`),
   KEY `FK709e3fe8vdybe0lnl7bgqycon` (`USER_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.acceptor_amount: 0 rows
+-- Dumping data for table charity_db.acceptor_amount: 5 rows
+DELETE FROM `acceptor_amount`;
 /*!40000 ALTER TABLE `acceptor_amount` DISABLE KEYS */;
+INSERT INTO `acceptor_amount` (`ACCEPTOR_AMOUNT_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ACCEPTOR_AMOUNT`, `ACCEPTOR_AMOUNT_STS`, `ACCEPTOR_ID`, `DONATION_TYPE_ID`, `TOKEN_NUMBER`, `USER_ID`) VALUES
+	(1, '2020-05-03 03:29:23', '2020-09-09 01:50:02', '5000', b'1', 1, 2, '56789', 3),
+	(2, '2020-09-09 01:16:26', '2020-09-09 01:16:26', '5000', b'1', 3, 2, '12345', 3),
+	(3, '2020-09-09 01:35:07', '2020-09-09 01:35:07', '500', b'1', 3, 2, '12345', 3),
+	(4, '2020-09-27 20:05:23', '2020-09-27 20:05:23', '1000', b'1', 1, 2, 'O12', 15),
+	(5, '2020-09-27 20:08:23', '2020-09-27 20:08:23', '1000', b'1', 1, 8, 'O12', 15);
 /*!40000 ALTER TABLE `acceptor_amount` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.acceptor_token_details
@@ -77,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `acceptor_token_details` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.acceptor_token_details: 0 rows
+DELETE FROM `acceptor_token_details`;
 /*!40000 ALTER TABLE `acceptor_token_details` DISABLE KEYS */;
 /*!40000 ALTER TABLE `acceptor_token_details` ENABLE KEYS */;
 
@@ -91,6 +102,7 @@ CREATE TABLE IF NOT EXISTS `cities` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.cities: 0 rows
+DELETE FROM `cities`;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 
@@ -103,26 +115,31 @@ CREATE TABLE IF NOT EXISTS `donars` (
   `ADDRESS` varchar(100) DEFAULT NULL,
   `CITY` varchar(100) DEFAULT NULL,
   `COUNTRY` varchar(100) DEFAULT NULL,
-  `EMAIL_ID` varchar(100) NOT NULL,
-  `FIRST_NAME` varchar(100) DEFAULT NULL,
-  `LAST_NAME` varchar(100) DEFAULT NULL,
+  `FULL_NAME` varchar(256) DEFAULT NULL,
   `PHONE` varchar(100) NOT NULL,
   `STATE` varchar(100) DEFAULT NULL,
   `DONAR_STS` bit(1) NOT NULL,
   `ZIPCODE` varchar(100) DEFAULT NULL,
+  `PROFILE_PICTURE` text,
+  `PROFILE_PICTURE_URL` text,
   PRIMARY KEY (`DONARS_ID`),
-  UNIQUE KEY `UK50kccpkk0n6mtb1c4s8p85i2q` (`EMAIL_ID`),
   UNIQUE KEY `UKnqbtley12h0wka100jbu221oq` (`PHONE`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.donars: 5 rows
+-- Dumping data for table charity_db.donars: 10 rows
+DELETE FROM `donars`;
 /*!40000 ALTER TABLE `donars` DISABLE KEYS */;
-INSERT IGNORE INTO `donars` (`DONARS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`, `CITY`, `COUNTRY`, `EMAIL_ID`, `FIRST_NAME`, `LAST_NAME`, `PHONE`, `STATE`, `DONAR_STS`, `ZIPCODE`) VALUES
-	(1, '2019-02-22 19:25:11', '2019-10-27 16:05:33', 'camp , Jail Raod, AMravati 444604', 'Amravati', 'India', 'ahmar@gmail.com', 'Muzammmil', 'Khan', '9876543210', 'Maharashtra', b'1', '444602'),
-	(2, '2019-07-06 22:36:18', '2019-07-19 23:06:39', 'Mohammadi Wadi, NIBM Road , Kondhwa , Pune', 'Amravati', 'India', 'nimish@gmail.com', 'nimish', 'bharadwaj', '9028356525', 'Maharashtra', b'1', '411048'),
-	(3, '2019-07-19 00:41:30', '2019-10-29 23:58:03', ' Kharadi, Pune', 'Amravati', 'India', 'shoab@gmail.com', 'Muzammmil', 'Mohd', '9876543212', 'Maharashtra', b'1', '411036'),
-	(4, '2019-07-27 16:32:45', '2019-10-26 00:49:19', 'Camp ,Amaravati 444602', 'Amravati', 'India', 'nagma@gmail.com', 'Nagma', 'Sharif', '8087100602', 'Maharashtra', b'0', '444602'),
-	(5, '2019-11-03 00:26:20', '2019-11-03 00:26:20', 'Amravati', 'Amravati', 'India', 'demo@gmail.com', 'demo', 'demo', '8668816121', 'Maharashtra', b'1', '411048');
+INSERT INTO `donars` (`DONARS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`, `CITY`, `COUNTRY`, `FULL_NAME`, `PHONE`, `STATE`, `DONAR_STS`, `ZIPCODE`, `PROFILE_PICTURE`, `PROFILE_PICTURE_URL`) VALUES
+	(1, '2019-02-22 19:25:11', '2020-10-09 22:31:37', 'camp , Jail Raod, AMravati 444604', 'Amravati', 'India', 'Muzammmil Amt', '9876543210', 'Maharashtra', b'1', '444602', NULL, NULL),
+	(2, '2019-07-06 22:36:18', '2020-10-12 01:27:56', 'Mohammadi Wadi, NIBM Road , Kondhwa , Pune', 'Amravati', 'India', 'nimish', '9028356525', 'Maharashtra', b'0', '411048', NULL, NULL),
+	(3, '2019-07-19 00:41:30', '2020-10-05 02:31:08', ' Kharadi, Pune', 'Amravati', 'India', 'Muzammmil', '9876543212', 'Maharashtra', b'0', '411036', NULL, NULL),
+	(4, '2019-07-27 16:32:45', '2019-10-26 00:49:19', 'Camp ,Amaravati 444602', 'Amravati', 'India', 'Nagma', '8087100602', 'Maharashtra', b'1', '444602', NULL, NULL),
+	(5, '2019-11-03 00:26:20', '2020-04-10 20:54:09', 'Amravati', 'Amravati', 'India', 'demo', '8668816121', 'Maharashtra', b'1', '411048', NULL, NULL),
+	(6, '2020-09-27 18:17:04', '2020-09-27 18:18:07', 'Badnera 447402', 'Amravati', 'India', 'waqar', '9822933122', 'Maharashtra', b'1', '444701', NULL, NULL),
+	(7, '2020-09-27 18:55:09', '2020-09-27 18:55:09', 'BAdnera', 'Amravati', 'India', 'saquib', '7020041371', 'Maharashtra', b'1', '444702', NULL, NULL),
+	(8, '2020-10-05 02:32:44', '2020-10-11 02:22:02', 'Nanded', 'Amravati', 'India', 'Asif ', '9764866456', 'Maharashtra', b'1', '444602', 'file:/E:/Desktop/Spring_boot_charity_app/images/Donor/8/mypic.JPG', 'http://localhost:8081/images/Donor/8/mypic.JPG'),
+	(9, '2020-10-09 23:38:53', '2020-10-11 02:20:45', 'Pune', 'Amravati', 'India', 'Aazam Pathan', '9028356528', 'Maharashtra', b'1', '444603', 'file:/E:/Desktop/Spring_boot_charity_app/images/Donor/9/mypicedited.JPG', 'http://localhost:8081/images/Donor/9/mypicedited.JPG'),
+	(10, '2020-10-10 01:22:15', '2020-10-10 01:22:15', 'NGP', 'Amravati', 'India', 'Atib Sharif', '9876542310', 'Maharashtra', b'1', '444016', NULL, NULL);
 /*!40000 ALTER TABLE `donars` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.donar_slip_details
@@ -137,8 +154,9 @@ CREATE TABLE IF NOT EXISTS `donar_slip_details` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.donar_slip_details: 1 rows
+DELETE FROM `donar_slip_details`;
 /*!40000 ALTER TABLE `donar_slip_details` DISABLE KEYS */;
-INSERT IGNORE INTO `donar_slip_details` (`DONAR_SLIP_DETAILS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `USER_ID`) VALUES
+INSERT INTO `donar_slip_details` (`DONAR_SLIP_DETAILS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `USER_ID`) VALUES
 	(2, '2019-02-26 23:06:07', '2019-02-26 23:06:07', 1);
 /*!40000 ALTER TABLE `donar_slip_details` ENABLE KEYS */;
 
@@ -158,18 +176,24 @@ CREATE TABLE IF NOT EXISTS `donation_amount` (
   KEY `FKem8v52bdtx2su5pyws3u7g4k3` (`DONAR_ID`),
   KEY `FKt3rfsoy40ax7syfn1fog3wslk` (`DONATION_TYPE_ID`),
   KEY `FK4457y87oer796dg7xlyrigxnx` (`USER_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.donation_amount: 7 rows
+-- Dumping data for table charity_db.donation_amount: 12 rows
+DELETE FROM `donation_amount`;
 /*!40000 ALTER TABLE `donation_amount` DISABLE KEYS */;
-INSERT IGNORE INTO `donation_amount` (`DONATION_AMOUNT_ID`, `CREATED_DATE`, `UPDATED_DATE`, `DONATION_AMOUNT`, `DONATION_AMOUNT_STS`, `DONATION_TYPE_ID`, `USER_ID`, `DONAR_ID`, `RECEIPT_NUMBER`) VALUES
-	(1, '2019-11-04 01:47:59', '2019-11-03 01:47:59', '500', b'1', 2, 3, 5, '00479'),
-	(2, '2019-11-06 01:51:40', '2019-11-03 01:51:40', '322', b'1', 3, 3, 5, '98479'),
-	(3, '2019-11-23 02:08:20', '2019-11-03 02:08:20', '566', b'1', 2, 3, 5, '75499'),
+INSERT INTO `donation_amount` (`DONATION_AMOUNT_ID`, `CREATED_DATE`, `UPDATED_DATE`, `DONATION_AMOUNT`, `DONATION_AMOUNT_STS`, `DONATION_TYPE_ID`, `USER_ID`, `DONAR_ID`, `RECEIPT_NUMBER`) VALUES
+	(1, '2019-11-04 01:47:59', '2020-04-10 00:50:03', '500', b'1', 2, 3, 5, '00479'),
+	(2, '2019-11-06 01:51:40', '2020-04-11 18:30:10', '500', b'1', 2, 3, 5, '984790'),
+	(3, '2019-11-23 02:08:20', '2020-09-08 01:15:24', '5668', b'0', 2, 3, 5, '75499'),
 	(4, '2019-11-03 15:37:19', '2019-11-03 15:37:19', '500', b'1', 2, 3, 3, '68479'),
 	(5, '2019-11-09 23:33:03', '2019-11-09 23:33:03', '1000', b'1', 2, 3, 2, '78567'),
-	(6, '2019-11-09 23:54:09', '2019-11-09 23:54:09', '1000', b'1', 2, 3, 2, '78479'),
-	(7, '2019-12-09 22:42:03', '2019-12-09 22:42:03', '1000', b'1', 2, 3, 5, 'AH42941');
+	(6, '2019-11-09 23:54:09', '2020-05-03 01:09:38', '1000', b'0', 2, 3, 2, '78479'),
+	(7, '2019-12-09 22:42:03', '2020-04-10 00:50:56', '1000', b'0', 2, 3, 5, 'AH42941'),
+	(8, '2020-04-05 14:53:42', '2020-04-05 14:53:42', '5500', b'1', 2, 3, 5, '12345'),
+	(13, '2020-09-09 01:08:30', '2020-09-09 01:08:30', '5000', b'1', 2, 3, 5, '12345'),
+	(14, '2020-09-27 18:24:29', '2020-09-27 18:27:08', '1500', b'1', 3, 14, 5, '56789'),
+	(15, '2020-09-27 18:56:59', '2020-09-27 18:56:59', '1000', b'1', 2, 15, 7, '12345'),
+	(16, '2020-09-27 19:20:56', '2020-09-27 19:20:56', '1000', b'1', 2, 15, 7, '12345');
 /*!40000 ALTER TABLE `donation_amount` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.donation_type
@@ -183,15 +207,16 @@ CREATE TABLE IF NOT EXISTS `donation_type` (
   `DONATION_TYPE_NAME` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`DONATION_TYPE_ID`),
   UNIQUE KEY `UKr2rws1kujaw32toewj52ak7he` (`DONATION_TYPE`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.donation_type: 4 rows
+DELETE FROM `donation_type`;
 /*!40000 ALTER TABLE `donation_type` DISABLE KEYS */;
-INSERT IGNORE INTO `donation_type` (`DONATION_TYPE_ID`, `CREATED_DATE`, `UPDATED_DATE`, `DONATION_TYPE`, `DONATION_TYPE_STS`, `DONATION_TYPE_NAME`) VALUES
+INSERT INTO `donation_type` (`DONATION_TYPE_ID`, `CREATED_DATE`, `UPDATED_DATE`, `DONATION_TYPE`, `DONATION_TYPE_STS`, `DONATION_TYPE_NAME`) VALUES
 	(2, '2019-02-22 19:48:54', '2019-10-26 00:59:54', 'JAKAAT', b'1', 'jakaat'),
 	(3, '2019-02-22 19:52:27', '2019-10-26 01:00:45', 'RATION', b'1', 'ration'),
-	(6, '2019-07-23 23:23:50', '2019-07-23 23:23:50', 'Shoaib', b'1', 'Shoaib'),
-	(7, '2019-07-25 22:32:44', '2019-07-25 22:32:44', 'NAGMA', b'1', 'Nagma');
+	(6, '2019-07-23 23:23:50', '2019-07-23 23:23:50', 'ALL', b'1', 'all'),
+	(8, '2020-09-27 20:08:00', '2020-09-27 20:08:00', 'SADAQ', b'1', 'sadaq');
 /*!40000 ALTER TABLE `donation_type` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.refresh_tokens
@@ -204,9 +229,10 @@ CREATE TABLE IF NOT EXISTS `refresh_tokens` (
   KEY `FKhspjwa36lvj54jpx0kuyx4b33` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.refresh_tokens: 169 rows
+-- Dumping data for table charity_db.refresh_tokens: 251 rows
+DELETE FROM `refresh_tokens`;
 /*!40000 ALTER TABLE `refresh_tokens` DISABLE KEYS */;
-INSERT IGNORE INTO `refresh_tokens` (`token`, `expirationDateTime`, `user_id`) VALUES
+INSERT INTO `refresh_tokens` (`token`, `expirationDateTime`, `user_id`) VALUES
 	('90f9403c-b04d-41e5-87cc-8d6c428172b5', '2020-04-29 15:37:28', 2),
 	('804151e6-a1a3-4fd1-ba7d-3b1a4e4974f1', '2020-06-20 19:22:37', 3),
 	('002c5eb7-d822-439c-b2d7-4b29f41df44a', '2020-06-20 20:27:50', 3),
@@ -377,7 +403,91 @@ INSERT IGNORE INTO `refresh_tokens` (`token`, `expirationDateTime`, `user_id`) V
 	('687f68a9-68f5-48ac-bbde-2ac9310514a8', '2020-12-04 19:58:52', 3),
 	('d8b7c42b-102b-482c-8b3f-64a296ad34a6', '2020-12-04 20:28:44', 3),
 	('0d7dc724-ab65-4726-b22a-3a705ddb6a39', '2020-12-04 20:53:04', 3),
-	('8cba5e56-7a39-4ef7-bb23-272aa038f70c', '2020-12-04 20:54:12', 3);
+	('8cba5e56-7a39-4ef7-bb23-272aa038f70c', '2020-12-04 20:54:12', 3),
+	('e20c6819-18ff-444c-9de9-4bd5c8bb8940', '2021-03-20 18:08:17', 3),
+	('3b69adb8-048d-49ee-9265-1a64c65209e4', '2021-03-30 14:21:48', 3),
+	('0597f1c8-570f-4081-8490-a42ca5ea9c3c', '2021-03-30 14:52:08', 3),
+	('240d3979-b41b-41b0-8d67-ec00be358fa0', '2021-03-31 14:34:45', 3),
+	('178dfc93-f9e9-496f-80df-526633a7ea15', '2021-04-02 01:17:57', 3),
+	('90fb5558-736a-419b-9d49-d1cf749a509b', '2021-04-03 15:11:19', 3),
+	('2c85249e-861c-419f-9835-6fe08b0ae2fe', '2021-04-05 00:34:01', 3),
+	('f8d7b920-c664-48b0-af7e-edbf1074cd7d', '2021-04-05 17:33:56', 3),
+	('412589f2-cda3-4cfa-9b58-a14bb1472cab', '2021-04-05 18:14:40', 3),
+	('53deb839-bbfc-4e48-9c32-8133b32dbbc4', '2021-04-06 17:55:36', 3),
+	('97ee583a-cdf7-4625-be39-8eeb89a27cb3', '2021-04-07 15:14:27', 3),
+	('26ffda14-17ac-4585-a2d1-ae57808b68e3', '2021-04-28 01:02:32', 3),
+	('d05000be-640d-4105-b772-34081c250af0', '2021-04-28 01:05:25', 3),
+	('1588a66b-b36e-4d63-8d29-da3626d83ae8', '2021-05-01 01:30:21', 3),
+	('42164371-7ce0-4721-b848-f0ed00c4ac13', '2021-05-01 01:46:57', 3),
+	('6114fb1f-4b91-44a5-9d51-efea28650a59', '2021-09-02 15:16:07', 3),
+	('ed01e27e-3ead-41a0-9e2c-da314cbd4c0c', '2021-09-02 23:34:06', 3),
+	('416a6069-6d84-4674-909d-38f21d20710c', '2021-09-03 01:15:12', 3),
+	('99d93327-2264-44d6-a353-d4f461d1e4c6', '2021-09-04 00:00:13', 3),
+	('5c8bc8e0-332a-4010-a38d-dbbffd96548b', '2021-09-10 02:19:11', 3),
+	('310a5923-2993-4881-bcaa-517d2bc9e480', '2021-09-12 00:34:03', 3),
+	('40515b02-be66-4825-94f5-c1fd7089d918', '2021-09-12 01:03:25', 3),
+	('32ca7246-81fe-45aa-bc93-c3debbd73c99', '2021-09-12 23:47:50', 3),
+	('b33e6278-2027-4e0a-b46f-5b00b7dd5772', '2021-09-12 23:48:20', 3),
+	('097fed3f-9458-4469-be91-d6f6306d602b', '2021-09-12 23:48:39', 3),
+	('36e29e29-14ae-4ce9-ac6a-ea824cfbebcf', '2021-09-12 23:48:44', 3),
+	('bbb4d5d8-f17d-49b8-83ff-a1258d7cb167', '2021-09-12 23:48:52', 3),
+	('868977e4-71c8-450c-8fbb-dc6a5b6fa862', '2021-09-12 23:50:54', 3),
+	('3fa512b7-4668-4285-b909-732ad614b484', '2021-09-12 23:50:59', 3),
+	('78953134-6cd9-4a73-a353-2c900dece953', '2021-09-12 23:53:46', 3),
+	('a32429b5-5e70-4668-bfb0-ed0a696240b7', '2021-09-12 23:54:02', 3),
+	('2b5038de-4a45-4505-a6c3-45fe64fc40d1', '2021-09-13 00:27:52', 3),
+	('ef61c868-decd-4f2a-bbe6-e8e336d02887', '2021-09-13 01:21:18', 3),
+	('37be5a57-f47f-4ef1-8607-d671eb994895', '2021-09-13 23:07:46', 3),
+	('29685faa-e76e-463e-b92e-474bee9db8e4', '2021-09-13 23:15:22', 3),
+	('2dbc5367-cb39-44cf-96b8-6808fba1dd20', '2021-09-14 00:28:53', 3),
+	('793fc93c-fc04-4540-b2f8-6a308ae59512', '2021-09-14 02:57:04', 3),
+	('b7f798f9-30e9-4d97-8282-0f1046fe7ff1', '2021-09-14 21:15:37', 3),
+	('ead7ed0b-3ecf-4523-b817-17fe14644402', '2021-09-14 23:08:02', 3),
+	('265849fc-acdb-4a38-9309-f352956772f8', '2021-09-14 23:12:25', 3),
+	('c378db0e-9891-47a4-a80b-a9871cfa0d18', '2021-09-14 23:20:04', 3),
+	('c9321a48-6fc5-439e-b287-1cf8eaf85ec3', '2021-09-14 23:34:54', 3),
+	('7c9e3838-b959-4386-bbdf-09486d023df2', '2021-09-14 23:36:03', 3),
+	('84650813-0b7c-44a0-8218-1519129419f5', '2021-09-14 23:37:18', 3),
+	('731e65dd-8ad1-4829-b67d-86e1f70a86cb', '2021-09-14 23:54:52', 3),
+	('3477adb0-f795-498d-b579-cee5155363ed', '2021-09-15 01:31:52', 3),
+	('957fb828-e2d4-4019-9bd2-31e473116f00', '2021-09-15 04:06:28', 3),
+	('e584eb2e-970a-4e89-ba63-243fdf432278', '2021-09-15 23:17:09', 3),
+	('2df86ae6-8b62-49b0-9773-746a4e59ccad', '2021-09-15 23:40:42', 3),
+	('eb4837c8-b41c-45d9-afa8-02caf5865b58', '2021-09-15 23:44:20', 3),
+	('3f12d4d9-a30f-4d08-b8c3-66af5066cf79', '2021-09-19 00:33:21', 3),
+	('d9a29d16-a19c-4100-87cb-269b87183427', '2021-09-21 02:52:54', 3),
+	('05f62c0c-a95b-491d-b80f-fdecedd889c4', '2021-09-21 03:39:52', 3),
+	('a38a4069-3777-4d36-a9c3-d0c78b97943d', '2021-09-21 23:13:16', 3),
+	('32446304-0884-4b7e-aef0-0c8c2c5e1cb4', '2021-09-22 00:54:51', 12),
+	('bb8a9650-ec38-4f5b-a7f4-973a4c2d9a43', '2021-09-22 01:41:51', 3),
+	('0f67d02e-a7d5-4a73-bc76-cc8a54811ba7', '2021-09-22 01:42:46', 13),
+	('175e1914-9052-4eae-a3e3-73f18bb9e691', '2021-09-22 18:10:34', 14),
+	('f56d8ef4-5e60-40b0-aa8b-37b53d6db84d', '2021-09-22 18:14:05', 14),
+	('f0044d8b-24ac-4cb8-afc9-848a2147446b', '2021-09-22 18:52:20', 15),
+	('56898d1a-db8e-48e2-8cf6-88df2f22af45', '2021-09-22 20:21:31', 3),
+	('2052b894-c614-4616-9457-0cf10fe2a86a', '2021-09-26 23:57:48', 3),
+	('443bac2f-7b79-4498-917a-07607b44b41c', '2021-09-29 02:10:14', 3),
+	('2fe99ff6-6905-4943-8e1b-1b7386df5d19', '2021-09-29 23:30:26', 3),
+	('898868a5-a62c-462a-8cdd-b71ab103c649', '2021-09-30 02:01:24', 3),
+	('b0792055-1ff6-431e-a218-98fa6789b11a', '2021-09-30 02:02:35', 3),
+	('b7a214e2-de31-4fa7-bee0-c631d95e13aa', '2021-09-30 02:08:48', 3),
+	('c0cab032-771b-4362-9cd0-c8eb0f9a0c5a', '2021-09-30 02:12:19', 3),
+	('17e99d56-be25-4fca-9e5f-77316448960c', '2021-09-30 02:43:43', 3),
+	('56fff9df-7f26-4d06-98c1-5c0f29550c54', '2021-10-01 08:24:05', 3),
+	('d17f61fd-5e96-4061-8e00-186d20d5ab52', '2021-10-02 01:55:33', 3),
+	('8738e40f-209f-4c80-91a7-a3cb283b1f8b', '2021-10-02 02:58:24', 3),
+	('2d18da05-6392-4d67-bf74-943fbce61ee9', '2021-10-04 02:13:52', 3),
+	('70a0b896-e270-4508-9a2b-33048e8b812b', '2021-10-04 22:30:19', 3),
+	('2d19ba97-aec9-4062-9c88-87eb5dc02c88', '2021-10-06 00:30:35', 3),
+	('93dabe8d-4a0e-450a-9f38-230b9b6164d7', '2021-10-06 01:37:16', 3),
+	('704610df-a359-430a-83ce-6ebd5f7ebcec', '2021-10-06 01:55:45', 3),
+	('a9adeb48-deb3-407c-b3cf-6d788da88f33', '2021-10-06 02:30:32', 3),
+	('c790f77b-625e-4f3f-9de1-ed0c09d93e8b', '2021-10-06 22:17:38', 3),
+	('5b9ac08d-a456-412c-80b0-f362226265ef', '2021-10-06 22:53:43', 3),
+	('0ea1128b-0a76-45aa-ba73-7ec2758e4e7e', '2021-10-07 00:47:40', 3),
+	('dd8b9aab-4a2e-4920-98f6-e540777d3be1', '2021-10-07 00:52:30', 3),
+	('b6313acc-4952-4e22-a7cd-cd865439bf65', '2021-10-07 00:53:37', 14),
+	('6e63ceef-3a79-4149-a625-26e4581071fe', '2021-10-07 01:00:18', 3);
 /*!40000 ALTER TABLE `refresh_tokens` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.roles
@@ -391,8 +501,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.roles: 2 rows
+DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT IGNORE INTO `roles` (`ROLE_ID`, `ROLE_DESC`, `ROLE_NAME`) VALUES
+INSERT INTO `roles` (`ROLE_ID`, `ROLE_DESC`, `ROLE_NAME`) VALUES
 	(1, NULL, 'ROLE_ADMIN'),
 	(2, NULL, 'ROLE_USER');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
@@ -408,6 +519,7 @@ CREATE TABLE IF NOT EXISTS `shipping` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.shipping: 0 rows
+DELETE FROM `shipping`;
 /*!40000 ALTER TABLE `shipping` DISABLE KEYS */;
 /*!40000 ALTER TABLE `shipping` ENABLE KEYS */;
 
@@ -438,11 +550,12 @@ CREATE TABLE IF NOT EXISTS `students` (
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.students: 3 rows
+DELETE FROM `students`;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT IGNORE INTO `students` (`STUDENTS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `AADHAAR_NUMBER`, `ADDRESS`, `CITY`, `CLASS_NAME`, `COUNTRY`, `FATHER_NAME`, `FIRST_NAME`, `GRADE`, `LAST_NAME`, `MOTHER_NAME`, `PHONE`, `SCHOOL_NAME`, `STATE`, `STUDENT_STS`, `STUDENTS_SUB_ID`, `ZIPCODE`, `STUDENTS_ID_NUMBER`) VALUES
+INSERT INTO `students` (`STUDENTS_ID`, `CREATED_DATE`, `UPDATED_DATE`, `AADHAAR_NUMBER`, `ADDRESS`, `CITY`, `CLASS_NAME`, `COUNTRY`, `FATHER_NAME`, `FIRST_NAME`, `GRADE`, `LAST_NAME`, `MOTHER_NAME`, `PHONE`, `SCHOOL_NAME`, `STATE`, `STUDENT_STS`, `STUDENTS_SUB_ID`, `ZIPCODE`, `STUDENTS_ID_NUMBER`) VALUES
 	(4, '2019-08-26 20:39:14', '2019-10-26 01:01:55', '98765432', 'Camp', 'Amravati', 'Fourth', 'India', 'akhtar', 'amar', 'A', 'sharif', 'biquis', '9876543210', 'Paradise', 'Maharashtra', b'1', 789, '411048', 987),
 	(5, '2019-08-26 20:46:11', '2019-10-26 00:19:30', '7894561230', 'camp', 'Amravati', '4', 'India', 'akhtar', 'nagma', 'A', 'sharif', 'nagma', '9876543210', 'Allana', 'Maharashtra', b'1', 987, '411048', 789),
-	(6, '2019-10-25 22:16:52', '2019-12-10 20:13:20', '9876543210', 'camp,Amravati, 444602', 'Amravati', '5th', 'India', 'begum', 'ahmar', 'A', 'sharif', 'bilquis', '9876543210', 'St Thomas English', 'Maharashtra', b'1', 123, '444602', 123);
+	(6, '2019-10-25 22:16:52', '2020-09-07 15:44:44', '9876543210', 'camp,Amravati, 444604', 'Amravati', '5th', 'India', 'begum', 'ahmar', 'A', 'sharif', 'bilquis', '9876543210', 'St Thomas English', 'Maharashtra', b'1', 123, '444602', 123);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.student_stationary
@@ -460,8 +573,9 @@ CREATE TABLE IF NOT EXISTS `student_stationary` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.student_stationary: 1 rows
+DELETE FROM `student_stationary`;
 /*!40000 ALTER TABLE `student_stationary` DISABLE KEYS */;
-INSERT IGNORE INTO `student_stationary` (`STUDENT_STATIONARY_ID`, `CREATED_DATE`, `UPDATED_DATE`, `STUDENT_STATIONARY_STS`, `STUDENT_STATIONARY_TYPE`, `STUDENTS_ID`) VALUES
+INSERT INTO `student_stationary` (`STUDENT_STATIONARY_ID`, `CREATED_DATE`, `UPDATED_DATE`, `STUDENT_STATIONARY_STS`, `STUDENT_STATIONARY_TYPE`, `STUDENTS_ID`) VALUES
 	(1, '2019-03-03 00:34:03', '2019-03-03 00:34:05', b'1', 'BOOKS', 1);
 /*!40000 ALTER TABLE `student_stationary` ENABLE KEYS */;
 
@@ -479,23 +593,27 @@ CREATE TABLE IF NOT EXISTS `users` (
   `LAST_NAME` varchar(100) DEFAULT NULL,
   `PASSWORD` varchar(255) NOT NULL,
   `PHONE` varchar(100) NOT NULL,
-  `PROFILE_PICTURE` varchar(100) DEFAULT NULL,
+  `PROFILE_PICTURE` text,
+  `PROFILE_PICTURE_URL` text,
   `STATE` varchar(100) DEFAULT NULL,
   `USER_STS` bit(1) NOT NULL,
   `ZIPCODE` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`USER_ID`),
   UNIQUE KEY `UKq7m1l7d7rjcxryb6bs64nmord` (`EMAIL_ID`),
   UNIQUE KEY `UKig284flnsskg3l7df8ty1d9o9` (`PHONE`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.users: 5 rows
+-- Dumping data for table charity_db.users: 7 rows
+DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT IGNORE INTO `users` (`USER_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`, `CITY`, `COUNTRY`, `EMAIL_ID`, `FIRST_NAME`, `LAST_NAME`, `PASSWORD`, `PHONE`, `PROFILE_PICTURE`, `STATE`, `USER_STS`, `ZIPCODE`) VALUES
-	(1, '2019-02-21 21:54:36', '2019-07-27 16:16:34', 'Camp Amravati 444602', 'Amravati', 'India', 'ahmar@gmail.com', 'ahmar', 'sharif', '$2a$10$qfS/haB8j6lSovbAaUKPJO9FdAZHfK7fZFm7DPVIxDIAFJ3Sw2gpe', '457876543', NULL, 'Maharashtra', b'1', '444602'),
-	(2, '2019-02-21 21:56:51', '2019-07-06 00:20:29', 'amravati', 'Amravati', 'India', 'ahmarsharif@gmail.com', 'ahmar', 'SHAREEF', '$2a$10$qfS/haB8j6lSovbAaUKPJO9FdAZHfK7fZFm7DPVIxDIAFJ3Sw2gpe', '987654321', NULL, 'Maharashtra', b'1', '444602'),
-	(3, '2019-06-26 19:17:11', '2019-10-31 19:43:04', 'Pune', 'Amravati', 'India', 'ahmarssharif@gmail.com', 'ahmar', 'Sharif', '$2a$10$qfS/haB8j6lSovbAaUKPJO9FdAZHfK7fZFm7DPVIxDIAFJ3Sw2gpe', '9028356525', NULL, 'Maharashtra', b'1', '411048'),
-	(7, '2019-06-29 19:12:57', '2019-06-29 19:12:57', NULL, NULL, NULL, 'praful@gmail.com', 'praful', 'tidke', '$2a$10$il50qZiqOwKtmC3VdBrp..jjP4OdZkvosVTbbsv1GOnm.dT2ionN6', '9876543210', NULL, NULL, b'1', NULL),
-	(10, '2019-07-26 20:11:32', '2019-07-26 20:11:32', NULL, NULL, NULL, 'nagma@gmail.com', 'Nagma', 'Sharif', '$2a$10$H5swoO/g0DkxHKWYL0o.XecpmagrU8OY4iHTwxkfl4eYYOctAUYQW', '0902835652', NULL, NULL, b'1', NULL);
+INSERT INTO `users` (`USER_ID`, `CREATED_DATE`, `UPDATED_DATE`, `ADDRESS`, `CITY`, `COUNTRY`, `EMAIL_ID`, `FIRST_NAME`, `LAST_NAME`, `PASSWORD`, `PHONE`, `PROFILE_PICTURE`, `PROFILE_PICTURE_URL`, `STATE`, `USER_STS`, `ZIPCODE`) VALUES
+	(1, '2019-02-21 21:54:36', '2019-07-27 16:16:34', 'Camp Amravati 444602', 'Amravati', 'India', 'ahmar@gmail.com', 'ahmar', 'sharif', '$2a$10$qfS/haB8j6lSovbAaUKPJO9FdAZHfK7fZFm7DPVIxDIAFJ3Sw2gpe', '457876543', NULL, NULL, 'Maharashtra', b'1', '444602'),
+	(2, '2019-02-21 21:56:51', '2019-07-06 00:20:29', 'amravati', 'Amravati', 'India', 'ahmarsharif@gmail.com', 'ahmar', 'SHAREEF', '$2a$10$qfS/haB8j6lSovbAaUKPJO9FdAZHfK7fZFm7DPVIxDIAFJ3Sw2gpe', '987654321', NULL, NULL, 'Maharashtra', b'1', '444602'),
+	(3, '2019-06-26 19:17:11', '2020-10-12 01:06:24', 'Pune', 'Amravati', 'India', 'ahmarssharif@gmail.com', 'ahmar', 'Sharif', '$2a$10$qfS/haB8j6lSovbAaUKPJO9FdAZHfK7fZFm7DPVIxDIAFJ3Sw2gpe', '9028356525', 'file:/E:/Desktop/Spring_boot_charity_app/images/User-Profile/3/mypic.JPG', 'http://localhost:8081/images/User-Profile/3/mypic.JPG', 'Maharashtra', b'1', '411048'),
+	(7, '2019-06-29 19:12:57', '2019-06-29 19:12:57', NULL, NULL, NULL, 'praful@gmail.com', 'praful', 'tidke', '$2a$10$il50qZiqOwKtmC3VdBrp..jjP4OdZkvosVTbbsv1GOnm.dT2ionN6', '9876543210', NULL, NULL, NULL, b'1', NULL),
+	(10, '2019-07-26 20:11:32', '2019-07-26 20:11:32', NULL, NULL, NULL, 'nagma@gmail.com', 'Nagma', 'Sharif', '$2a$10$H5swoO/g0DkxHKWYL0o.XecpmagrU8OY4iHTwxkfl4eYYOctAUYQW', '0902835652', NULL, NULL, NULL, b'1', NULL),
+	(15, '2020-09-27 18:52:07', '2020-09-27 18:54:14', 'badnera', 'Amravati', 'India', 'abdulsakeem@gmail.com', 'abdul', 'sakeem', '$2a$10$ZI9Q7wG3Ie9AGhGRQVoH..WMBlQCkQzgbvgSjXEL.hpX6wy2ax.s2', '9595006008', 'E:\\Desktop\\Spring_boot_charity_app\\images\\15\\mypic.JPG', NULL, 'Maharashtra', b'1', '444702'),
+	(14, '2020-09-27 18:10:09', '2020-09-27 18:12:21', 'Badnera , Amravati 444701', 'Amravati', 'India', 'waqar@gmail.com', 'waqar', 'nazish', '$2a$10$lFmZFW8a9L5.fsMfyPoTfur1KPqz3BgVBBHPig4n2QGutu.RDgsHe', '9822933122', 'E:\\Desktop\\Spring_boot_charity_app\\images\\14\\mypic.JPG', NULL, 'Maharashtra', b'1', '444701');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table charity_db.user_images
@@ -513,6 +631,7 @@ CREATE TABLE IF NOT EXISTS `user_images` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- Dumping data for table charity_db.user_images: 0 rows
+DELETE FROM `user_images`;
 /*!40000 ALTER TABLE `user_images` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user_images` ENABLE KEYS */;
 
@@ -525,9 +644,10 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   KEY `FK61x3nvxbu49xad90tp9f8kmo1` (`ROLE_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- Dumping data for table charity_db.user_roles: 10 rows
+-- Dumping data for table charity_db.user_roles: 15 rows
+DELETE FROM `user_roles`;
 /*!40000 ALTER TABLE `user_roles` DISABLE KEYS */;
-INSERT IGNORE INTO `user_roles` (`USER_ID`, `ROLE_ID`) VALUES
+INSERT INTO `user_roles` (`USER_ID`, `ROLE_ID`) VALUES
 	(1, 2),
 	(2, 2),
 	(3, 2),
@@ -537,7 +657,12 @@ INSERT IGNORE INTO `user_roles` (`USER_ID`, `ROLE_ID`) VALUES
 	(7, 2),
 	(8, 2),
 	(9, 2),
-	(10, 2);
+	(10, 2),
+	(11, 2),
+	(12, 2),
+	(13, 2),
+	(14, 2),
+	(15, 2);
 /*!40000 ALTER TABLE `user_roles` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
