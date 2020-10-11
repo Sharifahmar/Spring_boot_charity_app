@@ -1,9 +1,8 @@
 package com.ecomm.akhtar.model;
 
 public class UsersUpdateModel {
-
+	private Long id;
 	private String email;
-	private String password;
 	private String firstName;
 	private String lastName;
 	private String address;
@@ -12,6 +11,7 @@ public class UsersUpdateModel {
 	private String country;
 	private String zipCode;
 	private String phoneNumber;
+	private String profilePictureUrl;
 
 	public String getEmail() {
 		return email;
@@ -19,14 +19,6 @@ public class UsersUpdateModel {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getFirstName() {
@@ -91,6 +83,22 @@ public class UsersUpdateModel {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	public String getProfilePictureUrl() {
+		return profilePictureUrl;
+	}
+
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

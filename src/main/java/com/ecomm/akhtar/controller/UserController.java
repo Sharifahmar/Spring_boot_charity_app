@@ -134,7 +134,7 @@ public class UserController {
 		try {
 			UsersUpdateModel user = userServiceInf.updateUserCurrentContext(users);
 			return ResponseEntity.status(HttpStatus.OK).body(user);
-		} catch (Exception e) {
+		} catch (CustomException e) {
 			return new ResponseEntity(new ApiResponseModel("Error Occur while User Updation !", false),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -50,12 +50,19 @@ public class UserServiceImpl implements UserServiceInf {
 	}
 
 	@Override
-	public UsersUpdateModel updateUserCurrentContext(UsersUpdateModel users) throws Exception {
+	public UsersUpdateModel updateUserCurrentContext(UsersUpdateModel users) throws CustomException {
+		UsersEntity usersEntityNew2 = new UsersEntity();
 		UsersEntity usersEntity = usersRepository.findByPhoneNumberAndStatus(users.getPhoneNumber(), true)
-				.orElseThrow(() -> new Exception("Record not found with phoneNumber and status..!!"));
-		BeanUtils.copyProperties(users, usersEntity);
+				.orElseThrow(() -> new CustomException("Record not found with phoneNumber and status..!!",false));
+		BeanUtils.copyProperties(users, usersEntityNew2);
+		usersEntityNew2.setId(usersEntity.getId());
+		usersEntityNew2.setProfilePictureUrl(usersEntity.getProfilePictureUrl());
+		usersEntityNew2.setPassword(usersEntity.getPassword());
+		usersEntityNew2.setStatus(usersEntity.getStatus());
+		usersEntityNew2.setProfilePicture(usersEntity.getProfilePicture());
+		usersEntityNew2.setRoles(usersEntity.getRoles());
 		UsersUpdateModel users2 = new UsersUpdateModel();
-		UsersEntity usersEntityNew = usersRepository.save(usersEntity);
+		UsersEntity usersEntityNew = usersRepository.save(usersEntityNew2);
 		BeanUtils.copyProperties(usersEntityNew, users2);
 		return users2;
 	}

@@ -24,7 +24,7 @@ public interface UserServiceInf {
 
 	Users getUserDetailsByIdStatus(UserPrincipal user ,Boolean status) throws CustomException, IOException, URISyntaxException;
 
-	UsersUpdateModel updateUserCurrentContext(UsersUpdateModel users) throws Exception;
+	UsersUpdateModel updateUserCurrentContext(UsersUpdateModel users) throws CustomException;
 
 
 
