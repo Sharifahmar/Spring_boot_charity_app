@@ -1,15 +1,10 @@
 package com.ecomm.akhtar.model;
 
-
-public class Acceptor  {
+public class Acceptor {
 
 	private Long acceptorId;
-	
-	private String email;
 
-	private String firstName;
-
-	private String lastName;
+	private String fullName;
 
 	private String address;
 
@@ -20,8 +15,10 @@ public class Acceptor  {
 	private String country;
 
 	private String zipCode;
-	
+
 	private String phoneNumber;
+
+	private String profilePictureUrl;
 
 	private Boolean status;
 
@@ -31,22 +28,6 @@ public class Acceptor  {
 
 	public void setAcceptorId(Long acceptorId) {
 		this.acceptorId = acceptorId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getAddress() {
@@ -89,14 +70,6 @@ public class Acceptor  {
 		this.zipCode = zipCode;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -111,6 +84,22 @@ public class Acceptor  {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getProfilePictureUrl() {
+		return profilePictureUrl;
+	}
+
+	public void setProfilePictureUrl(String profilePictureUrl) {
+		this.profilePictureUrl = profilePictureUrl;
 	}
 
 }

@@ -36,27 +36,15 @@ public class AcceptorController {
 		}
 	}
 
-	@PostMapping(EcommUriConstants.ACCEPTOR_EMAIL_EXIST_URI)
-	public ResponseEntity<IdentityAvailability> checkEmailAvailability(@RequestBody UsersCheckRequest acceptor) {
-		Boolean isAvailable = acceptorServiceInf.existsByEmailId(acceptor.getEmail());
-		if (isAvailable) {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new IdentityAvailability(isAvailable, "Email not exist..!!"));
-		} else {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new IdentityAvailability(isAvailable, "Email already exist..!!"));
-		}
-	}
-	
 	
 	@PostMapping(EcommUriConstants.UPDATE_ACCEPTOR_URI)
-	public ResponseEntity<ApiResponseModel> updateDonar(@RequestBody Acceptor acceptor) {
+	public ResponseEntity<ApiResponseGenericModel<?>> updateDonar(@RequestBody Acceptor acceptor) {
 		Acceptor acceptor2 = acceptorServiceInf.updateAcceptor(acceptor);
 		if (!ObjectUtils.isEmpty(acceptor2)) {
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ApiResponseModel("Acceptor Updated Successfully..!!", true));
+					.body(new ApiResponseGenericModel<>(acceptor2, true));
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
 		}
 	}
 	

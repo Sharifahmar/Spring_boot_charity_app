@@ -9,14 +9,10 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
 
 import com.ecomm.akhtar.entity.AcceptorEntity;
-import com.ecomm.akhtar.entity.DonarsEntity;
 import com.ecomm.akhtar.model.Acceptor;
-import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.repository.AcceptorRepository;
 
 /**
@@ -32,11 +28,6 @@ public class AcceptorServiceImpl implements AcceptorServiceInf {
 	@Override
 	public Boolean existsByPhoneNumber(String phoneNumber) {
 		return !acceptorRepository.existsByPhoneNumber(phoneNumber);
-	}
-
-	@Override
-	public Boolean existsByEmailId(String email) {
-		return !acceptorRepository.existsByEmail(email);
 	}
 
 	@Override
@@ -59,7 +50,6 @@ public class AcceptorServiceImpl implements AcceptorServiceInf {
 			AcceptorEntity acceptorEntityNew = new AcceptorEntity();
 			BeanUtils.copyProperties(acceptor, acceptorEntityNew);
 			acceptorEntityNew.setPhoneNumber(acOptional.get().getPhoneNumber());
-			acceptorEntityNew.setEmail(acOptional.get().getEmail());
 			AcceptorEntity acceptorEntity = acceptorRepository.save(acceptorEntityNew);
 			BeanUtils.copyProperties(acceptorEntity, acceptor2);
 		}
@@ -68,7 +58,7 @@ public class AcceptorServiceImpl implements AcceptorServiceInf {
 
 	@Override
 	public List<Acceptor> searchCriteria(Acceptor acceptor) {
-		List<AcceptorEntity> acceptorEntityRtrn=acceptorRepository.findByAcceptorSearchCriteria(acceptor.getFirstName(), acceptor.getPhoneNumber(), acceptor.getEmail(), acceptor.getStatus());
+		List<AcceptorEntity> acceptorEntityRtrn=acceptorRepository.findByAcceptorSearchCriteria(acceptor.getFullName(), acceptor.getPhoneNumber(), acceptor.getStatus());
 		return acceptorEntityRtrn.stream().map(x -> {
 			Acceptor acceptorNew = new Acceptor();
 			BeanUtils.copyProperties(x, acceptorNew);

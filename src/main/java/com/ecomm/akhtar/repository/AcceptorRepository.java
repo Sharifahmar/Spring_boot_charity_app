@@ -24,12 +24,9 @@ import com.ecomm.akhtar.entity.AcceptorEntity;
 @CrossOrigin(origins = "*")
 @PreAuthorize("hasRole('USER')")
 @RepositoryRestResource(path = "acceptorRepo")
-public interface AcceptorRepository
-		extends CrudRepository<AcceptorEntity, Long>{
+public interface AcceptorRepository extends CrudRepository<AcceptorEntity, Long> {
 
 	Boolean existsByPhoneNumber(String phoneNumber);
-
-	Boolean existsByEmail(String email);
 
 	Optional<AcceptorEntity> findByPhoneNumberAndStatus(String phone, boolean b);
 
@@ -45,7 +42,7 @@ public interface AcceptorRepository
 	List<AcceptorEntity> findByAcceptorIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
 
 	@Query(name = "acceptorSearchCriteria")
-	List<AcceptorEntity> findByAcceptorSearchCriteria(@Param("firstName") String firstName,
-			@Param("phoneNumber") String phoneNumber, @Param("email") String email, @Param("status") Boolean status);
+	List<AcceptorEntity> findByAcceptorSearchCriteria(@Param("fullName") String fullName,
+			@Param("phoneNumber") String phoneNumber, @Param("status") Boolean status);
 
 }
