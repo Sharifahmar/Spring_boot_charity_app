@@ -31,7 +31,7 @@ public interface DonationAmountRepository extends CrudRepository<DonationAmountE
 	List<DonationAmountEntity> findByStatus(@RequestParam("value") Boolean value);
 
 	@Query(name = "donarContributionJoinQuerySearchCriteria")
-	List<DonarContributionDTO> donarContributionJoin(@Param("phoneNumber") String phoneNumber,
+	List<DonarContributionDTO> donarContributionJoin(@Param("fullName") String fullName,
 			@Param("donationTypeId") Long donationTypeId, @Param("status") Boolean status,
 			@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 

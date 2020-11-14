@@ -10,6 +10,8 @@ import java.util.Date;
  *
  */
 public class DonarContributionRequestDTO {
+	
+	private String fullName;
 
 	private String phoneNumber;
 	
@@ -80,7 +82,13 @@ public class DonarContributionRequestDTO {
 	public void setToDateObj(Date toDateObj) {
 		this.toDateObj = toDateObj;
 	}
-	
-	
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
 	
 }

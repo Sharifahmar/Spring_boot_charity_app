@@ -92,7 +92,7 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 	@Override
 	public List<DonarContributionDTO> getContributionDetails(DonarContributionRequestDTO request)
 			throws CustomException {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		if (request.getFromDate() != null) {
 			Date fromDate = null;
 			try {
@@ -118,7 +118,7 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 			request.setToDateObj(datePlusOne);
 		}
 
-		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin(request.getPhoneNumber(),
+		List<DonarContributionDTO> data = donationAmountRepository.donarContributionJoin(request.getFullName(),
 				request.getDonationTypeId(), request.getStatus(), request.getFromDateObj(), request.getToDateObj());
 		return data;
 	}
