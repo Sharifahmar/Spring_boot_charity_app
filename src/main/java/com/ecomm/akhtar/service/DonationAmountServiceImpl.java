@@ -57,8 +57,8 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 		UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
 				.getPrincipal();
 		DonarsEntity donarsEntity = donarsRepository
-				.findByPhoneNumberAndStatus(donationAmountModel.getDonars().getPhoneNumber(), true)
-				.orElseThrow(() -> new CustomException("Donar Mobile Number not found or it was deleted..!", false));
+				.findByFullNameAndStatus(donationAmountModel.getDonars().getFullName(), true)
+				.orElseThrow(() -> new CustomException("Donar with name "+ donationAmountModel.getDonars().getFullName() +" not found or it was deleted..!", false));
 
 		if (!ObjectUtils.isEmpty(donarsEntity)) {
 			DonationTypeEntity donationTypeData = donationTypeRepository

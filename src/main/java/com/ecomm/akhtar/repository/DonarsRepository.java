@@ -38,6 +38,9 @@ public interface DonarsRepository extends CrudRepository<DonarsEntity, Long>{
 	DonarsEntity findByDonarIdAndStatus(@RequestParam("id") long id, @RequestParam("value") Boolean value);
 
 	Optional<DonarsEntity> findByPhoneNumberAndStatus(String phoneNumber, boolean b);
+	
+	@RestResource(path = "donarListByFullNameAndStatus")
+	Optional<DonarsEntity> findByFullNameAndStatus(String fullName, boolean b);
 
 	@Query(name = "donarSearchCriteria")
 	List<DonarsEntity> findByDonarSearchCriteria(@Param("fullName") String fullName,
