@@ -1,9 +1,14 @@
 package com.ecomm.akhtar.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -20,6 +25,8 @@ import com.ecomm.akhtar.model.DonarContributionDTO;
 import com.ecomm.akhtar.model.DonarContributionRequestDTO;
 import com.ecomm.akhtar.model.DonationAmountModel;
 import com.ecomm.akhtar.service.DonationAmountServiceInf;
+import com.ecomm.akhtar.utils.PdfGenerateUtils;
+import com.lowagie.text.DocumentException;
 
 /**
  * @author Ahmar
@@ -30,6 +37,9 @@ public class DonationAmountController {
 
 	@Autowired
 	private DonationAmountServiceInf donationAmountServiceInf;
+
+	@Autowired
+	private PdfGenerateUtils pdfGenerateUtils;
 
 	@PostMapping(EcommUriConstants.DONATION_AMOUNT)
 	public ResponseEntity<ApiResponseModel> addDonationAmount(@RequestBody DonationAmountModel donationAmountModel) {
@@ -115,6 +125,31 @@ public class DonationAmountController {
 
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));
+
+	}
+
+	@PostMapping(EcommUriConstants.DONAR_CONTRIBUTION_DETAILS_REPORT)
+	public ResponseEntity<ApiResponseModel> generateDonationContributionReport(
+			@RequestBody DonarContributionRequestDTO request) {
+
+		try {
+			List<DonarContributionDTO> donarContributionDTO = donationAmountServiceInf.getContributionDetails(request);
+			if (!ObjectUtils.isEmpty(donarContributionDTO)) {
+				Map<String, Object> mapData =  new HashMap<String,Object>();
+				mapData.put("data", donarContributionDTO);
+				pdfGenerateUtils.createPdf(EcommUriConstants.TEMPLATE_NAME,
+						mapData);
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApiResponseModel("Report generated Successfully..!!", true));
+			}
+
+		} catch (CustomException | IOException | DocumentException e) {
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseModel(e.getMessage(), false));
 		}
 
 		return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseModel("Something went wrong.!!", false));

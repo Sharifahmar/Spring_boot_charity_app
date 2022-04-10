@@ -31,6 +31,7 @@ public class EcommUriConstants {
 	public static final String UPDATE_DONAR_CONTRIBUTION_DETAILS = "/updateDonarContributionDetails";
 	public static final String DELETE_ACCEPTOR_DONATION_DETAILS = "/deleteAcceptorDonationDetails";
 	public static final String UPDATE_ACCEPTOR_DONATION_DETAILS = "/updateAcceptorDonationDetails";
+	public static final String DONAR_CONTRIBUTION_DETAILS_REPORT = "/donarContributionDetailsReport";
 	public static final String DONAR_SLIP_DETAILS = "/donarSlipDetails";
 	public static final String ACCEPTOR_AMOUNT = "/acceptorAmount";
 	public static final String ACCEPTOR_TOKEN = "/acceptorToken";
@@ -57,4 +58,6 @@ public class EcommUriConstants {
 	public static final String ACCEPTOR_CONTRIBUTION_DETAILS = "/acceptorContributionDetails";
 	public static final String PROFILE_PICTURE_URL = "assets/img/default/default.png";
 	public static final String PROFILE_PICTURE_STORE_LOCATION = "file:///C:/Users/Asus/PROJECTS/Java/Spring_boot_charity_app/images/";
+	public static final String TEMPLATE_NAME = "receipt";
+
 }

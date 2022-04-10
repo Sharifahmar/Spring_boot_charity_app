@@ -14,6 +14,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import com.lowagie.text.DocumentException;
+
 @Service
 public class PdfGenerateUtils {
 
@@ -22,8 +24,9 @@ public class PdfGenerateUtils {
 	@Autowired
 	private TemplateEngine templateEngine;
 
-	public void createPdf(String templateName, Map<String, Object> map) throws Exception {
+	public void createPdf(String templateName, Map<String, Object> map) throws  IOException, DocumentException {
 		Context ctx = new Context();
+		ctx.setVariables(map);
 		String processedHtml = templateEngine.process(templateName, ctx);
 		FileOutputStream os = null;
 		String fileName = UUID.randomUUID().toString();
@@ -35,7 +38,7 @@ public class PdfGenerateUtils {
 			renderer.layout();
 			renderer.createPDF(os, false);
 			renderer.finishPDF();
-			logger.info("PDF created successfully");
+			logger.info("PDF created successfully with file name {}.pdf", fileName);
 		} finally {
 			if (os != null) {
 				try {
