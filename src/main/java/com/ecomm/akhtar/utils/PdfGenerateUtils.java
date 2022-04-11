@@ -14,6 +14,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
+import com.ecomm.akhtar.exception.CustomException;
 import com.lowagie.text.DocumentException;
 
 @Service
@@ -23,7 +24,7 @@ public class PdfGenerateUtils {
 
 	@Autowired
 	private TemplateEngine templateEngine;
-
+	
 	public void createPdf(String templateName, Map<String, Object> map) throws  IOException, DocumentException {
 		Context ctx = new Context();
 		ctx.setVariables(map);
