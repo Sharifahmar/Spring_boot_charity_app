@@ -24,15 +24,15 @@ public class PdfGenerateUtils {
 
 	@Autowired
 	private TemplateEngine templateEngine;
-	
-	public void createPdf(String templateName, Map<String, Object> map) throws  IOException, DocumentException {
+
+	public void createPdf(String templateName, Map<String, Object> map) throws IOException, DocumentException {
 		Context ctx = new Context();
 		ctx.setVariables(map);
 		String processedHtml = templateEngine.process(templateName, ctx);
 		FileOutputStream os = null;
 		String fileName = UUID.randomUUID().toString();
 		try {
-			final File outputFile = File.createTempFile(fileName, ".pdf");
+			final File outputFile = File.createTempFile(fileName, ".pdf", new File(System.getProperty("user.home")));
 			os = new FileOutputStream(outputFile);
 			ITextRenderer renderer = new ITextRenderer();
 			renderer.setDocumentFromString(processedHtml);
