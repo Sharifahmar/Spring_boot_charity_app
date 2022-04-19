@@ -101,15 +101,12 @@ public class UserController {
 	@PostMapping(EcommUriConstants.REGISTER_USER_URI)
 	public ResponseEntity<ApiResponseModel> registerUser(@Valid @RequestBody Users user) {
 		try {
-			String currentDirectory = System.getProperty("user.dir");
-			String imagePath = currentDirectory + File.separator + "src" + File.separator + "main" + File.separator
-					+ "resources" + File.separator + "static" + File.separator + "images" + File.separator
-					+ "default.png";
+			
 			UsersEntity usersEntity = new UsersEntity();
 			BeanUtils.copyProperties(user, usersEntity);
 			usersEntity.setPassword(passwordEncoder.encode(user.getPassword()));
 			usersEntity.setStatus(true);
-			usersEntity.setProfilePictureUrl(imagePath);
+			usersEntity.setProfilePictureUrl("http://localhost:8081/images/default.png");
 			RolesEntity userRole = roleRepository.findByRoleName(RoleName.ROLE_USER)
 					.orElseThrow(() -> new CustomException("User Role not set.", false));
 
