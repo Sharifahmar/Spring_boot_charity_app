@@ -57,7 +57,7 @@ public class EcommUriConstants {
 	public static final String STUDENT_SEARCH_CRITERIA_DONAR_URI = "/student/studentSearchCriteria";
 	public static final String ACCEPTOR_CONTRIBUTION_DETAILS = "/acceptorContributionDetails";
 	public static final String PROFILE_PICTURE_URL = "assets/img/default/default.png";
-	public static final String PROFILE_PICTURE_STORE_LOCATION = "file:///C:/Users/Asus/PROJECTS/Java/Spring_boot_charity_app/images/";
+	public static final String PROFILE_PICTURE_STORE_LOCATION = "file:///C:/Users/Asus/PROJECTS/Java/Spring_boot_charity_app/profile-images/";
 	public static final String TEMPLATE_NAME = "receipt";
 
 }

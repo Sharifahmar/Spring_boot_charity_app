@@ -50,16 +50,16 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 		switch (component) {
 
 		case "userProfile":
-			imagePath = currentDirectory + File.separator + "images" + File.separator + "User-Profile" + File.separator
+			imagePath = currentDirectory + File.separator + "profile-images" + File.separator + "User-Profile" + File.separator
 					+ id;
 			break;
 
 		case "donor":
-			imagePath = currentDirectory + File.separator + "images" + File.separator + "Donor" + File.separator + id;
+			imagePath = currentDirectory + File.separator + "profile-images" + File.separator + "Donor" + File.separator + id;
 			break;
 
 		case "acceptor":
-			imagePath = currentDirectory + File.separator + "images" + File.separator + "Acceptor" + File.separator
+			imagePath = currentDirectory + File.separator + "profile-images" + File.separator + "Acceptor" + File.separator
 					+ id;
 			break;
 		}
@@ -88,7 +88,7 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 					.orElseThrow(() -> new CustomException("User Details not found with specific id ", false));
 			userDetails.setProfilePicture(pathNew.toUri().toURL().toString());
 			userDetails.setProfilePictureUrl(
-					"http://localhost:8081/images/" + "User-Profile/" + id + "/" + file.getOriginalFilename());
+					"http://localhost:8081/profile-images/" + "User-Profile/" + id + "/" + file.getOriginalFilename());
 			UsersEntity userDetailsUpdated = usersRepository.save(userDetails);
 			BeanUtils.copyProperties(userDetailsUpdated, users);
 			return users;
@@ -98,7 +98,7 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 
 			donarsEntity.setProfilePicture(pathNew.toUri().toURL().toString());
 			donarsEntity.setProfilePictureUrl(
-					"http://localhost:8081/images/" + "Donor/" + id + "/" + file.getOriginalFilename());
+					"http://localhost:8081/profile-images/" + "Donor/" + id + "/" + file.getOriginalFilename());
 			DonarsEntity donorDetailsUpdated = donarsRepository.save(donarsEntity);
 			BeanUtils.copyProperties(donorDetailsUpdated, donars);
 			return donars;
@@ -109,7 +109,7 @@ public class ImageUploadServiceImpl implements ImageUploadServiceInf {
 					.orElseThrow(() -> new CustomException("Acceptor Details not found with specific id ", false));
 			acceptorEntity.get().setProfilePicture(pathNew.toUri().toURL().toString());
 			acceptorEntity.get().setProfilePictureUrl(
-					"http://localhost:8081/images/" + "Acceptor/" + id + "/" + file.getOriginalFilename());
+					"http://localhost:8081/profile-images/" + "Acceptor/" + id + "/" + file.getOriginalFilename());
 			AcceptorEntity acceptorDetailsUpdated = acceptorRepository.save(acceptorEntity.get());
 			BeanUtils.copyProperties(acceptorDetailsUpdated, acceptor);
 			return acceptor;

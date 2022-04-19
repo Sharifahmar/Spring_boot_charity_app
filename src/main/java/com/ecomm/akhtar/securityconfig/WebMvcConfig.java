@@ -20,7 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
        registry
-               .addResourceHandler("/images/**")
+               .addResourceHandler("/profile-images/**")
                .addResourceLocations(EcommUriConstants.PROFILE_PICTURE_STORE_LOCATION)
                .setCachePeriod(3600)
                .resourceChain(true)
