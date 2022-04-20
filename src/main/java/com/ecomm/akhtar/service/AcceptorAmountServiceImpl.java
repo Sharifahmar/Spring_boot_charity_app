@@ -117,7 +117,7 @@ public class AcceptorAmountServiceImpl implements AcceptorAmountServiceInf {
 			request.setToDateObj(datePlusOne);
 		}
 
-		List<AcceptorContributionDTO> data = acceptorAmountRepository.acceptorContributionJoin(request.getPhoneNumber(),
+		List<AcceptorContributionDTO> data = acceptorAmountRepository.acceptorContributionJoin(request.getFullName(),
 				request.getDonationTypeId(), request.getStatus(), request.getFromDateObj(), request.getToDateObj());
 		return data;
 	}

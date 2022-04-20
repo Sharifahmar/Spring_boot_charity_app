@@ -22,7 +22,7 @@ import com.ecomm.akhtar.model.AcceptorContributionDTO;
 public interface AcceptorAmountRepository extends CrudRepository<AcceptorAmountEntity, Long> {
 
 	@Query(name = "acceptorContributionJoinQuerySearchCriteria")
-	List<AcceptorContributionDTO> acceptorContributionJoin(@Param("phoneNumber") String phoneNumber,
+	List<AcceptorContributionDTO> acceptorContributionJoin(@Param("fullName") String fullName,
 			@Param("donationTypeId") Long donationTypeId, @Param("status") Boolean status,
 			@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
 
