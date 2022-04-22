@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ecomm.akhtar.entity.DonarsEntity;
+import com.ecomm.akhtar.entity.DonationTypeEntity;
 import com.ecomm.akhtar.model.Donars;
 import com.ecomm.akhtar.repository.DonarsRepository;
+import com.ecomm.akhtar.repository.DonationTypeRepository;
 
 /**
  * @author Ahmar
@@ -24,6 +26,9 @@ public class DonarServiceImpl implements DonarServiceInf {
 
 	@Autowired
 	private DonarsRepository donarsRepository;
+	
+	@Autowired
+	private DonationTypeRepository donationTypeRepository;
 
 	@Override
 	public Boolean existsByPhoneNumber(String phoneNumber) {
@@ -46,12 +51,15 @@ public class DonarServiceImpl implements DonarServiceInf {
 	public Donars updateDonar(Donars donar) {
 		Donars donars = new Donars();
 		Optional<DonarsEntity> donarEntity = donarsRepository.findById(donar.getDonarId());
-		if (donarEntity.isPresent()) {
+		Optional<DonationTypeEntity> donationTypeEntity = donationTypeRepository.findById(donar.getDonationTypeId());
+		if (donarEntity.isPresent() && donationTypeEntity.isPresent()) {
 			DonarsEntity doEntity = new DonarsEntity();
 			BeanUtils.copyProperties(donar, doEntity);
 			doEntity.setPhoneNumber(donarEntity.get().getPhoneNumber());
+			doEntity.setDonationTypeEntity(donationTypeEntity.get());
 			DonarsEntity donarsEntity = donarsRepository.save(doEntity);
 			BeanUtils.copyProperties(donarsEntity, donars);
+			donars.setDonationTypeId(donarEntity.get().getDonationTypeEntity().getDonationTypeId());
 		}
 		return donars;
 	}
@@ -66,5 +74,6 @@ public class DonarServiceImpl implements DonarServiceInf {
 			return donars;
 		}).collect(Collectors.toList());
 	}
+
 
 }

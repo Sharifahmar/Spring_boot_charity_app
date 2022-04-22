@@ -17,6 +17,8 @@ public class Donars extends AuditModel {
 	private String zipCode;
 	private String phoneNumber;
 	private String profilePictureUrl;
+	private Long donationTypeId;
+	private String  donationAmount;
 	private Boolean status;
 
 	public Long getDonarId() {
@@ -99,6 +101,22 @@ public class Donars extends AuditModel {
 
 	public void setProfilePictureUrl(String profilePictureUrl) {
 		this.profilePictureUrl = profilePictureUrl;
+	}
+
+	public Long getDonationTypeId() {
+		return donationTypeId;
+	}
+
+	public void setDonationTypeId(Long donationTypeId) {
+		this.donationTypeId = donationTypeId;
+	}
+
+	public String getDonationAmount() {
+		return donationAmount;
+	}
+
+	public void setDonationAmount(String donationAmount) {
+		this.donationAmount = donationAmount;
 	}
 	
 

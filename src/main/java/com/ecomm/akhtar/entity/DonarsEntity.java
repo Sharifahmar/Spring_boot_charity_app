@@ -1,10 +1,14 @@
 package com.ecomm.akhtar.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
@@ -51,6 +55,10 @@ public class DonarsEntity extends AuditModel {
 	@Size(max = 100)
 	@Column(name = "PHONE", nullable = false)
 	private String phoneNumber;
+	
+	@Size(max = 100)
+	@Column(name = "DONATION_AMOUNT", nullable = false)
+	private String donationAmount;
 
 	@Column(name = "PROFILE_PICTURE", columnDefinition = "TEXT")
 	private String profilePicture;
@@ -60,6 +68,11 @@ public class DonarsEntity extends AuditModel {
 
 	@Column(name = "DONAR_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "DONATION_TYPE_ID")
+	private DonationTypeEntity donationTypeEntity;
 
 	public Long getDonarId() {
 		return donarId;
@@ -147,6 +160,22 @@ public class DonarsEntity extends AuditModel {
 
 	public void setProfilePicture(String profilePicture) {
 		this.profilePicture = profilePicture;
+	}
+
+	public String getDonationAmount() {
+		return donationAmount;
+	}
+
+	public void setDonationAmount(String donationAmount) {
+		this.donationAmount = donationAmount;
+	}
+
+	public DonationTypeEntity getDonationTypeEntity() {
+		return donationTypeEntity;
+	}
+
+	public void setDonationTypeEntity(DonationTypeEntity donationTypeEntity) {
+		this.donationTypeEntity = donationTypeEntity;
 	}
 
 }
