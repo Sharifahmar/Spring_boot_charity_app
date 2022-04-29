@@ -8,8 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 import com.ecomm.akhtar.audit.AuditModel;
 
@@ -22,17 +22,11 @@ public class DonationAmountEntity extends AuditModel {
 	private static final long serialVersionUID = -4814595115801146324L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
+	@SequenceGenerator(name = "seqGen", sequenceName = "seq", initialValue = 1)
 	@Column(name = "DONATION_AMOUNT_ID")
 	private Long donationAmountId;
 
-	@Size(max = 100)
-	@Column(name = "DONATION_AMOUNT", nullable = false)
-	private String donationAmount;
-
-	@Size(max = 100)
-	@Column(name = "RECEIPT_NUMBER", nullable = false)
-	private String receiptNumber;
 
 	@Column(name = "DONATION_AMOUNT_STS", columnDefinition = "BIT", nullable = false)
 	private Boolean status;
@@ -45,9 +39,7 @@ public class DonationAmountEntity extends AuditModel {
 	@JoinColumn(name = "DONAR_ID")
 	private DonarsEntity donarsEntity;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "DONATION_TYPE_ID")
-	private DonationTypeEntity donationTypeEntity;
+	
 
 	public Long getDonationAmountId() {
 		return donationAmountId;
@@ -57,13 +49,6 @@ public class DonationAmountEntity extends AuditModel {
 		this.donationAmountId = donationAmountId;
 	}
 
-	public String getDonationAmount() {
-		return donationAmount;
-	}
-
-	public void setDonationAmount(String donationAmount) {
-		this.donationAmount = donationAmount;
-	}
 
 	public Boolean getStatus() {
 		return status;
@@ -81,13 +66,6 @@ public class DonationAmountEntity extends AuditModel {
 		this.usersEntity = usersEntity;
 	}
 
-	public DonationTypeEntity getDonationTypeEntity() {
-		return donationTypeEntity;
-	}
-
-	public void setDonationTypeEntity(DonationTypeEntity donationTypeEntity) {
-		this.donationTypeEntity = donationTypeEntity;
-	}
 
 	public DonarsEntity getDonarsEntity() {
 		return donarsEntity;
@@ -95,14 +73,6 @@ public class DonationAmountEntity extends AuditModel {
 
 	public void setDonarsEntity(DonarsEntity donarsEntity) {
 		this.donarsEntity = donarsEntity;
-	}
-
-	public String getReceiptNumber() {
-		return receiptNumber;
-	}
-
-	public void setReceiptNumber(String receiptNumber) {
-		this.receiptNumber = receiptNumber;
 	}
 
 }

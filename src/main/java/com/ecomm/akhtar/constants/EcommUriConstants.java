@@ -43,6 +43,7 @@ public class EcommUriConstants {
 	public static final String DELETE_DONAR_URI = "/donar/delete";
 	public static final String UPDATE_DONAR_URI = "/donar/update";
 	public static final String DONAR_SEARCH_CRITERIA_DONAR_URI = "/donar/donarSearchCriteria";
+	public static final String DONAR_BULK_RECEIPT_GENERATE_URI = "/donar/donarBulkReceiptGenerate";
 	public static final String DONATION_TYPE_EXIST_URI = "/donationType/isDonationTypeExists";
 	public static final String DONATION_TYPE_DELETE_URI = "/donationType/delete";
 	public static final String DONATION_TYPE_UPDATE_URI = "/donationType/update";

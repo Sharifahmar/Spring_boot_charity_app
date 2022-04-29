@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecomm.akhtar.constants.EcommUriConstants;
+import com.ecomm.akhtar.exception.CustomException;
 import com.ecomm.akhtar.model.ApiResponseGenericModel;
 import com.ecomm.akhtar.model.ApiResponseModel;
 import com.ecomm.akhtar.model.Donars;
@@ -36,7 +37,6 @@ public class DonarController {
 		}
 	}
 
-
 	@PostMapping(EcommUriConstants.DELETE_DONAR_URI)
 	public ResponseEntity<ApiResponseModel> deleteDonar(@RequestBody Donars donar) {
 		Donars donarNew = donarServiceInf.findById(donar.getDonarId());
@@ -52,10 +52,10 @@ public class DonarController {
 	public ResponseEntity<ApiResponseGenericModel<?>> updateDonar(@RequestBody Donars donar) {
 		Donars donarNew = donarServiceInf.updateDonar(donar);
 		if (!ObjectUtils.isEmpty(donarNew)) {
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(new ApiResponseGenericModel<>(donarNew, true));
+			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseGenericModel<>(donarNew, true));
 		} else {
-			return ResponseEntity.status(HttpStatus.OK).body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
 		}
 	}
 
@@ -67,6 +67,18 @@ public class DonarController {
 		} else {
 			return ResponseEntity.status(HttpStatus.OK)
 					.body(new ApiResponseGenericModel<>("Something went wrong.!!", false));
+		}
+	}
+
+	@PostMapping(EcommUriConstants.DONAR_BULK_RECEIPT_GENERATE_URI)
+	public ResponseEntity<ApiResponseModel> donorBulkReceiptGenerate(@RequestBody List<Donars> donar) {
+		try {
+			String res = donarServiceInf.donorBulkReceiptGenerate(donar);
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ApiResponseModel(res, true));
+		} catch (CustomException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(new ApiResponseModel(e.getMessage(), e.getSuccess()));
 		}
 	}
 
