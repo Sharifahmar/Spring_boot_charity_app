@@ -70,14 +70,14 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 					UsersEntity usersEntity = userRepository.findById(userPrincipal.getId())
 							.orElseThrow(() -> new CustomException("User Information not found ..!", false));
 					donationAmountEntity.setDonarsEntity(donarsEntity);
-					donationAmountEntity.setDonationTypeEntity(donationTypeData);
+				//	donationAmountEntity.setDonationTypeEntity(donationTypeData);
 					donationAmountEntity.setUsersEntity(usersEntity);
-					donationAmountEntity.setDonationAmount(donationAmountModel.getDonationAmount());
+				//	donationAmountEntity.setDonationAmount(donationAmountModel.getDonationAmount());
 					donationAmountEntity.setStatus(true);
-					donationAmountEntity.setReceiptNumber(donationAmountModel.getReceiptNumber());
+					//donationAmountEntity.setReceiptNumber(donationAmountModel.getReceiptNumber());
 					DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity);
 					BeanUtils.copyProperties(donationAmountEntity2, donationAmountModel2);
-					donationAmountModel2.setDonationAmount(donationAmountEntity2.getDonationAmount());
+					//donationAmountModel2.setDonationAmount(donationAmountEntity2.getDonationAmount());
 				} else {
 
 					throw new CustomException("User Information not found ..!", false);
@@ -130,7 +130,7 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 		if (entities.isPresent()) {
 			BeanUtils.copyProperties(entities.get(), donarContributionDTO);
 			BeanUtils.copyProperties(entities.get().getDonarsEntity(), donarContributionDTO);
-			BeanUtils.copyProperties(entities.get().getDonationTypeEntity(), donarContributionDTO);
+			BeanUtils.copyProperties(entities.get().getDonarsEntity().getDonationTypeEntity(), donarContributionDTO);
 			donarContributionDTO.setDate(entities.get().getCreatedDt());
 		}
 		return donarContributionDTO;
@@ -145,7 +145,7 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 			DonationAmountEntity donationAmountEntity2 = donationAmountRepository.save(donationAmountEntity.get());
 			BeanUtils.copyProperties(donationAmountEntity2, donarContributionDTO);
 			BeanUtils.copyProperties(donationAmountEntity2.getDonarsEntity(), donarContributionDTO);
-			BeanUtils.copyProperties(donationAmountEntity2.getDonationTypeEntity(), donarContributionDTO);
+			//BeanUtils.copyProperties(donationAmountEntity2.getDonationTypeEntity(), donarContributionDTO);
 		}
 		return donarContributionDTO;
 	}
@@ -174,19 +174,19 @@ public class DonationAmountServiceImpl implements DonationAmountServiceInf {
 				if (!ObjectUtils.isEmpty(donationTypeData)) {
 
 					donationAmountEntity.get().setDonarsEntity(donarsEntity);
-					donationAmountEntity.get().setDonationTypeEntity(donationTypeData);
-					if (!ObjectUtils.isEmpty(donarContributionDTO.getDonationAmount())
-							&& !ObjectUtils.isEmpty(donarContributionDTO.getReceiptNumber())) {
-						donationAmountEntity.get().setDonationAmount(donarContributionDTO.getDonationAmount());
-						donationAmountEntity.get().setReceiptNumber(donarContributionDTO.getReceiptNumber());
-					}
+					//donationAmountEntity.get().setDonationTypeEntity(donationTypeData);
+//					if (!ObjectUtils.isEmpty(donarContributionDTO.getDonationAmount())
+//							&& !ObjectUtils.isEmpty(donarContributionDTO.getReceiptNumber())) {
+//						//donationAmountEntity.get().setDonationAmount(donarContributionDTO.getDonationAmount());
+//						//donationAmountEntity.get().setReceiptNumber(donarContributionDTO.getReceiptNumber());
+//					}
 
 					DonationAmountEntity donationAmountEntityLatest = donationAmountRepository
 							.save(donationAmountEntity.get());
 					BeanUtils.copyProperties(donationAmountEntityLatest, donarContributionDTORtrn);
 					BeanUtils.copyProperties(donationAmountEntityLatest.getDonarsEntity(), donarContributionDTORtrn);
-					BeanUtils.copyProperties(donationAmountEntityLatest.getDonationTypeEntity(),
-							donarContributionDTORtrn);
+//					BeanUtils.copyProperties(donationAmountEntityLatest.getDonationTypeEntity(),
+//							donarContributionDTORtrn);
 
 				}
 
